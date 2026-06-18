@@ -23,6 +23,12 @@ dist-ssr
 # Environment
 .env
 
+# Supabase local temp
+supabase/.temp/
+
+# Lovable project config
+.lovable/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
