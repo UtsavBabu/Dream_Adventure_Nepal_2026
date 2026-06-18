@@ -46,6 +46,14 @@ function TreksContent() {
   useReveal();
 
   const treks = adventures.filter((a) => a.category === "Trek");
+  const pageHero =
+    (settings?.treks_page as {
+      hero_image?: string;
+      badge?: string;
+      title?: string;
+      title_highlight?: string;
+      subtitle?: string;
+    }) ?? {};
 
   return (
     <main className="min-h-screen bg-background">
@@ -55,7 +63,10 @@ function TreksContent() {
       <section className="relative flex min-h-[60vh] items-end bg-primary">
         <div className="absolute inset-0">
           <img
-            src="https://images.pexels.com/photos/2403568/pexels-photo-2403568.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            src={
+              pageHero.hero_image ||
+              "https://images.pexels.com/photos/2403568/pexels-photo-2403568.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            }
             alt="Himalayan treks"
             className="h-full w-full object-cover"
           />
@@ -64,14 +75,15 @@ function TreksContent() {
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-20">
           <div className="reveal max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-              <Mountain className="h-3.5 w-3.5" /> Himalayan Treks
+              <Mountain className="h-3.5 w-3.5" /> {pageHero.badge || "Himalayan Treks"}
             </div>
             <h1 className="mt-5 font-display text-5xl font-medium text-white sm:text-6xl lg:text-7xl">
-              Walk among the <em className="text-accent">giants</em>
+              {pageHero.title || "Walk among the"}{" "}
+              <em className="text-accent">{pageHero.title_highlight || "giants"}</em>
             </h1>
             <p className="mt-5 max-w-2xl text-lg text-white/70">
-              From Everest Base Camp to the Annapurna Circuit — our treks take you deep into the
-              world's most dramatic mountain scenery.
+              {pageHero.subtitle ||
+                "From Everest Base Camp to the Annapurna Circuit — our treks take you deep into the world's most dramatic mountain scenery."}
             </p>
           </div>
         </div>

@@ -23,6 +23,7 @@ import { Route as AuthenticatedAdminTeamRouteImport } from './routes/_authentica
 import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin.settings'
 import { Route as AuthenticatedAdminPlacesRouteImport } from './routes/_authenticated/admin.places'
 import { Route as AuthenticatedAdminPaymentsRouteImport } from './routes/_authenticated/admin.payments'
+import { Route as AuthenticatedAdminPagesRouteImport } from './routes/_authenticated/admin.pages'
 import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
 import { Route as AuthenticatedAdminHeroRouteImport } from './routes/_authenticated/admin.hero'
 import { Route as AuthenticatedAdminGuidesRouteImport } from './routes/_authenticated/admin.guides'
@@ -103,6 +104,11 @@ const AuthenticatedAdminPaymentsRoute =
     path: '/payments',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminPagesRoute = AuthenticatedAdminPagesRouteImport.update({
+  id: '/pages',
+  path: '/pages',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const AuthenticatedAdminMessagesRoute =
   AuthenticatedAdminMessagesRouteImport.update({
     id: '/messages',
@@ -153,6 +159,7 @@ export interface FileRoutesByFullPath {
   '/admin/guides': typeof AuthenticatedAdminGuidesRoute
   '/admin/hero': typeof AuthenticatedAdminHeroRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/admin/pages': typeof AuthenticatedAdminPagesRoute
   '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/places': typeof AuthenticatedAdminPlacesRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
@@ -173,6 +180,7 @@ export interface FileRoutesByTo {
   '/admin/guides': typeof AuthenticatedAdminGuidesRoute
   '/admin/hero': typeof AuthenticatedAdminHeroRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/admin/pages': typeof AuthenticatedAdminPagesRoute
   '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/places': typeof AuthenticatedAdminPlacesRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
@@ -196,6 +204,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/guides': typeof AuthenticatedAdminGuidesRoute
   '/_authenticated/admin/hero': typeof AuthenticatedAdminHeroRoute
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/_authenticated/admin/pages': typeof AuthenticatedAdminPagesRoute
   '/_authenticated/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/_authenticated/admin/places': typeof AuthenticatedAdminPlacesRoute
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
@@ -219,6 +228,7 @@ export interface FileRouteTypes {
     | '/admin/guides'
     | '/admin/hero'
     | '/admin/messages'
+    | '/admin/pages'
     | '/admin/payments'
     | '/admin/places'
     | '/admin/settings'
@@ -239,6 +249,7 @@ export interface FileRouteTypes {
     | '/admin/guides'
     | '/admin/hero'
     | '/admin/messages'
+    | '/admin/pages'
     | '/admin/payments'
     | '/admin/places'
     | '/admin/settings'
@@ -261,6 +272,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/guides'
     | '/_authenticated/admin/hero'
     | '/_authenticated/admin/messages'
+    | '/_authenticated/admin/pages'
     | '/_authenticated/admin/payments'
     | '/_authenticated/admin/places'
     | '/_authenticated/admin/settings'
@@ -379,6 +391,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminPaymentsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/pages': {
+      id: '/_authenticated/admin/pages'
+      path: '/pages'
+      fullPath: '/admin/pages'
+      preLoaderRoute: typeof AuthenticatedAdminPagesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/messages': {
       id: '/_authenticated/admin/messages'
       path: '/messages'
@@ -431,6 +450,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminGuidesRoute: typeof AuthenticatedAdminGuidesRoute
   AuthenticatedAdminHeroRoute: typeof AuthenticatedAdminHeroRoute
   AuthenticatedAdminMessagesRoute: typeof AuthenticatedAdminMessagesRoute
+  AuthenticatedAdminPagesRoute: typeof AuthenticatedAdminPagesRoute
   AuthenticatedAdminPaymentsRoute: typeof AuthenticatedAdminPaymentsRoute
   AuthenticatedAdminPlacesRoute: typeof AuthenticatedAdminPlacesRoute
   AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
@@ -446,6 +466,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminGuidesRoute: AuthenticatedAdminGuidesRoute,
   AuthenticatedAdminHeroRoute: AuthenticatedAdminHeroRoute,
   AuthenticatedAdminMessagesRoute: AuthenticatedAdminMessagesRoute,
+  AuthenticatedAdminPagesRoute: AuthenticatedAdminPagesRoute,
   AuthenticatedAdminPaymentsRoute: AuthenticatedAdminPaymentsRoute,
   AuthenticatedAdminPlacesRoute: AuthenticatedAdminPlacesRoute,
   AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,

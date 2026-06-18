@@ -51,6 +51,14 @@ function ToursContent() {
   const contact =
     (settings?.contact as { email?: string; phone?: string; whatsapp?: string }) ?? {};
   const esewa = (settings?.esewa as { qr_url?: string }) ?? {};
+  const pageHero =
+    (settings?.tours_page as {
+      hero_image?: string;
+      badge?: string;
+      title?: string;
+      title_highlight?: string;
+      subtitle?: string;
+    }) ?? {};
 
   const whatsappUrl = contact.whatsapp
     ? `https://wa.me/${contact.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(`Hi! I'm interested in a tour. Can you share more details?`)}`
@@ -64,7 +72,10 @@ function ToursContent() {
       <section className="relative flex min-h-[60vh] items-end bg-primary">
         <div className="absolute inset-0">
           <img
-            src="https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            src={
+              pageHero.hero_image ||
+              "https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            }
             alt="Nepal cultural tours"
             className="h-full w-full object-cover"
           />
@@ -73,14 +84,15 @@ function ToursContent() {
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-20">
           <div className="reveal max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-              <Mountain className="h-3.5 w-3.5" /> Cultural Tours
+              <Mountain className="h-3.5 w-3.5" /> {pageHero.badge || "Cultural Tours"}
             </div>
             <h1 className="mt-5 font-display text-5xl font-medium text-white sm:text-6xl lg:text-7xl">
-              Discover Nepal's <em className="text-accent">soul</em>
+              {pageHero.title || "Discover Nepal's"}{" "}
+              <em className="text-accent">{pageHero.title_highlight || "soul"}</em>
             </h1>
             <p className="mt-5 max-w-2xl text-lg text-white/70">
-              UNESCO heritage sites, wildlife safaris, sunrise flights, and lakeside relaxation —
-              curated by local experts.
+              {pageHero.subtitle ||
+                "UNESCO heritage sites, wildlife safaris, sunrise flights, and lakeside relaxation — curated by local experts."}
             </p>
           </div>
         </div>

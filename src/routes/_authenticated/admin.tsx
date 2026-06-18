@@ -5,6 +5,7 @@ import {
   Camera,
   Compass,
   CreditCard,
+  FileText,
   Image,
   LayoutDashboard,
   LogOut,
@@ -38,6 +39,7 @@ const nav: NavItem[] = [
   { to: "/admin/messages", label: "Messages", icon: Mail },
   { to: "/admin/gallery", label: "Gallery", icon: Image },
   { to: "/admin/hero", label: "Hero Section", icon: Video },
+  { to: "/admin/pages", label: "Pages", icon: FileText },
   { to: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
