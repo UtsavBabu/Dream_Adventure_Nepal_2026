@@ -1,6 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Building2, Compass, CreditCard, Mail, MapPin, Mountain, MessageSquare, Image, Settings, Users } from "lucide-react";
+import {
+  Building2,
+  Compass,
+  CreditCard,
+  Mail,
+  MapPin,
+  Mountain,
+  MessageSquare,
+  Image,
+  Settings,
+  Users,
+} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
@@ -8,7 +19,17 @@ export const Route = createFileRoute("/_authenticated/admin/")({
 });
 
 function Overview() {
-  const [counts, setCounts] = useState({ adventures: 0, testimonials: 0, gallery: 0, team: 0, guides: 0, messages: 0, bookings: 0, payments: 0, places: 0 });
+  const [counts, setCounts] = useState({
+    adventures: 0,
+    testimonials: 0,
+    gallery: 0,
+    team: 0,
+    guides: 0,
+    messages: 0,
+    bookings: 0,
+    payments: 0,
+    places: 0,
+  });
   useEffect(() => {
     (async () => {
       const [a, t, g, m, d, msg, b, p, pl] = await Promise.all([

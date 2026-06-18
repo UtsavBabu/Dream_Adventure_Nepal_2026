@@ -74,7 +74,9 @@ export function AdventureIncludesExcludes({
               <ul className="mt-6 space-y-3">
                 {excludes.map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-muted-foreground">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-red-300 text-xs text-red-500">×</span>
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-red-300 text-xs text-red-500">
+                      ×
+                    </span>
                     <span>{item}</span>
                   </li>
                 ))}

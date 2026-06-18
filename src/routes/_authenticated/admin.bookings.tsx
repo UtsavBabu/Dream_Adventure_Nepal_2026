@@ -105,7 +105,9 @@ function BookingsAdmin() {
             key={key}
             onClick={() => setFilter(key)}
             className={`rounded-2xl p-5 text-left transition ${
-              filter === key ? "bg-accent text-white shadow-elegant" : "bg-white text-primary shadow-glass hover:shadow-elegant"
+              filter === key
+                ? "bg-accent text-white shadow-elegant"
+                : "bg-white text-primary shadow-glass hover:shadow-elegant"
             }`}
           >
             <div className="text-2xl font-display font-medium">{counts[key]}</div>
@@ -151,11 +153,20 @@ function BookingsAdmin() {
                     <Calendar className="h-3.5 w-3.5" /> {r.start_date}
                   </span>
                   <span className="inline-flex items-center gap-1">
-                    <Users className="h-3.5 w-3.5" /> {r.number_of_people} {r.number_of_people === 1 ? "person" : "people"}
+                    <Users className="h-3.5 w-3.5" /> {r.number_of_people}{" "}
+                    {r.number_of_people === 1 ? "person" : "people"}
                   </span>
                   <span className="inline-flex items-center gap-1">
                     <CreditCard className="h-3.5 w-3.5" />
-                    <span className={r.payment_status === "paid" ? "text-green-600" : r.payment_status === "partial" ? "text-amber-600" : "text-muted-foreground"}>
+                    <span
+                      className={
+                        r.payment_status === "paid"
+                          ? "text-green-600"
+                          : r.payment_status === "partial"
+                            ? "text-amber-600"
+                            : "text-muted-foreground"
+                      }
+                    >
                       {r.payment_method === "online" ? "Online" : "Pay Later"} · {r.payment_status}
                     </span>
                   </span>

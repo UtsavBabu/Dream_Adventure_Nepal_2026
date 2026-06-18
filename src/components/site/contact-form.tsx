@@ -45,9 +45,17 @@ export function ContactForm() {
           <Check className="h-8 w-8 text-green-400" />
         </div>
         <h3 className="font-display text-2xl text-white">Thank you!</h3>
-        <p className="max-w-sm text-white/60">Your message has been received. We'll reply within 24 hours.</p>
+        <p className="max-w-sm text-white/60">
+          Your message has been received. We'll reply within 24 hours.
+        </p>
         <button
-          onClick={() => { setSent(false); setName(""); setEmail(""); setPhone(""); setMessage(""); }}
+          onClick={() => {
+            setSent(false);
+            setName("");
+            setEmail("");
+            setPhone("");
+            setMessage("");
+          }}
           className="mt-2 text-sm text-accent underline underline-offset-4 hover:text-accent/80"
         >
           Send another message
@@ -107,9 +115,13 @@ export function ContactForm() {
         className="w-full rounded-full bg-accent py-6 text-sm font-semibold text-white hover:bg-accent/90"
       >
         {sending ? (
-          <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending…</>
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending…
+          </>
         ) : (
-          <><Send className="mr-2 h-4 w-4" /> Send Message</>
+          <>
+            <Send className="mr-2 h-4 w-4" /> Send Message
+          </>
         )}
       </Button>
     </form>

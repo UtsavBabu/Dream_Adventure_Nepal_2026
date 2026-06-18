@@ -101,7 +101,7 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
             Explore
           </div>
           <div className="flex flex-col gap-2 text-sm">
-            {(nav.links ?? []).slice(0, 5).map((l: { label: string; href: string }) => (
+            {(nav.links ?? []).slice(0, 5).map((l: { label: string; href: string }) =>
               l.href.startsWith("#") ? (
                 <a key={l.label} href={l.href} className="hover:text-white">
                   {l.label}
@@ -110,8 +110,8 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
                 <Link key={l.label} to={l.href as any} className="hover:text-white">
                   {l.label}
                 </Link>
-              )
-            ))}
+              ),
+            )}
           </div>
         </div>
       </div>

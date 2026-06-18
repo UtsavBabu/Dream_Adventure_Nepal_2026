@@ -1,15 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import {
-  Ban,
-  CheckCircle,
-  CreditCard,
-  ExternalLink,
-  Loader2,
-  Plus,
-  Search,
-  X,
-} from "lucide-react";
+import { Ban, CheckCircle, CreditCard, ExternalLink, Loader2, Plus, Search, X } from "lucide-react";
 import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
@@ -47,7 +38,9 @@ const statusStyles: Record<string, string> = {
 };
 
 function PaymentsAdmin() {
-  const [payments, setPayments] = useState<(Payment & { booking_name?: string; adventure_title?: string })[]>([]);
+  const [payments, setPayments] = useState<
+    (Payment & { booking_name?: string; adventure_title?: string })[]
+  >([]);
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [search, setSearch] = useState("");
   const [showForm, setShowForm] = useState(false);
@@ -57,7 +50,10 @@ function PaymentsAdmin() {
   async function load() {
     const [p, b] = await Promise.all([
       supabase.from("payments").select("*").order("created_at", { ascending: false }),
-      supabase.from("bookings").select("id,adventure_title,name").order("created_at", { ascending: false }),
+      supabase
+        .from("bookings")
+        .select("id,adventure_title,name")
+        .order("created_at", { ascending: false }),
     ]);
     const pData = (p.data ?? []) as Payment[];
     const bData = (b.data ?? []) as Booking[];
@@ -65,7 +61,7 @@ function PaymentsAdmin() {
       pData.map((pm) => {
         const bk = bData.find((b) => b.id === pm.booking_id);
         return { ...pm, booking_name: bk?.name, adventure_title: bk?.adventure_title };
-      })
+      }),
     );
     setBookings(bData);
   }
@@ -78,10 +74,16 @@ function PaymentsAdmin() {
     setBusy(true);
     const payload = {
       ...editing,
-      paid_at: editing.status === "completed" && !editing.paid_at ? new Date().toISOString() : editing.paid_at,
+      paid_at:
+        editing.status === "completed" && !editing.paid_at
+          ? new Date().toISOString()
+          : editing.paid_at,
     };
     const { error } = editing.id
-      ? await supabase.from("payments").update(payload as any).eq("id", editing.id)
+      ? await supabase
+          .from("payments")
+          .update(payload as any)
+          .eq("id", editing.id)
       : await supabase.from("payments").insert(payload as any);
     setBusy(false);
     if (error) return toast.error(error.message);
@@ -112,7 +114,14 @@ function PaymentsAdmin() {
         </div>
         <Button
           onClick={() => {
-            setEditing({ booking_id: "", amount: 0, method: "online", status: "pending", transaction_id: "", notes: "" });
+            setEditing({
+              booking_id: "",
+              amount: 0,
+              method: "online",
+              status: "pending",
+              transaction_id: "",
+              notes: "",
+            });
             setShowForm(true);
           }}
           className="rounded-full btn-hero px-5"
@@ -125,9 +134,7 @@ function PaymentsAdmin() {
       <div className="mt-6 grid gap-4 sm:grid-cols-4">
         {(["all", "completed", "pending", "refunded"] as const).map((key) => {
           const count =
-            key === "all"
-              ? payments.length
-              : payments.filter((p) => p.status === key).length;
+            key === "all" ? payments.length : payments.filter((p) => p.status === key).length;
           const total =
             key === "all"
               ? payments.reduce((s, p) => s + (p.status === "completed" ? p.amount : 0), 0)
@@ -175,7 +182,9 @@ function PaymentsAdmin() {
                   <span className="font-display text-xl font-medium text-primary">
                     ${p.amount.toLocaleString()}
                   </span>
-                  <span className={`rounded-full px-3 py-0.5 text-xs font-medium capitalize ${statusStyles[p.status] ?? ""}`}>
+                  <span
+                    className={`rounded-full px-3 py-0.5 text-xs font-medium capitalize ${statusStyles[p.status] ?? ""}`}
+                  >
                     {p.status}
                   </span>
                 </div>
@@ -223,13 +232,20 @@ function PaymentsAdmin() {
               <h2 className="font-display text-2xl text-primary">
                 {editing.id ? "Edit" : "Record"} Payment
               </h2>
-              <button onClick={() => { setShowForm(false); setEditing(null); }}>
+              <button
+                onClick={() => {
+                  setShowForm(false);
+                  setEditing(null);
+                }}
+              >
                 <X className="h-5 w-5" />
               </button>
             </div>
             <div className="mt-6 grid gap-4">
               <div className="sm:col-span-2">
-                <Label className="text-xs uppercase tracking-wider text-muted-foreground">Booking</Label>
+                <Label className="text-xs uppercase tracking-wider text-muted-foreground">
+                  Booking
+                </Label>
                 <select
                   className="mt-1 h-10 w-full rounded-md border border-input px-3"
                   value={editing.booking_id ?? ""}
@@ -245,7 +261,9 @@ function PaymentsAdmin() {
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <Label className="text-xs uppercase tracking-wider text-muted-foreground">Amount ($)</Label>
+                  <Label className="text-xs uppercase tracking-wider text-muted-foreground">
+                    Amount ($)
+                  </Label>
                   <Input
                     type="number"
                     step="0.01"
@@ -254,7 +272,9 @@ function PaymentsAdmin() {
                   />
                 </div>
                 <div>
-                  <Label className="text-xs uppercase tracking-wider text-muted-foreground">Method</Label>
+                  <Label className="text-xs uppercase tracking-wider text-muted-foreground">
+                    Method
+                  </Label>
                   <select
                     className="mt-1 h-10 w-full rounded-md border border-input px-3"
                     value={editing.method ?? "online"}
@@ -269,7 +289,9 @@ function PaymentsAdmin() {
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <Label className="text-xs uppercase tracking-wider text-muted-foreground">Status</Label>
+                  <Label className="text-xs uppercase tracking-wider text-muted-foreground">
+                    Status
+                  </Label>
                   <select
                     className="mt-1 h-10 w-full rounded-md border border-input px-3"
                     value={editing.status ?? "pending"}
@@ -282,7 +304,9 @@ function PaymentsAdmin() {
                   </select>
                 </div>
                 <div>
-                  <Label className="text-xs uppercase tracking-wider text-muted-foreground">Transaction ID</Label>
+                  <Label className="text-xs uppercase tracking-wider text-muted-foreground">
+                    Transaction ID
+                  </Label>
                   <Input
                     value={editing.transaction_id ?? ""}
                     onChange={(e) => setEditing({ ...editing, transaction_id: e.target.value })}
@@ -291,7 +315,9 @@ function PaymentsAdmin() {
                 </div>
               </div>
               <div>
-                <Label className="text-xs uppercase tracking-wider text-muted-foreground">Notes</Label>
+                <Label className="text-xs uppercase tracking-wider text-muted-foreground">
+                  Notes
+                </Label>
                 <textarea
                   rows={2}
                   value={editing.notes ?? ""}
@@ -302,7 +328,13 @@ function PaymentsAdmin() {
               </div>
             </div>
             <div className="mt-8 flex justify-end gap-3">
-              <Button variant="outline" onClick={() => { setShowForm(false); setEditing(null); }}>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setShowForm(false);
+                  setEditing(null);
+                }}
+              >
                 Cancel
               </Button>
               <Button onClick={save} disabled={busy} className="rounded-full btn-hero px-6">

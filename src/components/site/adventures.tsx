@@ -2,40 +2,40 @@ import { ArrowUpRight, Clock, Mountain } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import type { Adventure } from "@/lib/site-data";
 
-const sectionConfig: Record<string, { icon: string; label: string; title: string; subtitle: string }> = {
+const sectionConfig: Record<
+  string,
+  { icon: string; label: string; title: string; subtitle: string }
+> = {
   Trek: {
     icon: "🥾",
     label: "Himalayan Treks",
     title: "Walk among the <em>giants</em>",
-    subtitle: "From Everest Base Camp to the Annapurna Circuit — our treks take you deep into the world's most dramatic mountain scenery.",
+    subtitle:
+      "From Everest Base Camp to the Annapurna Circuit — our treks take you deep into the world's most dramatic mountain scenery.",
   },
   Expedition: {
     icon: "⛰️",
     label: "Climbing Expeditions",
     title: "Summit your first <em>6,000m</em> peak",
-    subtitle: "Technical climbs led by certified Sherpa guides. Island Peak, Mera Peak, Ama Dablam — your next milestone awaits.",
+    subtitle:
+      "Technical climbs led by certified Sherpa guides. Island Peak, Mera Peak, Ama Dablam — your next milestone awaits.",
   },
   Tour: {
     icon: "🏛️",
     label: "Cultural Tours",
     title: "Discover Nepal's <em>soul</em>",
-    subtitle: "UNESCO heritage sites, wildlife safaris, sunrise flights, and lakeside relaxation — curated by local experts.",
+    subtitle:
+      "UNESCO heritage sites, wildlife safaris, sunrise flights, and lakeside relaxation — curated by local experts.",
   },
 };
 
-export function AdventureSection({
-  items,
-  category,
-}: {
-  items: Adventure[];
-  category: string;
-}) {
+export function AdventureSection({ items, category }: { items: Adventure[]; category: string }) {
   const cfg = sectionConfig[category];
   if (!cfg || items.length === 0) return null;
 
   return (
-      <section id={`${category.toLowerCase()}s`} className="relative bg-surface py-28">
-        <div id={category.toLowerCase()} className="sr-only" />
+    <section id={`${category.toLowerCase()}s`} className="relative bg-surface py-28">
+      <div id={category.toLowerCase()} className="sr-only" />
 
       <div className="mx-auto max-w-7xl px-6">
         <div className="reveal mx-auto max-w-3xl text-center">

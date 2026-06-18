@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ImageUpload } from "@/components/ui/image-upload";
+import { clientUpload } from "@/lib/upload-helper";
 
 export const Route = createFileRoute("/_authenticated/admin/guides")({
   component: GuidesAdmin,
@@ -132,6 +133,7 @@ function GuidesAdmin() {
                   value={editing.avatar_url ?? ""}
                   onChange={(url) => setEditing({ ...editing, avatar_url: url })}
                   label="Photo"
+                  onUpload={clientUpload}
                 />
               </div>
               <Field label="Sort order">

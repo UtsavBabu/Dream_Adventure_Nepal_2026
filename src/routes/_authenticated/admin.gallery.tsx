@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ImageUpload } from "@/components/ui/image-upload";
+import { clientUpload } from "@/lib/upload-helper";
 
 export const Route = createFileRoute("/_authenticated/admin/gallery")({
   component: GalleryAdmin,
@@ -96,6 +97,7 @@ function GalleryAdmin() {
                 value={adding.image_url}
                 onChange={(url) => setAdding({ ...adding, image_url: url })}
                 label="Image"
+                onUpload={clientUpload}
               />
               <div className="space-y-1.5">
                 <Label className="text-xs uppercase tracking-wider text-muted-foreground">

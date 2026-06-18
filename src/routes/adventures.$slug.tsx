@@ -6,7 +6,11 @@ import { ArrowLeft, Clock, Mountain, MapPin } from "lucide-react";
 import { adventureBySlugQuery, adventurePlacesQuery, siteSettingsQuery } from "@/lib/site-data";
 import { useReveal } from "@/hooks/use-reveal";
 import { SiteNavbar } from "@/components/site/site-navbar";
-import { AdventureItinerary, AdventureHighlights, AdventureIncludesExcludes } from "@/components/site/adventure-itinerary";
+import {
+  AdventureItinerary,
+  AdventureHighlights,
+  AdventureIncludesExcludes,
+} from "@/components/site/adventure-itinerary";
 import { AdventurePlaces } from "@/components/site/adventure-places";
 import { AdventureMap } from "@/components/site/adventure-map";
 import { AdventureBooking } from "@/components/site/adventure-booking";
@@ -41,7 +45,8 @@ function AdventureDetailPage() {
   const { data: adventurePlaces } = useSuspenseQuery(adventurePlacesQuery(adventure.id));
   useReveal();
 
-  const contact = (settings?.contact as { email?: string; phone?: string; whatsapp?: string }) ?? {};
+  const contact =
+    (settings?.contact as { email?: string; phone?: string; whatsapp?: string }) ?? {};
   const esewa = (settings?.esewa as { qr_url?: string }) ?? {};
 
   return (

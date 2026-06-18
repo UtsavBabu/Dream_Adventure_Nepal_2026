@@ -9,7 +9,7 @@ type ImageUploadProps = {
   onChange: (url: string) => void;
   label?: string;
   bucket?: string;
-  /** If provided, used instead of direct client-side storage upload (bypasses storage RLS). */
+  /** If provided, used instead of the default server-function upload (bypasses storage RLS). */
   onUpload?: (file: File, filePath: string) => Promise<string>;
 };
 

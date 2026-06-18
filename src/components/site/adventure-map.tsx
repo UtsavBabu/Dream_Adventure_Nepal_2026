@@ -9,11 +9,10 @@ export function AdventureMap({ embedUrl, title }: { embedUrl: string; title: str
           <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
             Location
           </div>
-          <h2 className="mt-4 font-display text-4xl font-medium text-primary">
-            Where you'll be
-          </h2>
+          <h2 className="mt-4 font-display text-4xl font-medium text-primary">Where you'll be</h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Explore the region of <span className="font-medium text-primary">{title}</span> on the map.
+            Explore the region of <span className="font-medium text-primary">{title}</span> on the
+            map.
           </p>
         </div>
         <div className="reveal mt-10 overflow-hidden rounded-3xl shadow-elegant">

@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ImageUpload } from "@/components/ui/image-upload";
+import { clientUpload } from "@/lib/upload-helper";
 
 export const Route = createFileRoute("/_authenticated/admin/testimonials")({
   component: TestimonialsAdmin,
@@ -140,6 +141,7 @@ function TestimonialsAdmin() {
                   value={editing.avatar_url ?? ""}
                   onChange={(url) => setEditing({ ...editing, avatar_url: url })}
                   label="Avatar"
+                  onUpload={clientUpload}
                 />
               </div>
               <div className="sm:col-span-2">

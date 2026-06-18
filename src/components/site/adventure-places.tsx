@@ -4,7 +4,17 @@ import type { AdventurePlace } from "@/lib/site-data";
 export function AdventurePlaces({
   places,
 }: {
-  places: (AdventurePlace & { place?: { id: string; name: string; description: string; image_url: string; lat: number | null; lng: number | null; type: string } })[];
+  places: (AdventurePlace & {
+    place?: {
+      id: string;
+      name: string;
+      description: string;
+      image_url: string;
+      lat: number | null;
+      lng: number | null;
+      type: string;
+    };
+  })[];
 }) {
   if (!places || places.length === 0) return null;
 
@@ -18,9 +28,7 @@ export function AdventurePlaces({
           <h2 className="mt-4 font-display text-4xl font-medium text-primary">
             Places you'll explore
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Every destination along your journey
-          </p>
+          <p className="mt-4 text-lg text-muted-foreground">Every destination along your journey</p>
         </div>
 
         <div className="reveal mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -56,7 +64,9 @@ export function AdventurePlaces({
                   {p.lat && p.lng && (
                     <div className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
                       <MapPin className="h-3 w-3 text-accent" />
-                      <span>{p.lat.toFixed(3)}, {p.lng.toFixed(3)}</span>
+                      <span>
+                        {p.lat.toFixed(3)}, {p.lng.toFixed(3)}
+                      </span>
                     </div>
                   )}
                 </div>

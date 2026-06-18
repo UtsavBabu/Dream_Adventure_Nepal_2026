@@ -74,18 +74,12 @@ function HomeContent() {
     <main className="min-h-screen bg-background">
       <SiteNavbar settings={settings} />
       <Hero settings={settings} />
-      <AdventureSection
-        items={adventures.filter((a) => a.category === "Trek")}
-        category="Trek"
-      />
+      <AdventureSection items={adventures.filter((a) => a.category === "Trek")} category="Trek" />
       <AdventureSection
         items={adventures.filter((a) => a.category === "Expedition")}
         category="Expedition"
       />
-      <AdventureSection
-        items={adventures.filter((a) => a.category === "Tour")}
-        category="Tour"
-      />
+      <AdventureSection items={adventures.filter((a) => a.category === "Tour")} category="Tour" />
       <WhyUs settings={settings} />
       <OurTeam items={teamMembers} />
       <Guides items={guides} />

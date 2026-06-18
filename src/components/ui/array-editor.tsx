@@ -66,7 +66,9 @@ export function ItineraryEditor({ days, onChange }: ItineraryEditorProps) {
         {(days ?? []).map((d, i) => (
           <div key={i} className="rounded-xl border border-border bg-surface p-4">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase text-accent">Day {d.day || i + 1}</span>
+              <span className="text-xs font-semibold uppercase text-accent">
+                Day {d.day || i + 1}
+              </span>
               <button
                 type="button"
                 onClick={() => onChange((days ?? []).filter((_, j) => j !== i))}
@@ -77,7 +79,9 @@ export function ItineraryEditor({ days, onChange }: ItineraryEditorProps) {
             </div>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
               <div>
-                <label className="text-[10px] uppercase tracking-wider text-muted-foreground">Day #</label>
+                <label className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                  Day #
+                </label>
                 <Input
                   type="number"
                   value={d.day || i + 1}
@@ -90,7 +94,9 @@ export function ItineraryEditor({ days, onChange }: ItineraryEditorProps) {
                 />
               </div>
               <div>
-                <label className="text-[10px] uppercase tracking-wider text-muted-foreground">Title</label>
+                <label className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                  Title
+                </label>
                 <Input
                   value={d.title ?? ""}
                   onChange={(e) => {
@@ -103,7 +109,9 @@ export function ItineraryEditor({ days, onChange }: ItineraryEditorProps) {
                 />
               </div>
               <div className="sm:col-span-2">
-                <label className="text-[10px] uppercase tracking-wider text-muted-foreground">Description</label>
+                <label className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                  Description
+                </label>
                 <textarea
                   rows={2}
                   value={d.description ?? ""}
@@ -124,7 +132,9 @@ export function ItineraryEditor({ days, onChange }: ItineraryEditorProps) {
         type="button"
         variant="outline"
         size="sm"
-        onClick={() => onChange([...(days ?? []), { day: (days?.length ?? 0) + 1, title: "", description: "" }])}
+        onClick={() =>
+          onChange([...(days ?? []), { day: (days?.length ?? 0) + 1, title: "", description: "" }])
+        }
         className="mt-2 w-full"
       >
         <Plus className="mr-2 h-3 w-3" /> Add day

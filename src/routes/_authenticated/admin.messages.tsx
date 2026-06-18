@@ -36,7 +36,10 @@ function MessagesAdmin() {
   }, []);
 
   async function markRead(id: string) {
-    const { error } = await supabase.from("contact_messages").update({ is_read: true }).eq("id", id);
+    const { error } = await supabase
+      .from("contact_messages")
+      .update({ is_read: true })
+      .eq("id", id);
     if (error) return toast.error(error.message);
     load();
   }
@@ -56,9 +59,7 @@ function MessagesAdmin() {
     <div className="mx-auto max-w-5xl">
       <div className="flex items-end justify-between">
         <div>
-          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
-            Inbox
-          </div>
+          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">Inbox</div>
           <h1 className="mt-2 font-display text-3xl text-primary">Messages</h1>
           <p className="text-sm text-muted-foreground">
             {unreadCount} unread / {rows.length} total
@@ -117,7 +118,9 @@ function MessagesAdmin() {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className={`truncate font-medium ${!r.is_read ? "text-primary" : "text-muted-foreground"}`}>
+                  <span
+                    className={`truncate font-medium ${!r.is_read ? "text-primary" : "text-muted-foreground"}`}
+                  >
                     {r.name}
                   </span>
                   {!r.is_read && (
@@ -132,7 +135,11 @@ function MessagesAdmin() {
                 {new Date(r.created_at).toLocaleDateString()}
               </div>
               <div className="text-muted-foreground">
-                {expanded === r.id ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                {expanded === r.id ? (
+                  <ChevronUp className="h-4 w-4" />
+                ) : (
+                  <ChevronDown className="h-4 w-4" />
+                )}
               </div>
             </button>
             {expanded === r.id && (

@@ -16,7 +16,13 @@ type BookingFormProps = {
   esewaQrUrl?: string;
 };
 
-export function BookingForm({ adventureId, adventureTitle, adventureSlug, price, esewaQrUrl }: BookingFormProps) {
+export function BookingForm({
+  adventureId,
+  adventureTitle,
+  adventureSlug,
+  price,
+  esewaQrUrl,
+}: BookingFormProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -71,16 +77,26 @@ export function BookingForm({ adventureId, adventureTitle, adventureSlug, price,
         </p>
         {sentMethod === "pay_later" && (
           <p className="max-w-sm text-sm text-white/50">
-            You chose <strong>Pay Later</strong> — we'll send payment details after confirmation. No upfront payment needed.
+            You chose <strong>Pay Later</strong> — we'll send payment details after confirmation. No
+            upfront payment needed.
           </p>
         )}
         {sentMethod === "online" && (
           <p className="max-w-sm text-sm text-white/50">
-            You chose <strong>Pay Online</strong> — we'll send a secure payment link after confirming availability.
+            You chose <strong>Pay Online</strong> — we'll send a secure payment link after
+            confirming availability.
           </p>
         )}
         <button
-          onClick={() => { setSent(false); setName(""); setEmail(""); setPhone(""); setStartDate(""); setPeople("1"); setMessage(""); }}
+          onClick={() => {
+            setSent(false);
+            setName("");
+            setEmail("");
+            setPhone("");
+            setStartDate("");
+            setPeople("1");
+            setMessage("");
+          }}
           className="mt-2 text-sm text-accent underline underline-offset-4 hover:text-accent/80"
         >
           Book another adventure
@@ -226,9 +242,13 @@ export function BookingForm({ adventureId, adventureTitle, adventureSlug, price,
         className="w-full rounded-full bg-accent py-6 text-sm font-semibold text-white hover:bg-accent/90"
       >
         {sending ? (
-          <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting…</>
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting…
+          </>
         ) : (
-          <><Calendar className="mr-2 h-4 w-4" /> Request Booking</>
+          <>
+            <Calendar className="mr-2 h-4 w-4" /> Request Booking
+          </>
         )}
       </Button>
     </form>

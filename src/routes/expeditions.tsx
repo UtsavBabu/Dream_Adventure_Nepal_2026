@@ -69,8 +69,8 @@ function ExpeditionsContent() {
               Summit your first <em className="text-accent">6,000m</em> peak
             </h1>
             <p className="mt-5 max-w-2xl text-lg text-white/70">
-              Technical climbs led by certified Sherpa guides. Island Peak, Mera Peak, Ama Dablam
-              — your next milestone awaits.
+              Technical climbs led by certified Sherpa guides. Island Peak, Mera Peak, Ama Dablam —
+              your next milestone awaits.
             </p>
           </div>
         </div>
@@ -100,7 +100,10 @@ function ExpeditionsContent() {
                       loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-110"
                     />
-                    <div className="absolute inset-0" style={{ background: "var(--gradient-card)" }} />
+                    <div
+                      className="absolute inset-0"
+                      style={{ background: "var(--gradient-card)" }}
+                    />
                     <div className="absolute left-5 top-5 flex flex-wrap gap-2">
                       <span className="rounded-full bg-black/40 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-white backdrop-blur">
                         {a.difficulty}
@@ -118,7 +121,9 @@ function ExpeditionsContent() {
                       <p className="mt-2 line-clamp-2 text-sm text-white/75">{a.description}</p>
                       <div className="mt-5 flex items-center justify-between">
                         <div>
-                          <div className="text-[11px] uppercase tracking-wider text-white/55">From</div>
+                          <div className="text-[11px] uppercase tracking-wider text-white/55">
+                            From
+                          </div>
                           <div className="font-display text-xl text-accent">{a.price}</div>
                         </div>
                         <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-accent text-white transition-transform duration-500 group-hover:rotate-45">

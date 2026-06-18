@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ImageUpload } from "@/components/ui/image-upload";
+import { clientUpload } from "@/lib/upload-helper";
 import { ArrayEditor, ItineraryEditor } from "@/components/ui/array-editor";
 
 export const Route = createFileRoute("/_authenticated/admin/adventures")({
@@ -67,20 +68,48 @@ function AdventuresAdmin() {
     let adventureId = editing.id;
     if (adventureId) {
       const { error } = await supabase.from("adventures").update(payload).eq("id", adventureId);
-      if (error) { setBusy(false); return toast.error(error.message); }
+      if (error) {
+        setBusy(false);
+        return toast.error(error.message);
+      }
     } else {
-      const { data, error } = await supabase.from("adventures").insert(payload).select("id").single();
-      if (error) { setBusy(false); return toast.error(error.message); }
+      const { data, error } = await supabase
+        .from("adventures")
+        .insert(payload)
+        .select("id")
+        .single();
+      if (error) {
+        setBusy(false);
+        return toast.error(error.message);
+      }
       adventureId = data.id;
     }
 
     // Sync adventure_places
-    const { data: existing } = await supabase.from("adventure_places").select("place_id").eq("adventure_id", adventureId);
+    const { data: existing } = await supabase
+      .from("adventure_places")
+      .select("place_id")
+      .eq("adventure_id", adventureId);
     const existingIds = new Set((existing ?? []).map((r: { place_id: string }) => r.place_id));
     const toAdd = [...selectedPlaceIds].filter((id) => !existingIds.has(id));
     const toRemove = [...existingIds].filter((id) => !selectedPlaceIds.has(id));
-    if (toRemove.length > 0) await supabase.from("adventure_places").delete().eq("adventure_id", adventureId).in("place_id", toRemove);
-    if (toAdd.length > 0) await supabase.from("adventure_places").insert(toAdd.map((placeId, i) => ({ adventure_id: adventureId, place_id: placeId, day_number: 1, sort_order: i })));
+    if (toRemove.length > 0)
+      await supabase
+        .from("adventure_places")
+        .delete()
+        .eq("adventure_id", adventureId)
+        .in("place_id", toRemove);
+    if (toAdd.length > 0)
+      await supabase
+        .from("adventure_places")
+        .insert(
+          toAdd.map((placeId, i) => ({
+            adventure_id: adventureId,
+            place_id: placeId,
+            day_number: 1,
+            sort_order: i,
+          })),
+        );
 
     setBusy(false);
     toast.success("Saved");
@@ -100,7 +129,10 @@ function AdventuresAdmin() {
   }
 
   async function loadAdventurePlaces(adventureId: string) {
-    const { data } = await supabase.from("adventure_places").select("place_id").eq("adventure_id", adventureId);
+    const { data } = await supabase
+      .from("adventure_places")
+      .select("place_id")
+      .eq("adventure_id", adventureId);
     setSelectedPlaceIds(new Set((data ?? []).map((r: { place_id: string }) => r.place_id)));
   }
 
@@ -140,7 +172,9 @@ function AdventuresAdmin() {
         <button
           onClick={() => setFilterCategory("all")}
           className={`rounded-full px-5 py-1.5 text-xs font-medium capitalize transition ${
-            filterCategory === "all" ? "bg-accent text-white" : "text-muted-foreground hover:bg-surface"
+            filterCategory === "all"
+              ? "bg-accent text-white"
+              : "text-muted-foreground hover:bg-surface"
           }`}
         >
           All
@@ -150,7 +184,9 @@ function AdventuresAdmin() {
             key={cat}
             onClick={() => setFilterCategory(cat)}
             className={`rounded-full px-5 py-1.5 text-xs font-medium capitalize transition ${
-              filterCategory === cat ? "bg-accent text-white" : "text-muted-foreground hover:bg-surface"
+              filterCategory === cat
+                ? "bg-accent text-white"
+                : "text-muted-foreground hover:bg-surface"
             }`}
           >
             {cat}s
@@ -173,41 +209,41 @@ function AdventuresAdmin() {
             {rows
               .filter((r) => filterCategory === "all" || r.category === filterCategory)
               .map((r) => (
-              <tr key={r.id} className="border-t border-border">
-                <td className="p-4">
-                  <div className="flex items-center gap-3">
-                    {r.image_url && (
-                      <img src={r.image_url} className="h-10 w-14 rounded object-cover" alt="" />
-                    )}
-                    <div>
-                      <div className="font-medium text-primary">{r.title}</div>
-                      <div className="text-xs text-muted-foreground">{r.category}</div>
+                <tr key={r.id} className="border-t border-border">
+                  <td className="p-4">
+                    <div className="flex items-center gap-3">
+                      {r.image_url && (
+                        <img src={r.image_url} className="h-10 w-14 rounded object-cover" alt="" />
+                      )}
+                      <div>
+                        <div className="font-medium text-primary">{r.title}</div>
+                        <div className="text-xs text-muted-foreground">{r.category}</div>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td className="p-4">
-                  <span className="rounded-full bg-accent/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent">
-                    {r.category}
-                  </span>
-                </td>
-                <td className="p-4">{r.duration}</td>
-                <td className="p-4">{r.price}</td>
-                <td className="p-4 text-right">
-                  <button
-                    onClick={() => onEdit(r)}
-                    className="mr-2 inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-surface"
-                  >
-                    <Pencil className="h-4 w-4" />
-                  </button>
-                  <button
-                    onClick={() => remove(r.id)}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-destructive hover:bg-destructive/10"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </button>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                  <td className="p-4">
+                    <span className="rounded-full bg-accent/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent">
+                      {r.category}
+                    </span>
+                  </td>
+                  <td className="p-4">{r.duration}</td>
+                  <td className="p-4">{r.price}</td>
+                  <td className="p-4 text-right">
+                    <button
+                      onClick={() => onEdit(r)}
+                      className="mr-2 inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-surface"
+                    >
+                      <Pencil className="h-4 w-4" />
+                    </button>
+                    <button
+                      onClick={() => remove(r.id)}
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-destructive hover:bg-destructive/10"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
@@ -270,6 +306,7 @@ function AdventuresAdmin() {
                   value={editing.image_url ?? ""}
                   onChange={(url) => setEditing({ ...editing, image_url: url })}
                   label="Image"
+                  onUpload={clientUpload}
                 />
               </div>
               <div className="sm:col-span-2">
