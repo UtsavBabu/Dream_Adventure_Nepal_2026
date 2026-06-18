@@ -5,6 +5,7 @@ import {
   Camera,
   Compass,
   CreditCard,
+  Eye,
   FileText,
   Image,
   LayoutDashboard,
@@ -40,6 +41,7 @@ const nav: NavItem[] = [
   { to: "/admin/gallery", label: "Gallery", icon: Image },
   { to: "/admin/hero", label: "Hero Section", icon: Video },
   { to: "/admin/pages", label: "Pages", icon: FileText },
+  { to: "/admin/visibility", label: "Visibility", icon: Eye },
   { to: "/admin/settings", label: "Settings", icon: Settings },
 ];
 

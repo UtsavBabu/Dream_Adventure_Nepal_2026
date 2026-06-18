@@ -68,25 +68,33 @@ function HomeContent() {
   const { data: guides } = useSuspenseQuery(guidesQuery);
   const { data: testimonials } = useSuspenseQuery(testimonialsQuery);
   const { data: gallery } = useSuspenseQuery(galleryQuery);
+  const v = (settings?.section_visibility as Record<string, boolean>) ?? {};
+  const vis = (id: string) => v[id] !== false;
   useReveal();
 
   return (
     <main className="min-h-screen bg-background">
-      <SiteNavbar settings={settings} />
-      <Hero settings={settings} />
-      <AdventureSection items={adventures.filter((a) => a.category === "Trek")} category="Trek" />
-      <AdventureSection
-        items={adventures.filter((a) => a.category === "Expedition")}
-        category="Expedition"
-      />
-      <AdventureSection items={adventures.filter((a) => a.category === "Tour")} category="Tour" />
-      <WhyUs settings={settings} />
-      <OurTeam items={teamMembers} />
-      <Guides items={guides} />
-      <Testimonials items={testimonials} />
-      <Gallery items={gallery} />
-      <CtaBlock settings={settings} />
-      <SiteFooter settings={settings} />
+      {vis("navbar") && <SiteNavbar settings={settings} />}
+      {vis("home_hero") && <Hero settings={settings} />}
+      {vis("home_treks") && (
+        <AdventureSection items={adventures.filter((a) => a.category === "Trek")} category="Trek" />
+      )}
+      {vis("home_expeditions") && (
+        <AdventureSection
+          items={adventures.filter((a) => a.category === "Expedition")}
+          category="Expedition"
+        />
+      )}
+      {vis("home_tours") && (
+        <AdventureSection items={adventures.filter((a) => a.category === "Tour")} category="Tour" />
+      )}
+      {vis("home_why_us") && <WhyUs settings={settings} />}
+      {vis("home_our_team") && <OurTeam items={teamMembers} />}
+      {vis("home_guides") && <Guides items={guides} />}
+      {vis("home_testimonials") && <Testimonials items={testimonials} />}
+      {vis("home_gallery") && <Gallery items={gallery} />}
+      {vis("cta") && <CtaBlock settings={settings} />}
+      {vis("footer") && <SiteFooter settings={settings} />}
     </main>
   );
 }

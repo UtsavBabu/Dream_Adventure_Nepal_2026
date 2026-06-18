@@ -45,13 +45,15 @@ function AdventureDetailPage() {
   const { data: adventurePlaces } = useSuspenseQuery(adventurePlacesQuery(adventure.id));
   useReveal();
 
+  const v = (settings?.section_visibility as Record<string, boolean>) ?? {};
+  const vis = (id: string) => v[id] !== false;
   const contact =
     (settings?.contact as { email?: string; phone?: string; whatsapp?: string }) ?? {};
   const esewa = (settings?.esewa as { qr_url?: string }) ?? {};
 
   return (
     <main className="min-h-screen bg-background">
-      <SiteNavbar settings={settings} />
+      {vis("navbar") && <SiteNavbar settings={settings} />}
 
       {/* Hero */}
       <section className="relative flex min-h-[70vh] items-end">
@@ -97,7 +99,7 @@ function AdventureDetailPage() {
       </section>
 
       {/* Overview */}
-      {adventure.long_description && (
+      {vis("adventure_overview") && adventure.long_description && (
         <section className="bg-white py-28">
           <div className="mx-auto max-w-4xl px-6">
             <div className="reveal">
@@ -116,29 +118,35 @@ function AdventureDetailPage() {
       )}
 
       {/* Highlights */}
-      <AdventureHighlights items={adventure.highlights ?? []} />
+      {vis("adventure_highlights") && <AdventureHighlights items={adventure.highlights ?? []} />}
 
       {/* Itinerary */}
-      <AdventureItinerary days={adventure.itinerary ?? []} />
+      {vis("adventure_itinerary") && <AdventureItinerary days={adventure.itinerary ?? []} />}
 
       {/* Places */}
-      <AdventurePlaces places={adventurePlaces ?? []} />
+      {vis("adventure_places") && <AdventurePlaces places={adventurePlaces ?? []} />}
 
       {/* Map */}
-      <AdventureMap embedUrl={adventure.map_embed_url ?? ""} title={adventure.title} />
+      {vis("adventure_map") && (
+        <AdventureMap embedUrl={adventure.map_embed_url ?? ""} title={adventure.title} />
+      )}
 
       {/* Includes / Excludes */}
-      <AdventureIncludesExcludes
-        includes={adventure.includes ?? []}
-        excludes={adventure.excludes ?? []}
-      />
+      {vis("adventure_includes") && (
+        <AdventureIncludesExcludes
+          includes={adventure.includes ?? []}
+          excludes={adventure.excludes ?? []}
+        />
+      )}
 
       {/* Booking */}
-      <AdventureBooking adventure={adventure} contact={contact} esewaQrUrl={esewa.qr_url} />
+      {vis("adventure_booking") && (
+        <AdventureBooking adventure={adventure} contact={contact} esewaQrUrl={esewa.qr_url} />
+      )}
 
       {/* Footer CTA */}
-      <CtaBlock settings={settings} />
-      <SiteFooter settings={settings} />
+      {vis("cta") && <CtaBlock settings={settings} />}
+      {vis("footer") && <SiteFooter settings={settings} />}
     </main>
   );
 }
