@@ -1,7 +1,5 @@
 {
-  "buildCommand": "vite build",
+  "buildCommand": "NITRO_PRESET=vercel vite build",
   "devCommand": "vite dev",
-  "installCommand": "npm install",
-  "framework": null,
-  "outputDirectory": ".output/public"
+  "installCommand": "npm install"
 }
