@@ -3,6 +3,7 @@ import { Send, Check, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
+import { sendContactNotification } from "@/lib/api/email.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,9 +30,22 @@ export function ContactForm() {
       phone: phone.trim(),
       message: message.trim(),
     });
-    setSending(false);
     if (error) {
+      setSending(false);
       toast.error("Failed to send. Please try again or email us directly.");
+      return;
+    }
+    const result = await sendContactNotification({
+      data: {
+        name: name.trim(),
+        email: email.trim(),
+        phone: phone.trim(),
+        message: message.trim(),
+      },
+    });
+    setSending(false);
+    if (!result.ok) {
+      toast.error(result.error || "Failed to send notification email");
       return;
     }
     toast.success("Message sent! We'll get back to you within 24 hours.");
