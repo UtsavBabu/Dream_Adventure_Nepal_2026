@@ -554,8 +554,8 @@ function ChangePasswordForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (newPass.length < 6) {
-      toast.error("New password must be at least 6 characters");
+    if (newPass.length < 8) {
+      toast.error("New password must be at least 8 characters");
       return;
     }
     if (newPass !== confirm) {
@@ -593,14 +593,14 @@ function ChangePasswordForm() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <Label className="text-xs text-muted-foreground">New Password</Label>
-          <Input
-            type="password"
-            value={newPass}
-            onChange={(e) => setNewPass(e.target.value)}
-            placeholder="Min. 6 characters"
-            className="mt-1"
-            required
-          />
+            <Input
+              type="password"
+              value={newPass}
+              onChange={(e) => setNewPass(e.target.value)}
+              placeholder="Min. 8 characters"
+              className="mt-1"
+              required
+            />
         </div>
         <div>
           <Label className="text-xs text-muted-foreground">Confirm New Password</Label>
