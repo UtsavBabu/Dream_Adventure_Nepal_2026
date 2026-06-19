@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { Plus, Trash2, GripVertical } from "lucide-react";
+import { Plus, Trash2, GripVertical, Lock } from "lucide-react";
 import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
@@ -526,6 +526,104 @@ function SettingsAdmin() {
           />
         </div>
       </div>
+
+      {/* ── Change Password ── */}
+      <div className="mt-6 rounded-2xl bg-white p-6 shadow-glass">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="grid h-10 w-10 place-items-center rounded-xl bg-accent text-white">
+              <Lock className="h-5 w-5" />
+            </div>
+            <div>
+              <Label className="font-display text-lg text-primary">Change Password</Label>
+              <p className="text-sm text-muted-foreground">Update your admin account password.</p>
+            </div>
+          </div>
+        </div>
+        <ChangePasswordForm />
+      </div>
     </div>
+  );
+}
+
+function ChangePasswordForm() {
+  const [current, setCurrent] = useState("");
+  const [newPass, setNewPass] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (newPass.length < 6) {
+      toast.error("New password must be at least 6 characters");
+      return;
+    }
+    if (newPass !== confirm) {
+      toast.error("New passwords do not match");
+      return;
+    }
+    setBusy(true);
+    try {
+      const { error } = await supabase.auth.updateUser({ password: newPass });
+      if (error) throw error;
+      toast.success("Password updated successfully");
+      setCurrent("");
+      setNewPass("");
+      setConfirm("");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to update password");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="mt-4 space-y-4">
+      <div>
+        <Label className="text-xs text-muted-foreground">Current Password</Label>
+        <Input
+          type="password"
+          value={current}
+          onChange={(e) => setCurrent(e.target.value)}
+          placeholder="Enter current password"
+          className="mt-1"
+          required
+        />
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <Label className="text-xs text-muted-foreground">New Password</Label>
+          <Input
+            type="password"
+            value={newPass}
+            onChange={(e) => setNewPass(e.target.value)}
+            placeholder="Min. 6 characters"
+            className="mt-1"
+            required
+          />
+        </div>
+        <div>
+          <Label className="text-xs text-muted-foreground">Confirm New Password</Label>
+          <Input
+            type="password"
+            value={confirm}
+            onChange={(e) => setConfirm(e.target.value)}
+            placeholder="Re-enter new password"
+            className="mt-1"
+            required
+          />
+        </div>
+      </div>
+      <div className="flex justify-end">
+        <Button
+          type="submit"
+          disabled={busy}
+          className="rounded-full btn-hero px-5"
+          size="sm"
+        >
+          {busy ? "Updating…" : "Update Password"}
+        </Button>
+      </div>
+    </form>
   );
 }
