@@ -1,8 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
+const RECIPIENT_EMAIL = process.env.CONTACT_EMAIL || "info@dreamadventurenepal.com";
+
 export const sendContactNotification = createServerFn({ method: "POST" })
-  .inputValidator(
+  .validator(
     z.object({
       name: z.string().min(1),
       email: z.string().email(),
@@ -11,30 +13,31 @@ export const sendContactNotification = createServerFn({ method: "POST" })
     }),
   )
   .handler(async ({ data }) => {
-    const key = process.env.WEB3FORMS_ACCESS_KEY;
-    if (!key) {
-      console.warn("[Email] WEB3FORMS_ACCESS_KEY not configured — skipping notification");
-      return { ok: false, error: "Email service not configured" };
-    }
-
-    const res = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        access_key: key,
-        subject: `New Contact Message from ${data.name}`,
-        from_name: data.name,
+    try {
+      const payload = {
+        name: data.name,
         email: data.email,
         phone: data.phone || "Not provided",
         message: data.message,
-      }),
-    });
+        _subject: `New Contact Message from ${data.name}`,
+      };
 
-    const body = await res.json();
-    if (!res.ok) {
-      console.error("[Email] Web3Forms error:", body);
-      return { ok: false, error: body.message || "Web3Forms request failed" };
+      const res = await fetch(`https://formsubmit.co/ajax/${RECIPIENT_EMAIL}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const body = await res.json();
+      console.log("[Email] FormSubmit response:", { status: res.status, body });
+
+      if (!res.ok || !body.success) {
+        return { ok: false, error: body.message || "FormSubmit request failed" };
+      }
+
+      return { ok: true };
+    } catch (err) {
+      console.error("[Email] FormSubmit error:", err);
+      return { ok: false, error: "Could not send notification email" };
     }
-
-    return { ok: true };
   });

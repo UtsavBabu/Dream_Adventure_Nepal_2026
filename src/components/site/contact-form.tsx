@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Send, Check, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
-import { supabase } from "@/integrations/supabase/client";
-import { sendContactNotification } from "@/lib/api/email.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+
+const RECIPIENT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL || "info@dreamadventurenepal.com";
 
 export function ContactForm() {
   const [name, setName] = useState("");
@@ -24,32 +24,35 @@ export function ContactForm() {
       return;
     }
     setSending(true);
-    const { error } = await supabase.from("contact_messages").insert({
-      name: name.trim(),
-      email: email.trim(),
-      phone: phone.trim(),
-      message: message.trim(),
-    });
-    if (error) {
-      setSending(false);
+    try {
+      const fd = new FormData();
+      fd.append("name", name.trim());
+      fd.append("email", email.trim());
+      fd.append("phone", phone.trim() || "Not provided");
+      fd.append("message", message.trim());
+      fd.append("_subject", `New Contact Message from ${name.trim()}`);
+      fd.append("_captcha", "false");
+      fd.append("_next", "/thank-you");
+
+      const res = await fetch(`https://formsubmit.co/ajax/${RECIPIENT_EMAIL}`, {
+        method: "POST",
+        body: fd,
+      });
+
+      const body = await res.json();
+
+      if (!res.ok || !body.success) {
+        throw new Error(body.message || "FormSubmit request failed");
+      }
+
+      toast.success("Message sent! We'll get back to you within 24 hours.");
+      setSent(true);
+    } catch (err) {
+      console.error("[ContactForm] FormSubmit error:", err);
       toast.error("Failed to send. Please try again or email us directly.");
-      return;
+    } finally {
+      setSending(false);
     }
-    const result = await sendContactNotification({
-      data: {
-        name: name.trim(),
-        email: email.trim(),
-        phone: phone.trim(),
-        message: message.trim(),
-      },
-    });
-    setSending(false);
-    if (!result.ok) {
-      toast.error(result.error || "Failed to send notification email");
-      return;
-    }
-    toast.success("Message sent! We'll get back to you within 24 hours.");
-    setSent(true);
   }
 
   if (sent) {
