@@ -1,5 +1,21 @@
 import "./lib/error-capture";
 
+// Node < 22 has no global WebSocket, which makes @supabase/realtime-js throw when
+// the Supabase client is constructed during SSR (e.g. routes whose loader awaits a
+// query) — returning a 500. Polyfill from undici (present at runtime via fetch) so
+// detail pages render on any Node version. No-op on Node 22+ where WebSocket exists.
+if (typeof (globalThis as { WebSocket?: unknown }).WebSocket === "undefined") {
+  try {
+    const { createRequire } = await import("node:module");
+    const nodeRequire = createRequire(import.meta.url);
+    const undiciName = "undici"; // variable defeats bundler static resolution
+    const { WebSocket } = nodeRequire(undiciName);
+    if (WebSocket) (globalThis as { WebSocket?: unknown }).WebSocket = WebSocket;
+  } catch {
+    // undici unavailable — leave as-is; realtime is unused on public pages anyway.
+  }
+}
+
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 
