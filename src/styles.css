@@ -44,6 +44,12 @@
   --color-success: var(--success);
   --color-success-foreground: var(--success-foreground);
 
+  /* ---- Container system (one source of truth for width) ----
+     shell = full-bleed media/hero · content = grids & sections · reading = prose */
+  --container-shell: 90rem; /* 1440px */
+  --container-content: 82.5rem; /* 1320px */
+  --container-reading: 45rem; /* 720px  — never wider for running text */
+
   /* ---- Type scale (editorial hierarchy, responsive) ---- */
   --text-display: clamp(2.75rem, 6vw, 4.5rem); /* 72px */
   --text-display--line-height: 1.03;

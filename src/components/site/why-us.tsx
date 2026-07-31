@@ -20,7 +20,7 @@ export function WhyUs({ settings }: { settings: SiteSettings }) {
 
   return (
     <section id="about" className="relative bg-primary py-28 text-white">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-content px-6">
         {/* Editorial split: image + story */}
         <div className="grid items-center gap-14 lg:grid-cols-2">
           <div className="reveal relative">

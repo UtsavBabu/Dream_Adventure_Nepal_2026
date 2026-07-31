@@ -85,7 +85,7 @@ function ToursContent() {
             />
             <div className="absolute inset-0" style={{ background: "var(--gradient-card)" }} />
           </div>
-          <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-20">
+          <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-20">
             <div className="reveal max-w-3xl">
               <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
                 <Mountain className="h-3.5 w-3.5" /> {pageHero.badge || "Cultural Tours"}
@@ -106,7 +106,7 @@ function ToursContent() {
       {/* Tour listing */}
       {vis("tours_listing") && (
         <section className="bg-surface py-28">
-          <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-content px-6">
             {tours.length === 0 ? (
               <div className="py-20 text-center text-muted-foreground">
                 No tours available yet. Check back soon.

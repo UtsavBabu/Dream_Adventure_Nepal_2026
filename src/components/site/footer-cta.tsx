@@ -74,7 +74,7 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
   const legal = settings.legal ?? {};
   return (
     <footer className="bg-primary-deep py-16 text-white/70">
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-content gap-10 px-6 lg:grid-cols-4">
         <div className="lg:col-span-2">
           <div className="font-display text-2xl text-white">
             {nav.logo ?? "Dream Adventure Nepal"}
@@ -160,7 +160,7 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
           </div>
         </div>
       </div>
-      <div className="mx-auto mt-12 max-w-7xl border-t border-white/10 px-6 pt-6 text-xs text-white/40">
+      <div className="mx-auto mt-12 max-w-content border-t border-white/10 px-6 pt-6 text-xs text-white/40">
         {f.copyright}
       </div>
     </footer>

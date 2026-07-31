@@ -69,7 +69,7 @@ export function SiteNavbar({ settings }: { settings: SiteSettings }) {
         scrolled ? "glass-nav py-2.5" : "bg-transparent py-5"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
+      <div className="mx-auto flex max-w-content items-center justify-between px-6">
         <a href="/" className="flex items-center gap-2 text-white" aria-label="Dream Adventure Nepal — home">
           {logoUrl ? (
             <img

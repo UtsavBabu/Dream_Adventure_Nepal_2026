@@ -17,7 +17,7 @@ export function TrustBar({ settings }: { settings: SiteSettings }) {
 
   return (
     <section className="border-b border-border bg-surface">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-content px-6">
         <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 py-6 sm:justify-between">
           {items.map(({ icon: Icon, label }) => (
             <div

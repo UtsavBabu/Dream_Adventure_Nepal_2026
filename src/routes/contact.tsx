@@ -127,7 +127,7 @@ function ContactContent() {
           />
           <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
         </div>
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-14 pt-32">
+        <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-14 pt-32">
           <div className="reveal max-w-3xl">
             <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
               Get In Touch
@@ -144,7 +144,7 @@ function ContactContent() {
 
       {/* Methods + form */}
       <section className="bg-surface py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2">
+        <div className="mx-auto grid max-w-content gap-12 px-6 lg:grid-cols-2">
           <div className="reveal">
             <div className="grid gap-4 sm:grid-cols-2">
               {c.email && (
@@ -222,7 +222,7 @@ function ContactContent() {
 
       {/* Map */}
       <section className="bg-background">
-        <div className="mx-auto max-w-7xl px-6 pb-24">
+        <div className="mx-auto max-w-content px-6 pb-24">
           <div className="overflow-hidden rounded-3xl border border-border shadow-glass">
             <iframe
               title="Dream Adventure Nepal — Kathmandu office"

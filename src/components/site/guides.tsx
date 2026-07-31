@@ -14,7 +14,7 @@ export function Guides({ items }: { items: Guide[] }) {
   if (items.length === 0) return null;
   return (
     <section className="bg-surface py-28">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-content px-6">
         <div className="reveal mx-auto max-w-3xl text-center">
           <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
             Our Guides

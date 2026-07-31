@@ -37,7 +37,7 @@ export function AdventureSection({ items, category }: { items: Adventure[]; cate
     <section id={`${category.toLowerCase()}s`} className="relative bg-surface py-28">
       <div id={category.toLowerCase()} className="sr-only" />
 
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-content px-6">
         <div className="reveal mx-auto max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-caption font-semibold uppercase tracking-[0.18em] text-accent">
             <Mountain className="h-3.5 w-3.5" /> {cfg.label}

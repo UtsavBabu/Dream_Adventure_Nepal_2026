@@ -64,7 +64,7 @@ export function Hero({ settings }: { settings: SiteSettings }) {
       />
 
       {/* Content */}
-      <div className="relative mx-auto grid w-full max-w-7xl gap-12 px-6 pt-36 pb-20 lg:grid-cols-12 lg:gap-10">
+      <div className="relative mx-auto grid w-full max-w-content gap-12 px-6 pt-36 pb-20 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-7">
           {h.badge && (
             <div className="inline-flex animate-fade-in items-center gap-2.5 rounded-full glass px-4 py-2 text-caption font-medium uppercase tracking-[0.16em] text-white/90">

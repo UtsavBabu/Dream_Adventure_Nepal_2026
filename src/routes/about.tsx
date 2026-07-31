@@ -67,7 +67,7 @@ function AboutContent() {
           />
           <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
         </div>
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 pt-32">
+        <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-16 pt-32">
           <div className="reveal max-w-3xl">
             <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
               Our Story

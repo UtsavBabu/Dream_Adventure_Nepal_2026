@@ -127,7 +127,7 @@ function TreksContent() {
             />
             <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
           </div>
-          <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-20 pt-32">
+          <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-20 pt-32">
             <div className="reveal max-w-3xl">
               <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 px-4 py-1.5 text-caption font-semibold uppercase tracking-[0.18em] text-accent">
                 <Mountain className="h-3.5 w-3.5" /> {pageHero.badge || "Himalayan Treks"}
@@ -148,7 +148,7 @@ function TreksContent() {
       {/* Trek listing + filters */}
       {vis("treks_listing") && (
         <section className="bg-surface py-20">
-          <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-content px-6">
             {/* Filter bar */}
             <div className="sticky top-20 z-30 rounded-2xl border border-border bg-white/90 p-4 shadow-sm backdrop-blur">
               <div className="flex flex-wrap items-center gap-3">
