@@ -1,7 +1,22 @@
+import { useEffect, useState } from "react";
 import { ChevronDown, Play, ShieldCheck, Star } from "lucide-react";
 import type { SiteSettings } from "@/lib/site-data";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function Hero({ settings }: { settings: SiteSettings }) {
+  const isMobile = useIsMobile();
+  const [reducedMotion, setReducedMotion] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const on = () => setReducedMotion(mql.matches);
+    on();
+    mql.addEventListener("change", on);
+    return () => mql.removeEventListener("change", on);
+  }, []);
+  // Never stream the (4K) background video on phones or for reduced-motion users —
+  // the poster image stands in, protecting LCP and mobile data.
+  const showVideo = !isMobile && !reducedMotion;
+
   const h = (settings.hero ?? {}) as Record<string, unknown>;
   const stats = (h.stats ?? []) as Array<{ label: string; value: string }>;
   const ratedText = (h.rated_text as string) || "Rated by 100+ travelers";
@@ -27,13 +42,14 @@ export function Hero({ settings }: { settings: SiteSettings }) {
           className="absolute inset-0 -z-20 h-full w-full object-cover"
         />
       )}
-      {h.video_url && (
+      {showVideo && h.video_url && (
         <video
           className="absolute inset-0 -z-10 h-full w-full scale-105 object-cover"
           autoPlay
           muted
           loop
           playsInline
+          preload="none"
           poster={posterUrl}
         >
           <source src={h.video_url as string} type="video/mp4" />

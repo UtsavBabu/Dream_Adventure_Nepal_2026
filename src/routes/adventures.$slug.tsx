@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
-import { ArrowLeft, Clock, Mountain, MapPin } from "lucide-react";
+import { ArrowLeft, Clock, Mountain, MapPin, MessageCircle } from "lucide-react";
 
 import { adventureBySlugQuery, adventurePlacesQuery, siteSettingsQuery } from "@/lib/site-data";
 import { useReveal } from "@/hooks/use-reveal";
@@ -25,6 +25,7 @@ export const Route = createFileRoute("/adventures/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
+    const priceValue = Number(String(loaderData.price).replace(/[^0-9.]/g, "")) || undefined;
     return {
       meta: [
         { title: `${loaderData.title} — Dream Adventure Nepal` },
@@ -32,6 +33,30 @@ export const Route = createFileRoute("/adventures/$slug")({
         { property: "og:title", content: loaderData.title },
         { property: "og:description", content: loaderData.description },
         { property: "og:image", content: loaderData.image_url },
+      ],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TouristTrip",
+            name: loaderData.title,
+            description: loaderData.description,
+            image: loaderData.image_url,
+            touristType: loaderData.category,
+            provider: { "@type": "TravelAgency", name: "Dream Adventure Nepal" },
+            ...(priceValue
+              ? {
+                  offers: {
+                    "@type": "Offer",
+                    price: priceValue,
+                    priceCurrency: "USD",
+                    availability: "https://schema.org/InStock",
+                  },
+                }
+              : {}),
+          }),
+        },
       ],
     };
   },
@@ -51,8 +76,17 @@ function AdventureDetailPage() {
     (settings?.contact as { email?: string; phone?: string; whatsapp?: string }) ?? {};
   const esewa = (settings?.esewa as { qr_url?: string }) ?? {};
 
+  // Prefer a real WhatsApp number; the settings whatsapp is a placeholder (00000000).
+  const waNumber =
+    contact.whatsapp && !/0{6,}/.test(contact.whatsapp) ? contact.whatsapp : contact.phone;
+  const waUrl = waNumber
+    ? `https://wa.me/${waNumber.replace(/\D/g, "")}?text=${encodeURIComponent(
+        `Hi! I'm interested in the ${adventure.title} (${adventure.price}). Can you share more details?`,
+      )}`
+    : null;
+
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background pb-20 lg:pb-0">
       {vis("navbar") && <SiteNavbar settings={settings} />}
 
       {/* Hero */}
@@ -173,6 +207,37 @@ function AdventureDetailPage() {
       {/* Footer CTA */}
       {vis("cta") && <CtaBlock settings={settings} />}
       {vis("footer") && <SiteFooter settings={settings} />}
+
+      {/* Floating WhatsApp (all breakpoints) */}
+      {waUrl && (
+        <a
+          href={waUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat with us on WhatsApp"
+          className="fixed bottom-24 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-elegant transition hover:scale-105 lg:bottom-6"
+        >
+          <MessageCircle className="h-7 w-7" />
+        </a>
+      )}
+
+      {/* Sticky mobile Book bar */}
+      {vis("adventure_booking") && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-white/95 px-4 py-3 backdrop-blur lg:hidden">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <div className="text-[11px] uppercase tracking-wider text-muted-foreground">From</div>
+              <div className="font-display text-lg font-medium text-primary">{adventure.price}</div>
+            </div>
+            <a
+              href="#book"
+              className="flex-1 rounded-full btn-hero py-3.5 text-center text-small font-semibold"
+            >
+              Book This Adventure
+            </a>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
