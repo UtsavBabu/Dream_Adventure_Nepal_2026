@@ -1,4 +1,14 @@
+import { Mountain } from "lucide-react";
 import type { Guide } from "@/lib/site-data";
+
+function initials(name: string) {
+  return name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w.charAt(0).toUpperCase())
+    .join("");
+}
 
 export function Guides({ items }: { items: Guide[] }) {
   if (items.length === 0) return null;
@@ -9,7 +19,7 @@ export function Guides({ items }: { items: Guide[] }) {
           <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
             Our Guides
           </div>
-          <h2 className="mt-4 font-display text-4xl font-medium text-primary sm:text-5xl">
+          <h2 className="mt-4 font-display text-h2 font-medium text-primary">
             Expert local guides
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
@@ -18,18 +28,20 @@ export function Guides({ items }: { items: Guide[] }) {
           </p>
         </div>
 
-        <div className="reveal mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="reveal mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((guide) => (
-            <div key={guide.id} className="group text-center">
-              <div className="mx-auto h-48 w-48 overflow-hidden rounded-full shadow-elegant transition group-hover:shadow-lg">
-                <img
-                  src={guide.avatar_url}
-                  alt={guide.name}
-                  className="h-full w-full object-cover"
-                />
+            <div
+              key={guide.id}
+              className="flex flex-col items-center rounded-3xl bg-white p-8 text-center shadow-glass"
+            >
+              <div className="grid h-20 w-20 place-items-center rounded-2xl bg-primary text-2xl font-display text-white">
+                {initials(guide.name)}
               </div>
               <h3 className="mt-5 font-display text-xl text-primary">{guide.name}</h3>
-              <div className="mt-1 text-sm font-medium text-accent">{guide.speciality}</div>
+              <div className="mt-1 flex items-center gap-1.5 text-sm font-medium text-accent">
+                <Mountain className="h-3.5 w-3.5" />
+                {guide.speciality}
+              </div>
             </div>
           ))}
         </div>

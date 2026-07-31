@@ -1,7 +1,17 @@
-import { Mail, MapPin, Phone } from "lucide-react";
+import { BadgeCheck, Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import type { SiteSettings } from "@/lib/site-data";
 import { ContactForm } from "@/components/site/contact-form";
+
+// Absolute hrefs so every link works from any page (routes + home-section anchors).
+const FOOTER_NAV = [
+  { label: "Home", href: "/" },
+  { label: "Treks", href: "/treks" },
+  { label: "Expeditions", href: "/expeditions" },
+  { label: "Tours", href: "/tours" },
+  { label: "About", href: "/#about" },
+  { label: "Contact", href: "/#contact" },
+];
 
 export function CtaBlock({ settings }: { settings: SiteSettings }) {
   const c = settings.cta ?? {};
@@ -30,9 +40,7 @@ export function CtaBlock({ settings }: { settings: SiteSettings }) {
             <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
               Get In Touch
             </div>
-            <h2 className="mt-4 font-display text-4xl font-medium leading-[1.1] sm:text-5xl lg:text-6xl">
-              {c.title}
-            </h2>
+            <h2 className="mt-4 text-balance font-display text-h1 font-medium">{c.title}</h2>
             <p className="mt-5 text-lg text-white/70">{c.subtitle}</p>
             <div className="mt-8 flex flex-wrap gap-4">
               <a
@@ -62,6 +70,8 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
   const f = settings.footer ?? {};
   const c = settings.contact ?? {};
   const nav = settings.nav ?? {};
+  const social = settings.social ?? {};
+  const legal = settings.legal ?? {};
   return (
     <footer className="bg-primary-deep py-16 text-white/70">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-4">
@@ -70,6 +80,41 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
             {nav.logo ?? "Dream Adventure Nepal"}
           </div>
           <p className="mt-3 max-w-md text-sm">{f.tagline}</p>
+          {(social.instagram || social.facebook) && (
+            <div className="mt-5 flex items-center gap-3">
+              {social.instagram && (
+                <a
+                  href={social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white transition hover:bg-accent hover:border-accent"
+                >
+                  <Instagram className="h-5 w-5" />
+                </a>
+              )}
+              {social.facebook && (
+                <a
+                  href={social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white transition hover:bg-accent hover:border-accent"
+                >
+                  <Facebook className="h-5 w-5" />
+                </a>
+              )}
+            </div>
+          )}
+          {legal.registration_no && (
+            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70">
+              <BadgeCheck className="h-4 w-4 text-accent" />
+              <span>
+                Reg. No. {legal.registration_no}
+                {legal.registrar ? ` · ${legal.registrar}` : ""}
+              </span>
+            </div>
+          )}
         </div>
         <div>
           <div className="mb-4 text-xs font-semibold uppercase tracking-wider text-white">
@@ -101,8 +146,8 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
             Explore
           </div>
           <div className="flex flex-col gap-2 text-sm">
-            {(nav.links ?? []).slice(0, 5).map((l: { label: string; href: string }) =>
-              l.href.startsWith("#") ? (
+            {FOOTER_NAV.map((l) =>
+              l.href.includes("#") ? (
                 <a key={l.label} href={l.href} className="hover:text-white">
                   {l.label}
                 </a>
