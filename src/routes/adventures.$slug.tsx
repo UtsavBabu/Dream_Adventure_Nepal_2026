@@ -3,7 +3,12 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
 import { ArrowLeft, Clock, Mountain, MapPin, MessageCircle } from "lucide-react";
 
-import { adventureBySlugQuery, adventurePlacesQuery, siteSettingsQuery } from "@/lib/site-data";
+import {
+  adventureBySlugQuery,
+  adventurePlacesQuery,
+  adventuresQuery,
+  siteSettingsQuery,
+} from "@/lib/site-data";
 import { useReveal } from "@/hooks/use-reveal";
 import { SiteNavbar } from "@/components/site/site-navbar";
 import {
@@ -14,6 +19,15 @@ import {
 import { AdventurePlaces } from "@/components/site/adventure-places";
 import { AdventureMap } from "@/components/site/adventure-map";
 import { AdventureBooking } from "@/components/site/adventure-booking";
+import {
+  AdventureTrust,
+  ElevationProfile,
+  BestSeason,
+  PackingList,
+  MeetYourTeam,
+  AdventureFaq,
+  RelatedAdventures,
+} from "@/components/site/adventure-story";
 import { SiteFooter } from "@/components/site/footer-cta";
 
 export const Route = createFileRoute("/adventures/$slug")({
@@ -21,6 +35,7 @@ export const Route = createFileRoute("/adventures/$slug")({
     const adventure = await context.queryClient.ensureQueryData(adventureBySlugQuery(params.slug));
     await context.queryClient.ensureQueryData(siteSettingsQuery);
     await context.queryClient.ensureQueryData(adventurePlacesQuery(adventure.id));
+    context.queryClient.ensureQueryData(adventuresQuery);
     return adventure;
   },
   head: ({ loaderData }) => {
@@ -68,6 +83,7 @@ function AdventureDetailPage() {
   const { data: adventure } = useSuspenseQuery(adventureBySlugQuery(slug));
   const { data: settings } = useSuspenseQuery(siteSettingsQuery);
   const { data: adventurePlaces } = useSuspenseQuery(adventurePlacesQuery(adventure.id));
+  const { data: allAdventures } = useSuspenseQuery(adventuresQuery);
   useReveal();
 
   const v = (settings?.section_visibility as Record<string, boolean>) ?? {};
@@ -156,7 +172,10 @@ function AdventureDetailPage() {
         </div>
       </section>
 
-      {/* Overview */}
+      {/* Trust badges */}
+      <AdventureTrust settings={settings} />
+
+      {/* Overview / the story */}
       {vis("adventure_overview") && adventure.long_description && (
         <section className="bg-white py-20 lg:py-28">
           <div className="mx-auto max-w-reading px-6">
@@ -181,7 +200,10 @@ function AdventureDetailPage() {
       {/* Itinerary */}
       {vis("adventure_itinerary") && <AdventureItinerary days={adventure.itinerary ?? []} />}
 
-      {/* Places */}
+      {/* Altitude & difficulty graph (derived from itinerary) */}
+      <ElevationProfile itinerary={adventure.itinerary ?? []} difficulty={adventure.difficulty} />
+
+      {/* Places / destination highlights */}
       {vis("adventure_places") && <AdventurePlaces places={adventurePlaces ?? []} />}
 
       {/* Map */}
@@ -197,14 +219,26 @@ function AdventureDetailPage() {
         />
       )}
 
-      {/* Booking */}
+      {/* Best season · packing · guides · FAQ */}
+      <BestSeason />
+      <PackingList />
+      <MeetYourTeam />
+      <AdventureFaq />
+
+      {/* Booking (the page's CTA) */}
       {vis("adventure_booking") && (
         <div id="book" className="scroll-mt-24">
           <AdventureBooking adventure={adventure} contact={contact} esewaQrUrl={esewa.qr_url} />
         </div>
       )}
 
-      {/* Booking is the page's CTA — no duplicate contact block here. */}
+      {/* Related adventures */}
+      <RelatedAdventures
+        items={allAdventures}
+        category={adventure.category}
+        currentSlug={adventure.slug}
+      />
+
       {vis("footer") && <SiteFooter settings={settings} />}
 
       {/* Floating WhatsApp (all breakpoints) */}
