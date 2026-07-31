@@ -22,10 +22,10 @@ export function AdventurePlaces({
     <section className="bg-surface py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="reveal text-center">
-          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+          <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
             Destinations
           </div>
-          <h2 className="mt-4 font-display text-4xl font-medium text-primary">
+          <h2 className="mt-4 font-display text-h2 font-medium text-primary">
             Places you'll explore
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">Every destination along your journey</p>

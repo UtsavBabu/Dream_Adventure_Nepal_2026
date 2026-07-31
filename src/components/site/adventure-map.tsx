@@ -6,10 +6,10 @@ export function AdventureMap({ embedUrl, title }: { embedUrl: string; title: str
     <section className="bg-white py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="reveal text-center">
-          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+          <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
             Location
           </div>
-          <h2 className="mt-4 font-display text-4xl font-medium text-primary">Where you'll be</h2>
+          <h2 className="mt-4 font-display text-h2 font-medium text-primary">Where you'll be</h2>
           <p className="mt-4 text-lg text-muted-foreground">
             Explore the region of <span className="font-medium text-primary">{title}</span> on the
             map.

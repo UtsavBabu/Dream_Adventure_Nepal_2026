@@ -29,14 +29,14 @@ export function AdventureBooking({
     <section id="booking" className="bg-primary py-28 text-white">
       <div className="mx-auto max-w-6xl px-6">
         <div className="reveal text-center">
-          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+          <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
             Book This Adventure
           </div>
-          <h2 className="mt-4 font-display text-4xl font-medium sm:text-5xl">
+          <h2 className="mt-4 font-display text-h2 font-medium">
             Ready for the {adventure.title}?
           </h2>
-          <p className="mt-4 text-lg text-white/70">
-            Fill out the form below and we'll confirm your booking within 24 hours.
+          <p className="mt-4 text-subtitle text-white/70">
+            Three quick steps — we'll confirm availability within 24 hours.
           </p>
         </div>
 
@@ -111,10 +111,6 @@ export function AdventureBooking({
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="reveal mt-10 text-center text-sm text-white/40">
-          We reply within 2 hours. No commitment, no pressure — just honest answers.
         </div>
       </div>
     </section>

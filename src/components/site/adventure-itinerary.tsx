@@ -8,10 +8,10 @@ export function AdventureItinerary({ days }: { days: ItineraryDay[] }) {
     <section className="bg-surface py-28">
       <div className="mx-auto max-w-4xl px-6">
         <div className="reveal text-center">
-          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+          <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
             Itinerary
           </div>
-          <h2 className="mt-4 font-display text-4xl font-medium text-primary">
+          <h2 className="mt-4 font-display text-h2 font-medium text-primary">
             Day-by-day breakdown
           </h2>
         </div>
@@ -61,7 +61,7 @@ export function AdventureIncludesExcludes({
               <ul className="mt-6 space-y-3">
                 {includes.map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-muted-foreground">
-                    <Check className="mt-0.5 h-5 w-5 shrink-0 text-green-600" />
+                    <Check className="mt-0.5 h-5 w-5 shrink-0 text-success" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -95,10 +95,10 @@ export function AdventureHighlights({ items }: { items: string[] }) {
     <section className="bg-surface py-20">
       <div className="mx-auto max-w-5xl px-6">
         <div className="reveal text-center">
-          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+          <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
             Highlights
           </div>
-          <h2 className="mt-4 font-display text-3xl font-medium text-primary">
+          <h2 className="mt-4 font-display text-h2 font-medium text-primary">
             What makes this trip special
           </h2>
         </div>
