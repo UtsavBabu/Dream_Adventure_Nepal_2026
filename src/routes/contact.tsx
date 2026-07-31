@@ -238,30 +238,63 @@ function ContactContent() {
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* FAQ — two-column: intro + contact CTA (sticky) · accordion */}
       <section className="bg-surface py-20 lg:py-28">
-        <div className="mx-auto max-w-reading px-6">
-          <div className="reveal text-center">
-            <div className="eyebrow">
-              FAQ
+        <div className="mx-auto max-w-content px-6">
+          <div className="grid gap-12 lg:grid-cols-3 lg:gap-16">
+            <div className="reveal lg:col-span-1">
+              <div className="lg:sticky lg:top-24">
+                <div className="eyebrow">FAQ</div>
+                <h2 className="mt-4 text-balance font-display text-h2 font-medium text-primary">
+                  Before you reach out
+                </h2>
+                <p className="mt-4 text-small text-muted-foreground">
+                  Can't find your answer? A local expert replies within 24 hours — no pressure,
+                  just honest advice.
+                </p>
+                <div className="mt-6 rounded-3xl border border-border bg-white p-6 shadow-glass">
+                  <div className="font-display text-xl text-primary">Still have questions?</div>
+                  <p className="mt-2 text-small text-muted-foreground">
+                    Message us and we'll help you plan the right trip.
+                  </p>
+                  <div className="mt-5 space-y-3">
+                    {waUrl && (
+                      <a
+                        href={waUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 rounded-full btn-primary py-3 text-small font-semibold"
+                      >
+                        <MessageCircle className="h-4 w-4" /> Chat on WhatsApp
+                      </a>
+                    )}
+                    {c.phone && (
+                      <a
+                        href={`tel:${c.phone}`}
+                        className="flex items-center justify-center gap-2 rounded-full border border-border py-3 text-small font-semibold text-primary transition hover:border-primary"
+                      >
+                        <Phone className="h-4 w-4 text-accent" /> {c.phone}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
-            <h2 className="mt-4 font-display text-h2 font-medium text-primary">
-              Before you reach out
-            </h2>
-          </div>
-          <div className="reveal mt-12 space-y-3">
-            {FAQS.map((f) => (
-              <details
-                key={f.q}
-                className="group rounded-2xl border border-border bg-white p-5 [&_summary]:cursor-pointer"
-              >
-                <summary className="flex items-center justify-between gap-4 font-display text-lg text-primary marker:content-none">
-                  {f.q}
-                  <span className="text-accent transition-transform group-open:rotate-45">+</span>
-                </summary>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
-              </details>
-            ))}
+
+            <div className="reveal space-y-3 lg:col-span-2">
+              {FAQS.map((f) => (
+                <details
+                  key={f.q}
+                  className="group rounded-2xl border border-border bg-white p-6 [&_summary]:cursor-pointer"
+                >
+                  <summary className="flex items-center justify-between gap-4 font-display text-lg text-primary marker:content-none">
+                    {f.q}
+                    <span className="text-accent transition-transform group-open:rotate-45">+</span>
+                  </summary>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+                </details>
+              ))}
+            </div>
           </div>
         </div>
       </section>

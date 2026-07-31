@@ -305,7 +305,7 @@ export function BestSeason() {
           </p>
         </div>
 
-        <div className="reveal mx-auto mt-10 flex max-w-reading justify-center gap-1.5">
+        <div className="reveal mx-auto mt-10 flex max-w-content justify-center gap-1.5">
           {MONTHS.map((m, i) => (
             <div key={i} className="flex-1 text-center">
               <div className={`h-16 rounded-lg ${peakMonths.has(i) ? "bg-accent" : "bg-accent/25"}`} />
@@ -313,7 +313,7 @@ export function BestSeason() {
             </div>
           ))}
         </div>
-        <div className="reveal mx-auto mt-4 flex max-w-reading items-center justify-center gap-6 text-caption text-muted-foreground">
+        <div className="reveal mx-auto mt-4 flex max-w-content items-center justify-center gap-6 text-caption text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-accent" /> Peak season
           </span>
