@@ -135,40 +135,118 @@ export function ElevationProfile({ itinerary, difficulty }: { itinerary: Day[]; 
 /* ───────────────────────────── Best season ─────────────────────────────── */
 const MONTHS = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
 const SEASONS = [
-  { icon: Leaf, name: "Spring", months: "Mar – May", note: "Rhododendron blooms, clear mornings, warm days.", best: true },
-  { icon: Sun, name: "Autumn", months: "Sep – Nov", note: "The classic season — stable weather, the sharpest views.", best: true },
-  { icon: CloudRain, name: "Monsoon", months: "Jun – Aug", note: "Green and quiet; rain in the lowlands, best for rain-shadow trails.", best: false },
-  { icon: Snowflake, name: "Winter", months: "Dec – Feb", note: "Crisp, empty trails; cold at altitude, some passes closed.", best: false },
+  {
+    icon: Leaf,
+    name: "Spring",
+    months: "Mar – May",
+    tier: "Peak",
+    best: true,
+    note: "Rhododendron forests in bloom, warm days and clear mornings.",
+    treks: ["Everest Base Camp", "Annapurna Sanctuary", "Langtang Valley"],
+  },
+  {
+    icon: Sun,
+    name: "Autumn",
+    months: "Sep – Nov",
+    tier: "Peak",
+    best: true,
+    note: "The classic season — stable weather and the sharpest Himalayan views of the year.",
+    treks: ["Everest Base Camp", "Annapurna Circuit", "Manaslu Circuit"],
+  },
+  {
+    icon: CloudRain,
+    name: "Monsoon",
+    months: "Jun – Aug",
+    tier: "Rain-shadow",
+    best: false,
+    note: "Green and quiet. Head behind the main range to the rain-shadow valleys that stay dry.",
+    treks: ["Upper Mustang", "Upper Dolpo", "Nar Phu Valley"],
+  },
+  {
+    icon: Snowflake,
+    name: "Winter",
+    months: "Dec – Feb",
+    tier: "Crisp & quiet",
+    best: false,
+    note: "Crystal-clear skies and empty trails — keep to lower altitudes to stay comfortable.",
+    treks: ["Ghorepani Poon Hill", "Mardi Himal", "Everest View Trek"],
+  },
 ];
 export function BestSeason() {
-  const bestMonths = new Set([2, 3, 4, 8, 9, 10]); // Mar–May, Sep–Nov (0-indexed)
+  const peakMonths = new Set([2, 3, 4, 8, 9, 10]); // Mar–May, Sep–Nov (0-indexed)
   return (
     <section className="bg-surface py-20 lg:py-28">
       <div className="mx-auto max-w-content px-6">
         <div className="reveal mx-auto max-w-reading text-center">
           <div className="eyebrow">When to go</div>
-          <h2 className="mt-4 font-display text-h2 font-medium text-primary">Best season to travel</h2>
+          <h2 className="mt-4 font-display text-h2 font-medium text-primary">
+            Nepal treks year-round
+          </h2>
+          <p className="mt-4 text-subtitle text-muted-foreground">
+            Spring and autumn are the peak windows — but with the right region, every season
+            delivers. Here's where to go, month by month.
+          </p>
         </div>
+
         <div className="reveal mx-auto mt-10 flex max-w-reading justify-center gap-1.5">
           {MONTHS.map((m, i) => (
             <div key={i} className="flex-1 text-center">
-              <div className={`h-16 rounded-lg ${bestMonths.has(i) ? "bg-accent" : "bg-primary/10"}`} />
+              <div className={`h-16 rounded-lg ${peakMonths.has(i) ? "bg-accent" : "bg-accent/25"}`} />
               <div className="mt-2 text-caption font-medium text-muted-foreground">{m}</div>
             </div>
           ))}
         </div>
+        <div className="reveal mx-auto mt-4 flex max-w-reading items-center justify-center gap-6 text-caption text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-accent" /> Peak season
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-accent/25" /> Great for select regions
+          </span>
+        </div>
+
         <div className="reveal mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {SEASONS.map(({ icon: Icon, name, months, note, best }) => (
-            <div key={name} className={`rounded-2xl border p-6 ${best ? "border-accent/40 bg-white shadow-glass" : "border-border bg-white"}`}>
-              <div className={`grid h-11 w-11 place-items-center rounded-xl ${best ? "bg-accent text-primary" : "bg-primary/10 text-primary"}`}>
-                <Icon className="h-5 w-5" />
+          {SEASONS.map(({ icon: Icon, name, months, note, treks, tier, best }) => (
+            <div
+              key={name}
+              className={`flex flex-col rounded-2xl border p-6 ${best ? "border-accent/40 bg-white shadow-glass" : "border-border bg-white"}`}
+            >
+              <div className="flex items-center justify-between">
+                <div
+                  className={`grid h-11 w-11 place-items-center rounded-xl ${best ? "bg-accent text-primary" : "bg-primary/10 text-primary"}`}
+                >
+                  <Icon className="h-5 w-5" />
+                </div>
+                <span
+                  className={
+                    best
+                      ? "badge !px-2.5 !py-1 !text-[10px]"
+                      : "rounded-full border border-border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground"
+                  }
+                >
+                  {tier}
+                </span>
               </div>
-              <div className="mt-4 flex items-center gap-2">
-                <span className="font-display text-xl text-primary">{name}</span>
-                {best && <span className="badge !px-2.5 !py-1 !text-[10px]">Best</span>}
+              <div className="mt-4 font-display text-xl text-primary">{name}</div>
+              <div className="mt-1 text-caption uppercase tracking-wider text-muted-foreground">
+                {months}
               </div>
-              <div className="mt-1 text-caption uppercase tracking-wider text-muted-foreground">{months}</div>
               <p className="mt-3 text-small leading-relaxed text-muted-foreground">{note}</p>
+              <div className="mt-4 border-t border-border pt-4">
+                <div className="text-caption uppercase tracking-wider text-muted-foreground">
+                  Great for
+                </div>
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {treks.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full bg-primary/5 px-2.5 py-1 text-caption font-medium text-primary/80"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           ))}
         </div>

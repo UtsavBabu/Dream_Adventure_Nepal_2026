@@ -6,7 +6,7 @@ import { Mountain, Phone, Mail, MessageCircle } from "lucide-react";
 import { adventuresQuery, siteSettingsQuery } from "@/lib/site-data";
 import { useReveal } from "@/hooks/use-reveal";
 import { SiteNavbar } from "@/components/site/site-navbar";
-import { AdventureCard } from "@/components/site/adventure-card";
+import { AdventureListing } from "@/components/site/adventure-listing";
 import { BookingForm } from "@/components/site/booking-form";
 import { CtaBlock, SiteFooter } from "@/components/site/footer-cta";
 
@@ -118,23 +118,9 @@ function ToursContent() {
         </section>
       )}
 
-      {/* Tour listing */}
+      {/* Tour listing (shared floating-filter + grid) */}
       {vis("tours_listing") && (
-        <section className="bg-surface py-20 lg:py-28">
-          <div className="mx-auto max-w-content px-6">
-            {tours.length === 0 ? (
-              <div className="py-20 text-center text-muted-foreground">
-                No tours available yet. Check back soon.
-              </div>
-            ) : (
-              <div className="reveal grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
-                {tours.map((a) => (
-                  <AdventureCard key={a.id} adventure={a} label="Tour" />
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
+        <AdventureListing items={adventures} category="Tour" label="Tour" />
       )}
 
       {/* Booking section */}
