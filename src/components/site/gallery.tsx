@@ -1,6 +1,7 @@
 import type { GalleryImage } from "@/lib/site-data";
 
 export function Gallery({ items }: { items: GalleryImage[] }) {
+  if (!items || items.length === 0) return null;
   return (
     <section id="gallery" className="bg-background py-28">
       <div className="mx-auto max-w-7xl px-6">
@@ -8,7 +9,7 @@ export function Gallery({ items }: { items: GalleryImage[] }) {
           <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
             Gallery
           </div>
-          <h2 className="mt-4 font-display text-4xl font-medium text-primary sm:text-5xl">
+          <h2 className="mt-4 font-display text-h2 font-medium text-primary">
             Moments from the mountains
           </h2>
         </div>

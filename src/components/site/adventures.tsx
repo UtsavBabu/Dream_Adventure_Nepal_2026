@@ -39,14 +39,14 @@ export function AdventureSection({ items, category }: { items: Adventure[]; cate
 
       <div className="mx-auto max-w-7xl px-6">
         <div className="reveal mx-auto max-w-3xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+          <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-caption font-semibold uppercase tracking-[0.18em] text-accent">
             <Mountain className="h-3.5 w-3.5" /> {cfg.label}
           </div>
           <h2
-            className="mt-5 font-display text-4xl font-medium leading-tight text-primary sm:text-5xl lg:text-6xl"
+            className="mt-6 text-balance font-display text-h2 font-medium text-primary"
             dangerouslySetInnerHTML={{ __html: cfg.title }}
           />
-          <p className="mt-5 text-lg text-muted-foreground">{cfg.subtitle}</p>
+          <p className="mt-5 text-subtitle text-muted-foreground">{cfg.subtitle}</p>
         </div>
 
         <div className="mt-16 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
@@ -55,7 +55,7 @@ export function AdventureSection({ items, category }: { items: Adventure[]; cate
               key={a.id}
               to="/adventures/$slug"
               params={{ slug: a.slug }}
-              className="reveal group card-elevate block overflow-hidden rounded-3xl bg-white shadow-glass"
+              className="reveal group card-elevate block overflow-hidden rounded-3xl bg-white shadow-glass ring-1 ring-black/[0.04] transition-shadow hover:ring-2 hover:ring-accent/40"
               style={{ transitionDelay: `${i * 60}ms` }}
             >
               <div className="relative aspect-[4/5] overflow-hidden">

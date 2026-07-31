@@ -9,7 +9,7 @@ export function OurTeam({ items }: { items: TeamMember[] }) {
           <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
             Our Team
           </div>
-          <h2 className="mt-4 font-display text-4xl font-medium text-primary sm:text-5xl">
+          <h2 className="mt-4 font-display text-h2 font-medium text-primary">
             Meet our Team
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">

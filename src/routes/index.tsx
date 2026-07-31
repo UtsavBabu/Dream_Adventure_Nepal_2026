@@ -13,6 +13,7 @@ import {
 import { useReveal } from "@/hooks/use-reveal";
 import { SiteNavbar } from "@/components/site/site-navbar";
 import { Hero } from "@/components/site/hero";
+import { TrustBar } from "@/components/site/trust-bar";
 import { AdventureSection } from "@/components/site/adventures";
 import { WhyUs } from "@/components/site/why-us";
 import { Testimonials } from "@/components/site/testimonials";
@@ -76,6 +77,9 @@ function HomeContent() {
     <main className="min-h-screen bg-background">
       {vis("navbar") && <SiteNavbar settings={settings} />}
       {vis("home_hero") && <Hero settings={settings} />}
+      {vis("home_hero") && <TrustBar settings={settings} />}
+      {/* Scroll/CTA anchor target for the hero's "explore" links */}
+      <div id="adventures" aria-hidden />
       {vis("home_treks") && (
         <AdventureSection items={adventures.filter((a) => a.category === "Trek")} category="Trek" />
       )}
