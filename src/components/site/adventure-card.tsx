@@ -4,6 +4,13 @@ import type { Adventure } from "@/lib/site-data";
 
 // Single source of truth for the adventure card used on the homepage,
 // the treks/expeditions/tours listings, and anywhere else.
+// Pexels URLs accept a ?w= width param — build a srcset so phones don't download
+// desktop-sized images. Other hosts (Supabase storage) are served as-is.
+function pexelsSrcSet(url?: string) {
+  if (!url || !url.includes("images.pexels.com") || !/[?&]w=\d+/.test(url)) return undefined;
+  return [400, 600, 800, 1200].map((w) => `${url.replace(/w=\d+/, `w=${w}`)} ${w}w`).join(", ");
+}
+
 export function AdventureCard({ adventure: a, label }: { adventure: Adventure; label?: string }) {
   return (
     <Link
@@ -14,6 +21,8 @@ export function AdventureCard({ adventure: a, label }: { adventure: Adventure; l
       <div className="relative aspect-[4/5] overflow-hidden">
         <img
           src={a.image_url || undefined}
+          srcSet={pexelsSrcSet(a.image_url)}
+          sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 90vw"
           alt={a.title}
           loading="lazy"
           className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-110"

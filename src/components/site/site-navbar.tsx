@@ -10,8 +10,8 @@ const LINKS: NavLinkItem[] = [
   { label: "Treks", href: "/treks" },
   { label: "Expeditions", href: "/expeditions" },
   { label: "Tours", href: "/tours" },
-  { label: "About Us", href: "/#about" },
-  { label: "Contact Us", href: "/#contact" },
+  { label: "About Us", href: "/about" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 function NavLink({
@@ -90,7 +90,7 @@ export function SiteNavbar({ settings }: { settings: SiteSettings }) {
 
         <div className="flex items-center gap-3">
           <a
-            href="/#contact"
+            href="/contact"
             className="hidden rounded-full btn-hero px-6 py-3 text-small font-semibold lg:inline-flex"
           >
             {cta}
@@ -123,7 +123,7 @@ export function SiteNavbar({ settings }: { settings: SiteSettings }) {
               </a>
             ))}
             <a
-              href="/#contact"
+              href="/contact"
               onClick={() => setOpen(false)}
               className="mt-3 rounded-full btn-hero px-5 py-3 text-center text-small font-semibold"
             >

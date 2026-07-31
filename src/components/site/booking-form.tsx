@@ -367,7 +367,7 @@ export function BookingForm({
           <Button
             type="submit"
             disabled={sending}
-            className="flex-1 rounded-full bg-accent py-6 text-small font-semibold text-white hover:bg-accent/90"
+            className="flex-1 rounded-full bg-accent py-6 text-small font-semibold text-primary hover:bg-accent/90"
           >
             {sending ? (
               <>

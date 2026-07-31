@@ -108,7 +108,7 @@ function AdventureDetailPage() {
           </Link>
           <div className="reveal">
             <div className="flex flex-wrap gap-2">
-              <span className="rounded-full bg-accent px-3.5 py-1 text-caption font-semibold uppercase tracking-wider text-white">
+              <span className="rounded-full bg-accent px-3.5 py-1 text-caption font-semibold uppercase tracking-wider text-primary">
                 {adventure.category}
               </span>
               <span className="rounded-full glass px-3.5 py-1 text-caption font-semibold uppercase tracking-wider text-white/90">

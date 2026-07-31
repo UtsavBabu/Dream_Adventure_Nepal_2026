@@ -9,8 +9,8 @@ const FOOTER_NAV = [
   { label: "Treks", href: "/treks" },
   { label: "Expeditions", href: "/expeditions" },
   { label: "Tours", href: "/tours" },
-  { label: "About", href: "/#about" },
-  { label: "Contact", href: "/#contact" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function CtaBlock({ settings }: { settings: SiteSettings }) {

@@ -129,7 +129,7 @@ export function ContactForm() {
       <Button
         type="submit"
         disabled={sending}
-        className="w-full rounded-full bg-accent py-6 text-sm font-semibold text-white hover:bg-accent/90"
+        className="w-full rounded-full bg-accent py-6 text-sm font-semibold text-primary hover:bg-accent/90"
       >
         {sending ? (
           <>
