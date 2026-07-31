@@ -143,7 +143,7 @@ function ContactContent() {
       </section>
 
       {/* Methods + form */}
-      <section className="bg-surface py-24">
+      <section className="bg-surface py-20 lg:py-28">
         <div className="mx-auto grid max-w-content gap-12 px-6 lg:grid-cols-2">
           <div className="reveal">
             <div className="grid gap-4 sm:grid-cols-2">
@@ -239,7 +239,7 @@ function ContactContent() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-surface py-24">
+      <section className="bg-surface py-20 lg:py-28">
         <div className="mx-auto max-w-3xl px-6">
           <div className="reveal text-center">
             <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">

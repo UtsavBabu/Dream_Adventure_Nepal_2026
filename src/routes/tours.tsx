@@ -105,7 +105,7 @@ function ToursContent() {
 
       {/* Tour listing */}
       {vis("tours_listing") && (
-        <section className="bg-surface py-28">
+        <section className="bg-surface py-20 lg:py-28">
           <div className="mx-auto max-w-content px-6">
             {tours.length === 0 ? (
               <div className="py-20 text-center text-muted-foreground">
@@ -124,7 +124,7 @@ function ToursContent() {
 
       {/* Booking section */}
       {vis("tours_booking") && (
-        <section id="booking" className="bg-primary py-28 text-white">
+        <section id="booking" className="bg-primary py-20 lg:py-28 text-white">
           <div className="mx-auto max-w-6xl px-6">
             <div className="reveal text-center">
               <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">

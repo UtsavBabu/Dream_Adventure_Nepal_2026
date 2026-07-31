@@ -16,7 +16,7 @@ const FOOTER_NAV = [
 export function CtaBlock({ settings }: { settings: SiteSettings }) {
   const c = settings.cta ?? {};
   return (
-    <section id="contact" className="relative isolate overflow-hidden bg-primary py-28 text-white">
+    <section id="contact" className="relative isolate overflow-hidden bg-primary py-20 lg:py-28 text-white">
       <div
         className="absolute inset-0 -z-10 opacity-40"
         style={{

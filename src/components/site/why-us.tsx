@@ -19,7 +19,7 @@ export function WhyUs({ settings }: { settings: SiteSettings }) {
   const image: string = a.image ?? DEFAULT_IMAGE;
 
   return (
-    <section id="about" className="relative bg-primary py-28 text-white">
+    <section id="about" className="relative bg-primary py-20 lg:py-28 text-white">
       <div className="mx-auto max-w-content px-6">
         {/* Editorial split: image + story */}
         <div className="grid items-center gap-14 lg:grid-cols-2">

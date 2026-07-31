@@ -3,7 +3,7 @@ import type { GalleryImage } from "@/lib/site-data";
 export function Gallery({ items }: { items: GalleryImage[] }) {
   if (!items || items.length === 0) return null;
   return (
-    <section id="gallery" className="bg-background py-28">
+    <section id="gallery" className="bg-background py-20 lg:py-28">
       <div className="mx-auto max-w-content px-6">
         <div className="reveal mx-auto max-w-3xl text-center">
           <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">

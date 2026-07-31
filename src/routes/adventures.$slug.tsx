@@ -158,7 +158,7 @@ function AdventureDetailPage() {
 
       {/* Overview */}
       {vis("adventure_overview") && adventure.long_description && (
-        <section className="bg-white py-28">
+        <section className="bg-white py-20 lg:py-28">
           <div className="mx-auto max-w-reading px-6">
             <div className="reveal">
               <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">

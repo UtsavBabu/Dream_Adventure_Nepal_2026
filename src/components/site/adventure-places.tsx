@@ -19,7 +19,7 @@ export function AdventurePlaces({
   if (!places || places.length === 0) return null;
 
   return (
-    <section className="bg-surface py-28">
+    <section className="bg-surface py-20 lg:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="reveal text-center">
           <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">

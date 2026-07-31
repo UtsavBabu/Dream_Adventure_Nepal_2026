@@ -95,7 +95,7 @@ function ExpeditionsContent() {
 
       {/* Expedition listing */}
       {vis("expeditions_listing") && (
-        <section className="bg-surface py-28">
+        <section className="bg-surface py-20 lg:py-28">
           <div className="mx-auto max-w-content px-6">
             {expeditions.length === 0 ? (
               <div className="py-20 text-center text-muted-foreground">

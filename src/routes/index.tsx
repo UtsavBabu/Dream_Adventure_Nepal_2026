@@ -81,16 +81,30 @@ function HomeContent() {
       {/* Scroll/CTA anchor target for the hero's "explore" links */}
       <div id="adventures" aria-hidden />
       {vis("home_treks") && (
-        <AdventureSection items={adventures.filter((a) => a.category === "Trek")} category="Trek" />
+        <AdventureSection
+          items={adventures.filter((a) => a.category === "Trek")}
+          category="Trek"
+          align="left"
+          limit={6}
+          viewAllHref="/treks"
+        />
       )}
       {vis("home_expeditions") && (
         <AdventureSection
           items={adventures.filter((a) => a.category === "Expedition")}
           category="Expedition"
+          tone="dark"
+          viewAllHref="/expeditions"
         />
       )}
       {vis("home_tours") && (
-        <AdventureSection items={adventures.filter((a) => a.category === "Tour")} category="Tour" />
+        <AdventureSection
+          items={adventures.filter((a) => a.category === "Tour")}
+          category="Tour"
+          align="left"
+          limit={6}
+          viewAllHref="/tours"
+        />
       )}
       {vis("home_why_us") && <WhyUs settings={settings} />}
       {vis("home_our_team") && <OurTeam items={teamMembers} />}
