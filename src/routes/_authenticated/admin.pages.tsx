@@ -203,7 +203,7 @@ function PagesAdmin() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">Studio</div>
+      <div className="eyebrow">Studio</div>
       <h1 className="mt-2 font-display text-3xl text-primary">Pages</h1>
       <p className="mt-2 text-sm text-muted-foreground">
         Customise the hero section of each category listing page — background image, badge,

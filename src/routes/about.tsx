@@ -69,7 +69,7 @@ function AboutContent() {
         </div>
         <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-16 pt-32">
           <div className="reveal max-w-reading">
-            <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
+            <div className="eyebrow">
               Our Story
             </div>
             <h1 className="mt-4 text-balance font-display text-h1 font-medium text-white">

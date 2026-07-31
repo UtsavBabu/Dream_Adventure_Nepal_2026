@@ -67,7 +67,7 @@ function AuthPage() {
       <div className="flex items-center justify-center p-8">
         <form onSubmit={submit} className="w-full max-w-md space-y-5">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+            <div className="eyebrow">
               Welcome back
             </div>
             <h2 className="mt-2 font-display text-3xl text-primary">Sign in to continue</h2>
@@ -101,7 +101,7 @@ function AuthPage() {
           <Button
             type="submit"
             disabled={busy}
-            className="w-full rounded-full btn-hero py-6 text-sm font-semibold"
+            className="w-full rounded-full btn-primary py-6 text-sm font-semibold"
           >
             {busy ? "Please wait…" : "Sign In"}
           </Button>

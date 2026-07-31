@@ -117,7 +117,7 @@ function HeroAdmin() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">Studio</div>
+      <div className="eyebrow">Studio</div>
       <h1 className="mt-2 font-display text-3xl text-primary">Hero Section</h1>
       <p className="mt-2 text-sm text-muted-foreground">
         Customise the homepage hero — video background, headlines, buttons and stats.
@@ -304,7 +304,7 @@ function HeroAdmin() {
         <Button
           onClick={save}
           disabled={busy}
-          className="rounded-full btn-hero px-8 py-6 text-sm font-semibold"
+          className="rounded-full btn-primary px-8 py-6 text-sm font-semibold"
         >
           {busy ? "Saving…" : "Save Hero"}
         </Button>

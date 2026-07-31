@@ -127,7 +127,7 @@ function ToursContent() {
         <section id="booking" className="bg-primary py-20 lg:py-28 text-white">
           <div className="mx-auto max-w-content px-6">
             <div className="reveal text-center">
-              <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+              <div className="eyebrow">
                 Book a Tour
               </div>
               <h2 className="mt-4 font-display text-h2 font-medium">

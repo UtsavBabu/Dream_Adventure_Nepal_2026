@@ -59,7 +59,7 @@ function MessagesAdmin() {
     <div className="mx-auto max-w-5xl">
       <div className="flex items-end justify-between">
         <div>
-          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">Inbox</div>
+          <div className="eyebrow">Inbox</div>
           <h1 className="mt-2 font-display text-3xl text-primary">Messages</h1>
           <p className="text-sm text-muted-foreground">
             {unreadCount} unread / {rows.length} total

@@ -122,7 +122,7 @@ function AdventureDetailPage() {
             <div className="mt-9 flex flex-wrap items-center gap-5">
               <a
                 href="#book"
-                className="inline-flex items-center gap-2 rounded-full btn-hero px-8 py-4 text-small font-semibold"
+                className="inline-flex items-center gap-2 rounded-full btn-primary px-8 py-4 text-small font-semibold"
               >
                 Book This Adventure
               </a>
@@ -148,7 +148,7 @@ function AdventureDetailPage() {
             </div>
             <a
               href="#book"
-              className="inline-flex items-center gap-2 rounded-full btn-hero px-6 py-3 text-small font-semibold"
+              className="inline-flex items-center gap-2 rounded-full btn-primary px-6 py-3 text-small font-semibold"
             >
               Book Now — {adventure.price}
             </a>
@@ -161,7 +161,7 @@ function AdventureDetailPage() {
         <section className="bg-white py-20 lg:py-28">
           <div className="mx-auto max-w-reading px-6">
             <div className="reveal">
-              <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
+              <div className="eyebrow">
                 Overview
               </div>
               <h2 className="mt-4 font-display text-h2 font-medium text-primary">
@@ -231,7 +231,7 @@ function AdventureDetailPage() {
             </div>
             <a
               href="#book"
-              className="flex-1 rounded-full btn-hero py-3.5 text-center text-small font-semibold"
+              className="flex-1 rounded-full btn-primary py-3.5 text-center text-small font-semibold"
             >
               Book This Adventure
             </a>

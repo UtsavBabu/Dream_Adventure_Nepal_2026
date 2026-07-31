@@ -37,7 +37,7 @@ export function CtaBlock({ settings }: { settings: SiteSettings }) {
       <div className="reveal mx-auto max-w-content px-6">
         <div className="grid gap-16 lg:grid-cols-2">
           <div className="flex flex-col justify-center">
-            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+            <div className="eyebrow">
               Get In Touch
             </div>
             <h2 className="mt-4 text-balance font-display text-h1 font-medium">{c.title}</h2>

@@ -6,7 +6,7 @@ export function Gallery({ items }: { items: GalleryImage[] }) {
     <section id="gallery" className="bg-background py-20 lg:py-28">
       <div className="mx-auto max-w-content px-6">
         <div className="reveal mx-auto max-w-reading text-center">
-          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+          <div className="eyebrow">
             Gallery
           </div>
           <h2 className="mt-4 font-display text-h2 font-medium text-primary">

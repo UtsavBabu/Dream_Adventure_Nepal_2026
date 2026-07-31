@@ -64,12 +64,12 @@ function GuidesAdmin() {
     <div className="mx-auto max-w-5xl">
       <div className="flex items-end justify-between">
         <div>
-          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+          <div className="eyebrow">
             Content
           </div>
           <h1 className="mt-2 font-display text-3xl text-primary">Guides</h1>
         </div>
-        <Button onClick={() => setEditing({ ...empty })} className="rounded-full btn-hero px-5">
+        <Button onClick={() => setEditing({ ...empty })} className="rounded-full btn-primary px-5">
           <Plus className="mr-2 h-4 w-4" /> New Guide
         </Button>
       </div>
@@ -158,7 +158,7 @@ function GuidesAdmin() {
               <Button variant="outline" onClick={() => setEditing(null)}>
                 Cancel
               </Button>
-              <Button onClick={save} disabled={busy} className="rounded-full btn-hero px-6">
+              <Button onClick={save} disabled={busy} className="rounded-full btn-primary px-6">
                 {busy ? "Saving…" : "Save"}
               </Button>
             </div>

@@ -142,7 +142,7 @@ function VisibilityAdmin() {
     <div className="mx-auto max-w-4xl">
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+          <div className="eyebrow">
             Studio
           </div>
           <h1 className="mt-2 font-display text-3xl text-primary">Section Visibility</h1>
@@ -153,7 +153,7 @@ function VisibilityAdmin() {
         <Button
           onClick={save}
           disabled={busy}
-          className="rounded-full btn-hero px-8 py-6 text-sm font-semibold"
+          className="rounded-full btn-primary px-8 py-6 text-sm font-semibold"
         >
           {busy ? "Saving…" : "Save Visibility"}
         </Button>

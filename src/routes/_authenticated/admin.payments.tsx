@@ -107,7 +107,7 @@ function PaymentsAdmin() {
     <div className="mx-auto max-w-6xl">
       <div className="flex items-end justify-between">
         <div>
-          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+          <div className="eyebrow">
             Finance
           </div>
           <h1 className="mt-2 font-display text-3xl text-primary">Payments</h1>
@@ -124,7 +124,7 @@ function PaymentsAdmin() {
             });
             setShowForm(true);
           }}
-          className="rounded-full btn-hero px-5"
+          className="rounded-full btn-primary px-5"
         >
           <Plus className="mr-2 h-4 w-4" /> Record Payment
         </Button>
@@ -337,7 +337,7 @@ function PaymentsAdmin() {
               >
                 Cancel
               </Button>
-              <Button onClick={save} disabled={busy} className="rounded-full btn-hero px-6">
+              <Button onClick={save} disabled={busy} className="rounded-full btn-primary px-6">
                 {busy ? "Saving…" : editing.id ? "Update" : "Record Payment"}
               </Button>
             </div>

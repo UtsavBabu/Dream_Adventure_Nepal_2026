@@ -91,7 +91,7 @@ export function ContactForm() {
             onChange={(e) => setName(e.target.value)}
             placeholder="Your name"
             required
-            className="border-white/20 bg-white/5 text-white placeholder:text-white/30 focus:border-accent"
+            className="field-dark"
           />
         </div>
         <div className="space-y-1.5">
@@ -102,7 +102,7 @@ export function ContactForm() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="your@email.com"
             required
-            className="border-white/20 bg-white/5 text-white placeholder:text-white/30 focus:border-accent"
+            className="field-dark"
           />
         </div>
       </div>
@@ -112,7 +112,7 @@ export function ContactForm() {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="+977 ..."
-          className="border-white/20 bg-white/5 text-white placeholder:text-white/30 focus:border-accent"
+          className="field-dark"
         />
       </div>
       <div className="space-y-1.5">
@@ -123,7 +123,7 @@ export function ContactForm() {
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Tell us about your adventure plans..."
           required
-          className="border-white/20 bg-white/5 text-white placeholder:text-white/30 focus:border-accent"
+          className="field-dark"
         />
       </div>
       <Button

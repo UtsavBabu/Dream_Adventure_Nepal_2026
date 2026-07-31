@@ -77,7 +77,7 @@ function Overview() {
 
   return (
     <div className="mx-auto max-w-5xl">
-      <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">Studio</div>
+      <div className="eyebrow">Studio</div>
       <h1 className="mt-2 font-display text-4xl text-primary">Welcome back</h1>
       <p className="mt-2 text-muted-foreground">Edit every section of your site from here.</p>
 

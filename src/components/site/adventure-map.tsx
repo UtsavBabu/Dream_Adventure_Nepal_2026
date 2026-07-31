@@ -6,7 +6,7 @@ export function AdventureMap({ embedUrl, title }: { embedUrl: string; title: str
     <section className="bg-white py-20 lg:py-28">
       <div className="mx-auto max-w-content px-6">
         <div className="reveal text-center">
-          <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
+          <div className="eyebrow">
             Location
           </div>
           <h2 className="mt-4 font-display text-h2 font-medium text-primary">Where you'll be</h2>

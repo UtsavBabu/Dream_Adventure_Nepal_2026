@@ -105,7 +105,7 @@ function AdminLayout() {
           <button
             disabled={bootstrapping}
             onClick={claimAdmin}
-            className="mt-6 w-full rounded-full btn-hero py-3 text-sm font-semibold"
+            className="mt-6 w-full rounded-full btn-primary py-3 text-sm font-semibold"
           >
             {bootstrapping ? "Claiming…" : "Claim admin role"}
           </button>

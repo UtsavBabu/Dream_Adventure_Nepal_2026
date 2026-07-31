@@ -34,7 +34,7 @@ const STEPS = [
 
 const labelCls = "text-caption uppercase tracking-wider text-white/60";
 const inputCls =
-  "border-white/20 bg-white/5 text-white placeholder:text-white/30 focus:border-accent";
+  "field-dark";
 
 export function BookingForm({
   adventureId,
@@ -359,7 +359,7 @@ export function BookingForm({
           <button
             type="button"
             onClick={next}
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-full btn-hero px-6 py-3.5 text-small font-semibold sm:flex-none"
+            className="inline-flex flex-1 items-center justify-center gap-2 rounded-full btn-primary px-6 py-3.5 text-small font-semibold sm:flex-none"
           >
             Continue <ArrowRight className="h-4 w-4" />
           </button>

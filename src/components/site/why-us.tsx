@@ -36,7 +36,7 @@ export function WhyUs({ settings }: { settings: SiteSettings }) {
           </div>
 
           <div className="reveal">
-            <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
+            <div className="eyebrow">
               {a.eyebrow}
             </div>
             <h2 className="mt-5 text-balance font-display text-h2 font-medium">{a.title}</h2>

@@ -91,7 +91,7 @@ function BookingsAdmin() {
     <div className="mx-auto max-w-6xl">
       <div className="flex items-end justify-between">
         <div>
-          <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+          <div className="eyebrow">
             Management
           </div>
           <h1 className="mt-2 font-display text-3xl text-primary">Bookings</h1>

@@ -172,7 +172,7 @@ function SettingsAdmin() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">Studio</div>
+      <div className="eyebrow">Studio</div>
       <h1 className="mt-2 font-display text-3xl text-primary">Site Settings</h1>
       <p className="mt-2 text-sm text-muted-foreground">
         Manage your company branding, contact details, and site-wide content.
@@ -188,7 +188,7 @@ function SettingsAdmin() {
           <Button
             onClick={() => saveSection("nav")}
             disabled={busy}
-            className="rounded-full btn-hero px-5"
+            className="rounded-full btn-primary px-5"
             size="sm"
           >
             Save
@@ -272,7 +272,7 @@ function SettingsAdmin() {
           <Button
             onClick={() => saveSection("contact")}
             disabled={busy}
-            className="rounded-full btn-hero px-5"
+            className="rounded-full btn-primary px-5"
             size="sm"
           >
             Save
@@ -321,7 +321,7 @@ function SettingsAdmin() {
           <Button
             onClick={() => saveSection("cta")}
             disabled={busy}
-            className="rounded-full btn-hero px-5"
+            className="rounded-full btn-primary px-5"
             size="sm"
           >
             Save
@@ -362,7 +362,7 @@ function SettingsAdmin() {
           <Button
             onClick={() => saveSection("about")}
             disabled={busy}
-            className="rounded-full btn-hero px-5"
+            className="rounded-full btn-primary px-5"
             size="sm"
           >
             Save
@@ -456,7 +456,7 @@ function SettingsAdmin() {
           <Button
             onClick={() => saveSection("footer")}
             disabled={busy}
-            className="rounded-full btn-hero px-5"
+            className="rounded-full btn-primary px-5"
             size="sm"
           >
             Save
@@ -496,7 +496,7 @@ function SettingsAdmin() {
           <Button
             onClick={() => saveSection("esewa")}
             disabled={busy}
-            className="rounded-full btn-hero px-5"
+            className="rounded-full btn-primary px-5"
             size="sm"
           >
             Save
@@ -618,7 +618,7 @@ function ChangePasswordForm() {
         <Button
           type="submit"
           disabled={busy}
-          className="rounded-full btn-hero px-5"
+          className="rounded-full btn-primary px-5"
           size="sm"
         >
           {busy ? "Updating…" : "Update Password"}

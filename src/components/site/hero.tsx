@@ -87,7 +87,7 @@ export function Hero({ settings }: { settings: SiteSettings }) {
           <div className="mt-10 flex animate-fade-up flex-wrap items-center gap-4 [animation-delay:240ms]">
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-full btn-hero px-8 py-4 text-small font-semibold"
+              className="inline-flex items-center gap-2 rounded-full btn-primary px-8 py-4 text-small font-semibold"
             >
               {(h.cta_primary as string) ?? "Book Adventure"}
             </a>

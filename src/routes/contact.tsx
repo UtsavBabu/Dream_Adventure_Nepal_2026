@@ -129,7 +129,7 @@ function ContactContent() {
         </div>
         <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-14 pt-32">
           <div className="reveal max-w-reading">
-            <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
+            <div className="eyebrow">
               Get In Touch
             </div>
             <h1 className="mt-4 text-balance font-display text-h1 font-medium text-white">
@@ -242,7 +242,7 @@ function ContactContent() {
       <section className="bg-surface py-20 lg:py-28">
         <div className="mx-auto max-w-reading px-6">
           <div className="reveal text-center">
-            <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
+            <div className="eyebrow">
               FAQ
             </div>
             <h2 className="mt-4 font-display text-h2 font-medium text-primary">

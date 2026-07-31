@@ -91,7 +91,7 @@ export function SiteNavbar({ settings }: { settings: SiteSettings }) {
         <div className="flex items-center gap-3">
           <a
             href="/contact"
-            className="hidden rounded-full btn-hero px-6 py-3 text-small font-semibold lg:inline-flex"
+            className="hidden rounded-full btn-primary px-6 py-3 text-small font-semibold lg:inline-flex"
           >
             {cta}
           </a>
@@ -125,7 +125,7 @@ export function SiteNavbar({ settings }: { settings: SiteSettings }) {
             <a
               href="/contact"
               onClick={() => setOpen(false)}
-              className="mt-3 rounded-full btn-hero px-5 py-3 text-center text-small font-semibold"
+              className="mt-3 rounded-full btn-primary px-5 py-3 text-center text-small font-semibold"
             >
               {cta}
             </a>
