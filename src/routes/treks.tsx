@@ -48,7 +48,7 @@ const days = (a: Adventure) => {
 const priceNum = (a: Adventure) => Number(a.price.replace(/[^0-9.]/g, "")) || 0;
 
 const selectCls =
-  "h-11 rounded-full border border-border bg-white px-4 text-sm text-primary shadow-sm focus:border-accent focus:outline-none";
+  "h-12 rounded-full border border-border bg-white px-5 text-[15px] text-primary shadow-sm transition hover:border-primary/30 focus:border-accent focus:outline-none";
 
 function TreksContent() {
   const { data: settings } = useSuspenseQuery(siteSettingsQuery);
@@ -127,19 +127,34 @@ function TreksContent() {
             />
             <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
           </div>
-          <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-20 pt-32">
+          <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-32 pt-32">
             <div className="reveal max-w-reading">
               <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 px-4 py-1.5 text-caption font-semibold uppercase tracking-[0.18em] text-accent">
                 <Mountain className="h-3.5 w-3.5" /> {pageHero.badge || "Himalayan Treks"}
               </div>
-              <h1 className="mt-5 text-balance font-display text-h1 font-medium text-white">
+              <h1 className="mt-5 text-balance font-display text-display font-medium text-white">
                 {pageHero.title || "Walk among the"}{" "}
                 <em className="text-accent">{pageHero.title_highlight || "giants"}</em>
               </h1>
-              <p className="mt-5 max-w-reading text-subtitle text-white/75">
+              <p className="mt-6 max-w-reading text-subtitle text-white/75">
                 {pageHero.subtitle ||
                   "From Everest Base Camp to the Annapurna Circuit — our treks take you deep into the world's most dramatic mountain scenery."}
               </p>
+              <div className="mt-8 flex flex-wrap gap-2.5">
+                {[
+                  `${treks.length} Himalayan routes`,
+                  "Everest · Annapurna · Langtang · Manaslu",
+                  "Sherpa-led",
+                  "Nepal Tourism Board licensed",
+                ].map((t) => (
+                  <span
+                    key={t}
+                    className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-caption font-medium text-white/90"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent" /> {t}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -147,20 +162,21 @@ function TreksContent() {
 
       {/* Trek listing + filters */}
       {vis("treks_listing") && (
-        <section className="bg-surface py-20">
+        <section className="bg-surface pb-20 lg:pb-28">
           <div className="mx-auto max-w-content px-6">
-            {/* Filter bar */}
-            <div className="sticky top-20 z-30 rounded-2xl border border-border bg-white/90 p-4 shadow-sm backdrop-blur">
-              <div className="flex flex-wrap items-center gap-3">
-                <div className="relative min-w-[200px] flex-1">
-                  <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            {/* Floating filter — overlaps the hero, Airbnb-style glass */}
+            <div className="relative z-30 -mt-16 rounded-3xl border border-white/50 bg-white/75 p-5 shadow-elegant backdrop-blur-xl sm:-mt-20 sm:p-7">
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
+                <div className="relative flex-1">
+                  <Search className="pointer-events-none absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
                   <input
                     value={q}
                     onChange={(e) => setQ(e.target.value)}
-                    placeholder="Search treks…"
-                    className="h-11 w-full rounded-full border border-border bg-white pl-11 pr-4 text-sm text-primary focus:border-accent focus:outline-none"
+                    placeholder="Search treks — Everest, Annapurna, Langtang…"
+                    className="h-14 w-full rounded-full border border-border bg-white pl-14 pr-5 text-base text-primary shadow-sm focus:border-accent focus:outline-none"
                   />
                 </div>
+                <div className="flex flex-wrap gap-3">
                 <select
                   value={difficulty}
                   onChange={(e) => setDifficulty(e.target.value)}
@@ -206,11 +222,12 @@ function TreksContent() {
                   <option value="price-desc">Price: high to low</option>
                   <option value="duration">Duration: short to long</option>
                 </select>
+                </div>
               </div>
-              <div className="mt-3 flex items-center justify-between px-1">
+              <div className="mt-4 flex items-center justify-between border-t border-border/70 px-1 pt-4">
                 <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
                   <SlidersHorizontal className="h-3.5 w-3.5" />
-                  <span className="font-medium text-primary">{filtered.length}</span> of {treks.length} treks
+                  <span className="font-semibold text-primary">{filtered.length}</span> of {treks.length} treks
                 </span>
                 {activeFilters && (
                   <button
@@ -232,7 +249,7 @@ function TreksContent() {
                 </button>
               </div>
             ) : (
-              <div className="mt-10 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-16 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
                 {filtered.map((a) => (
                   <AdventureCard key={a.id} adventure={a} label="Trek" />
                 ))}
