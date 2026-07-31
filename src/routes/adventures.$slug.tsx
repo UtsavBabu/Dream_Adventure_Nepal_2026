@@ -21,6 +21,7 @@ import { AdventureMap } from "@/components/site/adventure-map";
 import { AdventureBooking } from "@/components/site/adventure-booking";
 import {
   AdventureTrust,
+  BookingSidebar,
   ElevationProfile,
   BestSeason,
   PackingList,
@@ -175,55 +176,58 @@ function AdventureDetailPage() {
       {/* Trust badges */}
       <AdventureTrust settings={settings} />
 
-      {/* Overview / the story */}
-      {vis("adventure_overview") && adventure.long_description && (
-        <section className="bg-white py-20 lg:py-28">
-          <div className="mx-auto max-w-reading px-6">
-            <div className="reveal">
-              <div className="eyebrow">
-                Overview
-              </div>
-              <h2 className="mt-4 font-display text-h2 font-medium text-primary">
-                About this adventure
-              </h2>
-              <div className="mt-6 whitespace-pre-line text-body leading-relaxed text-muted-foreground">
-                {adventure.long_description}
-              </div>
+      {/* Two-column body: the story (left) + a sticky booking sidebar (right) */}
+      <section className="bg-white py-20 lg:py-28">
+        <div className="mx-auto max-w-content px-6">
+          <div className="grid gap-12 lg:grid-cols-3 lg:gap-14">
+            <div className="space-y-16 lg:col-span-2">
+              {vis("adventure_overview") && adventure.long_description && (
+                <div className="reveal">
+                  <div className="eyebrow">Overview</div>
+                  <h2 className="mt-3 font-display text-h3 font-medium text-primary">
+                    About this adventure
+                  </h2>
+                  <div className="mt-6 whitespace-pre-line text-body leading-relaxed text-muted-foreground">
+                    {adventure.long_description}
+                  </div>
+                </div>
+              )}
+              {vis("adventure_highlights") && (
+                <AdventureHighlights bare items={adventure.highlights ?? []} />
+              )}
+              <ElevationProfile
+                bare
+                itinerary={adventure.itinerary ?? []}
+                difficulty={adventure.difficulty}
+              />
+              {vis("adventure_itinerary") && (
+                <AdventureItinerary bare days={adventure.itinerary ?? []} />
+              )}
+              {vis("adventure_includes") && (
+                <AdventureIncludesExcludes
+                  bare
+                  includes={adventure.includes ?? []}
+                  excludes={adventure.excludes ?? []}
+                />
+              )}
+              <AdventureFaq bare />
+            </div>
+
+            <div className="lg:col-span-1">
+              <BookingSidebar adventure={adventure} waUrl={waUrl} />
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
-      {/* Highlights */}
-      {vis("adventure_highlights") && <AdventureHighlights items={adventure.highlights ?? []} />}
-
-      {/* Itinerary */}
-      {vis("adventure_itinerary") && <AdventureItinerary days={adventure.itinerary ?? []} />}
-
-      {/* Altitude & difficulty graph (derived from itinerary) */}
-      <ElevationProfile itinerary={adventure.itinerary ?? []} difficulty={adventure.difficulty} />
-
-      {/* Places / destination highlights */}
+      {/* Full-width inspiration modules */}
       {vis("adventure_places") && <AdventurePlaces places={adventurePlaces ?? []} />}
-
-      {/* Map */}
-      {vis("adventure_map") && (
-        <AdventureMap embedUrl={adventure.map_embed_url ?? ""} title={adventure.title} />
-      )}
-
-      {/* Includes / Excludes */}
-      {vis("adventure_includes") && (
-        <AdventureIncludesExcludes
-          includes={adventure.includes ?? []}
-          excludes={adventure.excludes ?? []}
-        />
-      )}
-
-      {/* Best season · packing · guides · FAQ */}
       <BestSeason />
       <PackingList />
       <MeetYourTeam />
-      <AdventureFaq />
+      {vis("adventure_map") && (
+        <AdventureMap embedUrl={adventure.map_embed_url ?? ""} title={adventure.title} />
+      )}
 
       {/* Booking (the page's CTA) */}
       {vis("adventure_booking") && (

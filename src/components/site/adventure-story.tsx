@@ -15,6 +15,8 @@ import {
   Compass,
   HeartPulse,
   Award,
+  Check,
+  MessageCircle,
 } from "lucide-react";
 import type { Adventure, SiteSettings } from "@/lib/site-data";
 import { AdventureCard } from "@/components/site/adventure-card";
@@ -46,10 +48,117 @@ export function AdventureTrust({ settings }: { settings: SiteSettings }) {
   );
 }
 
+/* ─────────────── Sticky booking sidebar (desktop two-column) ────────────── */
+export function BookingSidebar({
+  adventure,
+  waUrl,
+}: {
+  adventure: Adventure;
+  waUrl?: string | null;
+}) {
+  const maxElev = useMemo(() => {
+    let m = 0;
+    (adventure.itinerary ?? []).forEach((d) => {
+      for (const x of `${d.title} ${d.description}`.matchAll(/(\d[\d,]{2,})\s*m\b/g)) {
+        const n = Number(x[1].replace(/,/g, ""));
+        if (n >= 1000 && n <= 9000 && n > m) m = n;
+      }
+    });
+    return m;
+  }, [adventure.itinerary]);
+
+  const facts = [
+    { label: "Duration", value: adventure.duration },
+    { label: "Difficulty", value: adventure.difficulty },
+    { label: "Type", value: adventure.category },
+    ...(maxElev ? [{ label: "Max altitude", value: `${maxElev.toLocaleString()} m` }] : []),
+  ];
+  const topIncludes = (adventure.includes ?? []).slice(0, 4);
+
+  return (
+    <aside className="lg:sticky lg:top-24">
+      <div className="rounded-3xl border border-border bg-white p-6 shadow-elegant">
+        <div className="flex items-end justify-between">
+          <div>
+            <div className="text-caption uppercase tracking-wider text-muted-foreground">From</div>
+            <div className="font-display text-h2 font-medium text-accent">{adventure.price}</div>
+          </div>
+          <span className="rounded-full bg-accent/10 px-3 py-1 text-caption font-semibold uppercase tracking-wider text-accent">
+            {adventure.difficulty}
+          </span>
+        </div>
+
+        <div className="mt-5 grid grid-cols-2 gap-4 border-y border-border py-5">
+          {facts.map((f) => (
+            <div key={f.label}>
+              <div className="text-caption uppercase tracking-wider text-muted-foreground">
+                {f.label}
+              </div>
+              <div className="mt-0.5 text-small font-semibold text-primary">{f.value}</div>
+            </div>
+          ))}
+        </div>
+
+        <a
+          href="#book"
+          className="mt-5 block rounded-full btn-primary py-3.5 text-center text-small font-semibold"
+        >
+          Book This Adventure
+        </a>
+        {waUrl && (
+          <a
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 flex items-center justify-center gap-2 rounded-full border border-border py-3 text-small font-semibold text-primary transition hover:border-primary"
+          >
+            <MessageCircle className="h-4 w-4 text-[#25D366]" /> Chat on WhatsApp
+          </a>
+        )}
+
+        <div className="mt-5 space-y-2 border-t border-border pt-5 text-caption text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <HeartPulse className="h-4 w-4 shrink-0 text-accent" /> Free cancellation up to 14 days
+          </div>
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="h-4 w-4 shrink-0 text-accent" /> 20% deposit secures your dates
+          </div>
+          <div className="flex items-center gap-2">
+            <MountainSnow className="h-4 w-4 shrink-0 text-accent" /> Government-licensed, Sherpa-led
+          </div>
+        </div>
+
+        {topIncludes.length > 0 && (
+          <div className="mt-5 border-t border-border pt-5">
+            <div className="text-caption uppercase tracking-wider text-muted-foreground">
+              What's included
+            </div>
+            <ul className="mt-3 space-y-2">
+              {topIncludes.map((it) => (
+                <li key={it} className="flex items-start gap-2 text-caption text-muted-foreground">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" /> {it}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </aside>
+  );
+}
+
 /* ─────────────── Elevation profile (derived from itinerary) ─────────────── */
 type Day = { day: number; title: string; description: string };
 
-export function ElevationProfile({ itinerary, difficulty }: { itinerary: Day[]; difficulty: string }) {
+export function ElevationProfile({
+  itinerary,
+  difficulty,
+  bare,
+}: {
+  itinerary: Day[];
+  difficulty: string;
+  bare?: boolean;
+}) {
   const points = useMemo(() => {
     if (!itinerary?.length) return [];
     let last = 0;
@@ -79,13 +188,16 @@ export function ElevationProfile({ itinerary, difficulty }: { itinerary: Day[]; 
   const area = `${line} L ${x(points.length - 1).toFixed(1)} ${H - pad} L ${x(0).toFixed(1)} ${H - pad} Z`;
   const peakIdx = alts.indexOf(max);
 
-  return (
-    <section className="bg-white py-20 lg:py-28">
-      <div className="mx-auto max-w-content px-6">
-        <div className="reveal mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+  const body = (
+    <>
+        <div className="reveal mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="max-w-reading">
             <div className="eyebrow">Altitude &amp; difficulty</div>
-            <h2 className="mt-4 font-display text-h2 font-medium text-primary">The climb, day by day</h2>
+            <h2
+              className={`mt-3 font-display ${bare ? "text-h3" : "text-h2"} font-medium text-primary`}
+            >
+              The climb, day by day
+            </h2>
           </div>
           <div className="flex gap-8">
             <div>
@@ -127,7 +239,12 @@ export function ElevationProfile({ itinerary, difficulty }: { itinerary: Day[]; 
             <span>Day {points[points.length - 1].day}</span>
           </div>
         </div>
-      </div>
+    </>
+  );
+  if (bare) return <div>{body}</div>;
+  return (
+    <section className="bg-white py-20 lg:py-28">
+      <div className="mx-auto max-w-content px-6">{body}</div>
     </section>
   );
 }
@@ -339,26 +456,40 @@ const FAQS = [
   { q: "When and how do I pay?", a: "Choose Pay Later and we confirm availability first — no upfront payment. A deposit secures your dates; the balance is due before departure. We'll send secure payment options after confirming." },
   { q: "What is your cancellation policy?", a: "Free cancellation up to 14 days before departure. Within 14 days, deposit terms apply — we'll always work with you on rescheduling where we can." },
 ];
-export function AdventureFaq() {
-  return (
-    <section className="bg-surface py-20 lg:py-28">
-      <div className="mx-auto max-w-reading px-6">
+export function AdventureFaq({ bare }: { bare?: boolean } = {}) {
+  const body = (
+    <>
+      {bare ? (
+        <div>
+          <div className="eyebrow">Good to know</div>
+          <h2 className="mt-3 font-display text-h3 font-medium text-primary">Frequently asked</h2>
+        </div>
+      ) : (
         <div className="reveal text-center">
           <div className="eyebrow">Good to know</div>
           <h2 className="mt-4 font-display text-h2 font-medium text-primary">Frequently asked</h2>
         </div>
-        <div className="reveal mt-12 space-y-3">
-          {FAQS.map((f) => (
-            <details key={f.q} className="group rounded-2xl border border-border bg-white p-5 [&_summary]:cursor-pointer">
-              <summary className="flex items-center justify-between gap-4 font-display text-lg text-primary marker:content-none">
-                {f.q}
-                <span className="text-accent transition-transform group-open:rotate-45">+</span>
-              </summary>
-              <p className="mt-3 text-small leading-relaxed text-muted-foreground">{f.a}</p>
-            </details>
-          ))}
-        </div>
+      )}
+      <div className={`reveal ${bare ? "mt-8" : "mt-12"} space-y-3`}>
+        {FAQS.map((f) => (
+          <details
+            key={f.q}
+            className="group rounded-2xl border border-border bg-white p-5 [&_summary]:cursor-pointer"
+          >
+            <summary className="flex items-center justify-between gap-4 font-display text-lg text-primary marker:content-none">
+              {f.q}
+              <span className="text-accent transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <p className="mt-3 text-small leading-relaxed text-muted-foreground">{f.a}</p>
+          </details>
+        ))}
       </div>
+    </>
+  );
+  if (bare) return <div>{body}</div>;
+  return (
+    <section className="bg-surface py-20 lg:py-28">
+      <div className="mx-auto max-w-reading px-6">{body}</div>
     </section>
   );
 }
