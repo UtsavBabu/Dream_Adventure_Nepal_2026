@@ -14,7 +14,7 @@ import {
 import { AdventurePlaces } from "@/components/site/adventure-places";
 import { AdventureMap } from "@/components/site/adventure-map";
 import { AdventureBooking } from "@/components/site/adventure-booking";
-import { CtaBlock, SiteFooter } from "@/components/site/footer-cta";
+import { SiteFooter } from "@/components/site/footer-cta";
 
 export const Route = createFileRoute("/adventures/$slug")({
   loader: async ({ context, params }) => {
@@ -204,8 +204,7 @@ function AdventureDetailPage() {
         </div>
       )}
 
-      {/* Footer CTA */}
-      {vis("cta") && <CtaBlock settings={settings} />}
+      {/* Booking is the page's CTA — no duplicate contact block here. */}
       {vis("footer") && <SiteFooter settings={settings} />}
 
       {/* Floating WhatsApp (all breakpoints) */}

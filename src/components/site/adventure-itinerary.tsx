@@ -5,7 +5,7 @@ type ItineraryDay = { day: number; title: string; description: string };
 export function AdventureItinerary({ days }: { days: ItineraryDay[] }) {
   if (!days || days.length === 0) return null;
   return (
-    <section className="bg-surface py-20 lg:py-28">
+    <section className="bg-white py-20 lg:py-28">
       <div className="mx-auto max-w-reading px-6">
         <div className="reveal text-center">
           <div className="eyebrow">
@@ -52,7 +52,7 @@ export function AdventureIncludesExcludes({
 }) {
   if ((!includes || includes.length === 0) && (!excludes || excludes.length === 0)) return null;
   return (
-    <section className="bg-white py-20 lg:py-28">
+    <section className="bg-surface py-20 lg:py-28">
       <div className="mx-auto max-w-content px-6">
         <div className="reveal grid gap-10 md:grid-cols-2">
           {includes && includes.length > 0 && (

@@ -83,21 +83,36 @@ function ToursContent() {
               alt="Nepal cultural tours"
               className="h-full w-full object-cover"
             />
-            <div className="absolute inset-0" style={{ background: "var(--gradient-card)" }} />
+            <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
           </div>
-          <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-20">
+          <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-28 pt-32">
             <div className="reveal max-w-reading">
-              <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+              <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 px-4 py-1.5 text-caption font-semibold uppercase tracking-[0.18em] text-accent">
                 <Mountain className="h-3.5 w-3.5" /> {pageHero.badge || "Cultural Tours"}
               </div>
-              <h1 className="mt-5 text-balance font-display text-h1 font-medium text-white">
+              <h1 className="mt-5 text-balance font-display text-display font-medium text-white">
                 {pageHero.title || "Discover Nepal's"}{" "}
                 <em className="text-accent">{pageHero.title_highlight || "soul"}</em>
               </h1>
-              <p className="mt-5 max-w-reading text-lg text-white/70">
+              <p className="mt-6 max-w-reading text-subtitle text-white/75">
                 {pageHero.subtitle ||
                   "UNESCO heritage sites, wildlife safaris, sunrise flights, and lakeside relaxation — curated by local experts."}
               </p>
+              <div className="mt-8 flex flex-wrap gap-2.5">
+                {[
+                  "UNESCO World Heritage",
+                  "Wildlife safaris",
+                  "Private local guides",
+                  "Nepal Tourism Board licensed",
+                ].map((t) => (
+                  <span
+                    key={t}
+                    className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-caption font-medium text-white/90"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent" /> {t}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </section>
