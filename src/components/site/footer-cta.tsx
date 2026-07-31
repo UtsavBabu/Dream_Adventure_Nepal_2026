@@ -34,7 +34,7 @@ export function CtaBlock({ settings }: { settings: SiteSettings }) {
         aria-hidden
       />
 
-      <div className="reveal mx-auto max-w-6xl px-6">
+      <div className="reveal mx-auto max-w-content px-6">
         <div className="grid gap-16 lg:grid-cols-2">
           <div className="flex flex-col justify-center">
             <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">

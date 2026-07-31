@@ -19,7 +19,7 @@ export function AdventureItinerary({ days }: { days: ItineraryDay[] }) {
           {days.map((d, i) => (
             <div key={d.day} className="group flex gap-5">
               <div className="flex flex-col items-center">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent transition group-hover:bg-accent group-hover:text-white">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent transition group-hover:bg-accent group-hover:text-primary">
                   <Sunrise className="h-5 w-5" />
                 </div>
                 {i < days.length - 1 && (
@@ -53,7 +53,7 @@ export function AdventureIncludesExcludes({
   if ((!includes || includes.length === 0) && (!excludes || excludes.length === 0)) return null;
   return (
     <section className="bg-white py-20 lg:py-28">
-      <div className="mx-auto max-w-5xl px-6">
+      <div className="mx-auto max-w-content px-6">
         <div className="reveal grid gap-10 md:grid-cols-2">
           {includes && includes.length > 0 && (
             <div>
@@ -93,7 +93,7 @@ export function AdventureHighlights({ items }: { items: string[] }) {
   if (!items || items.length === 0) return null;
   return (
     <section className="bg-surface py-20">
-      <div className="mx-auto max-w-5xl px-6">
+      <div className="mx-auto max-w-content px-6">
         <div className="reveal text-center">
           <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
             Highlights

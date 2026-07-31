@@ -128,7 +128,7 @@ function TreksContent() {
             <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
           </div>
           <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-20 pt-32">
-            <div className="reveal max-w-3xl">
+            <div className="reveal max-w-reading">
               <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 px-4 py-1.5 text-caption font-semibold uppercase tracking-[0.18em] text-accent">
                 <Mountain className="h-3.5 w-3.5" /> {pageHero.badge || "Himalayan Treks"}
               </div>
@@ -136,7 +136,7 @@ function TreksContent() {
                 {pageHero.title || "Walk among the"}{" "}
                 <em className="text-accent">{pageHero.title_highlight || "giants"}</em>
               </h1>
-              <p className="mt-5 max-w-2xl text-subtitle text-white/75">
+              <p className="mt-5 max-w-reading text-subtitle text-white/75">
                 {pageHero.subtitle ||
                   "From Everest Base Camp to the Annapurna Circuit — our treks take you deep into the world's most dramatic mountain scenery."}
               </p>

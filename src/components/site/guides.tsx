@@ -15,14 +15,14 @@ export function Guides({ items }: { items: Guide[] }) {
   return (
     <section className="bg-surface py-20 lg:py-28">
       <div className="mx-auto max-w-content px-6">
-        <div className="reveal mx-auto max-w-3xl text-center">
+        <div className="reveal mx-auto max-w-reading text-center">
           <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
             Our Guides
           </div>
           <h2 className="mt-4 font-display text-h2 font-medium text-primary">
             Expert local guides
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="mt-4 text-subtitle text-muted-foreground">
             Every guide is a certified professional with deep knowledge of Nepal's trails, culture
             and safety protocols.
           </p>

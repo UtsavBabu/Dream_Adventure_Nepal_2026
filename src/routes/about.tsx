@@ -68,14 +68,14 @@ function AboutContent() {
           <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
         </div>
         <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-16 pt-32">
-          <div className="reveal max-w-3xl">
+          <div className="reveal max-w-reading">
             <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
               Our Story
             </div>
             <h1 className="mt-4 text-balance font-display text-h1 font-medium text-white">
               Born under these mountains
             </h1>
-            <p className="mt-5 max-w-2xl text-subtitle text-white/75">
+            <p className="mt-5 max-w-reading text-subtitle text-white/75">
               For two decades we've guided travelers deep into the Himalaya — with the safety,
               local knowledge, and care you only get from the people who grew up here.
             </p>

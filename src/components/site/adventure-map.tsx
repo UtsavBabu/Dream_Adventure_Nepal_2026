@@ -4,7 +4,7 @@ export function AdventureMap({ embedUrl, title }: { embedUrl: string; title: str
   if (!embedUrl) return null;
   return (
     <section className="bg-white py-20 lg:py-28">
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-content px-6">
         <div className="reveal text-center">
           <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
             Location

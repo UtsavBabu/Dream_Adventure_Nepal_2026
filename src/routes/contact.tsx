@@ -128,14 +128,14 @@ function ContactContent() {
           <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
         </div>
         <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-14 pt-32">
-          <div className="reveal max-w-3xl">
+          <div className="reveal max-w-reading">
             <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
               Get In Touch
             </div>
             <h1 className="mt-4 text-balance font-display text-h1 font-medium text-white">
               Let's plan your adventure
             </h1>
-            <p className="mt-5 max-w-2xl text-subtitle text-white/75">
+            <p className="mt-5 max-w-reading text-subtitle text-white/75">
               Talk to a local expert — no pressure, just honest answers. We reply within 24 hours.
             </p>
           </div>
@@ -240,7 +240,7 @@ function ContactContent() {
 
       {/* FAQ */}
       <section className="bg-surface py-20 lg:py-28">
-        <div className="mx-auto max-w-3xl px-6">
+        <div className="mx-auto max-w-reading px-6">
           <div className="reveal text-center">
             <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
               FAQ

@@ -86,15 +86,15 @@ function ToursContent() {
             <div className="absolute inset-0" style={{ background: "var(--gradient-card)" }} />
           </div>
           <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-20">
-            <div className="reveal max-w-3xl">
+            <div className="reveal max-w-reading">
               <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
                 <Mountain className="h-3.5 w-3.5" /> {pageHero.badge || "Cultural Tours"}
               </div>
-              <h1 className="mt-5 font-display text-5xl font-medium text-white sm:text-6xl lg:text-7xl">
+              <h1 className="mt-5 text-balance font-display text-h1 font-medium text-white">
                 {pageHero.title || "Discover Nepal's"}{" "}
                 <em className="text-accent">{pageHero.title_highlight || "soul"}</em>
               </h1>
-              <p className="mt-5 max-w-2xl text-lg text-white/70">
+              <p className="mt-5 max-w-reading text-lg text-white/70">
                 {pageHero.subtitle ||
                   "UNESCO heritage sites, wildlife safaris, sunrise flights, and lakeside relaxation — curated by local experts."}
               </p>
@@ -125,12 +125,12 @@ function ToursContent() {
       {/* Booking section */}
       {vis("tours_booking") && (
         <section id="booking" className="bg-primary py-20 lg:py-28 text-white">
-          <div className="mx-auto max-w-6xl px-6">
+          <div className="mx-auto max-w-content px-6">
             <div className="reveal text-center">
               <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
                 Book a Tour
               </div>
-              <h2 className="mt-4 font-display text-4xl font-medium sm:text-5xl">
+              <h2 className="mt-4 font-display text-h2 font-medium">
                 Ready for an adventure?
               </h2>
               <p className="mt-4 text-lg text-white/70">

@@ -7,7 +7,7 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
   return (
     <section className="bg-surface py-20 lg:py-28">
       <div className="mx-auto max-w-content px-6">
-        <div className="reveal mx-auto max-w-3xl text-center">
+        <div className="reveal mx-auto max-w-reading text-center">
           <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
             Traveler Stories
           </div>

@@ -99,7 +99,7 @@ export function AdventureSection({
           <div className="reveal mx-auto max-w-reading text-center">{Header}</div>
         ) : (
           <div className="reveal flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-2xl">{Header}</div>
+            <div className="max-w-reading">{Header}</div>
             {viewAllHref && (
               <div className="hidden md:block">
                 <ViewAll href={viewAllHref} label={viewAllLabel} dark={dark} />

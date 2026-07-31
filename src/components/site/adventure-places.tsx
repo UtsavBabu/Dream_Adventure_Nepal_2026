@@ -20,7 +20,7 @@ export function AdventurePlaces({
 
   return (
     <section className="bg-surface py-20 lg:py-28">
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-content px-6">
         <div className="reveal text-center">
           <div className="text-caption font-semibold uppercase tracking-[0.22em] text-accent">
             Destinations
@@ -51,7 +51,7 @@ export function AdventurePlaces({
                     <MapPin className="h-12 w-12 text-accent/30" />
                   </div>
                 )}
-                <div className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-accent text-xs font-bold text-white shadow-lg">
+                <div className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-accent text-xs font-bold text-primary shadow-lg">
                   {ap.day_number}
                 </div>
                 <div className="p-5">

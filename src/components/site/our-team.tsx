@@ -5,14 +5,14 @@ export function OurTeam({ items }: { items: TeamMember[] }) {
   return (
     <section className="bg-white py-20 lg:py-28">
       <div className="mx-auto max-w-content px-6">
-        <div className="reveal mx-auto max-w-3xl text-center">
+        <div className="reveal mx-auto max-w-reading text-center">
           <div className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
             Our Team
           </div>
           <h2 className="mt-4 font-display text-h2 font-medium text-primary">
             Meet our Team
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="mt-4 text-subtitle text-muted-foreground">
             Local guides, global standards — every member of our team shares a deep love for the
             Himalayas.
           </p>
@@ -22,7 +22,7 @@ export function OurTeam({ items }: { items: TeamMember[] }) {
           {items.map((member) => (
             <div
               key={member.id}
-              className="group rounded-2xl border bg-card p-6 shadow-elegant transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+              className="group rounded-3xl border bg-card p-6 shadow-elegant transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
               <div className="mx-auto h-44 w-44 overflow-hidden rounded-full shadow-elegant transition duration-300 group-hover:scale-105 group-hover:shadow-lg">
                 <img

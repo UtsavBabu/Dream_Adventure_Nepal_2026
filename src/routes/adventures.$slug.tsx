@@ -99,7 +99,7 @@ function AdventureDetailPage() {
           />
           <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
         </div>
-        <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-16 pt-32">
+        <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-16 pt-32">
           <Link
             to="/"
             className="mb-7 inline-flex items-center gap-2 text-small font-medium text-white/70 hover:text-white"
@@ -115,10 +115,10 @@ function AdventureDetailPage() {
                 {adventure.difficulty}
               </span>
             </div>
-            <h1 className="mt-5 max-w-4xl text-balance font-display text-h1 font-medium text-white">
+            <h1 className="mt-5 max-w-reading text-balance font-display text-h1 font-medium text-white">
               {adventure.title}
             </h1>
-            <p className="mt-5 max-w-2xl text-subtitle text-white/75">{adventure.description}</p>
+            <p className="mt-5 max-w-reading text-subtitle text-white/75">{adventure.description}</p>
             <div className="mt-9 flex flex-wrap items-center gap-5">
               <a
                 href="#book"
@@ -139,7 +139,7 @@ function AdventureDetailPage() {
 
       {/* Quick facts */}
       <section className="border-b border-border bg-surface">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-content px-6">
           <div className="flex flex-wrap items-center justify-between gap-x-10 gap-y-5 py-6">
             <div className="flex flex-wrap items-center gap-x-10 gap-y-4">
               <Fact icon={Clock} label="Duration" value={adventure.duration} />
