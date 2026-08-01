@@ -1,5 +1,6 @@
 import { Award, HeartHandshake, ShieldCheck, Sparkles, Tag, LifeBuoy } from "lucide-react";
 import type { SiteSettings } from "@/lib/site-data";
+import { CountUp } from "@/components/site/count-up";
 
 const icons = [Award, Sparkles, ShieldCheck, HeartHandshake, Tag, LifeBuoy];
 
@@ -46,7 +47,7 @@ export function WhyUs({ settings }: { settings: SiteSettings }) {
               {stats.map((s) => (
                 <div key={s.label}>
                   <div className="font-display text-h3 font-medium leading-none text-accent">
-                    {s.value}
+                    <CountUp value={s.value} />
                   </div>
                   <div className="mt-2 text-caption uppercase tracking-wider text-white/60">
                     {s.label}

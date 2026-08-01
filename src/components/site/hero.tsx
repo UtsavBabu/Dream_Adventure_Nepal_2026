@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ChevronDown, Play, ShieldCheck, Star } from "lucide-react";
 import type { SiteSettings } from "@/lib/site-data";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { CountUp } from "@/components/site/count-up";
 
 export function Hero({ settings }: { settings: SiteSettings }) {
   const isMobile = useIsMobile();
@@ -127,7 +128,9 @@ export function Hero({ settings }: { settings: SiteSettings }) {
             <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-8">
               {stats.map((s, i) => (
                 <div key={i}>
-                  <div className="font-display text-h3 font-medium leading-none">{s.value}</div>
+                  <div className="font-display text-h3 font-medium leading-none">
+                    <CountUp value={s.value} />
+                  </div>
                   <div className="mt-2 text-caption uppercase tracking-wider text-white/65">
                     {s.label}
                   </div>
