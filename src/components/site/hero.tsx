@@ -1,22 +1,95 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import type { SiteSettings } from "@/lib/site-data";
-import { useIsMobile } from "@/hooks/use-mobile";
+
+const BG_IMAGE_1 =
+  "https://images.pexels.com/photos/2403568/pexels-photo-2403568.jpeg?auto=compress&cs=tinysrgb&w=1600";
+const BG_IMAGE_2 =
+  "https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg?auto=compress&cs=tinysrgb&w=1600";
+const SPOTLIGHT_R = 260;
+
+/** Reveals a second image inside a soft circular mask that trails the cursor. */
+function RevealLayer({ image, cursorX, cursorY }: { image: string; cursorX: number; cursorY: number }) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [maskUrl, setMaskUrl] = useState("");
+
+  useEffect(() => {
+    const resize = () => {
+      const c = canvasRef.current;
+      if (!c) return;
+      c.width = window.innerWidth;
+      c.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+
+  useEffect(() => {
+    const c = canvasRef.current;
+    if (!c) return;
+    const ctx = c.getContext("2d");
+    if (!ctx) return;
+    ctx.clearRect(0, 0, c.width, c.height);
+    const g = ctx.createRadialGradient(cursorX, cursorY, 0, cursorX, cursorY, SPOTLIGHT_R);
+    g.addColorStop(0, "rgba(255,255,255,1)");
+    g.addColorStop(0.4, "rgba(255,255,255,1)");
+    g.addColorStop(0.6, "rgba(255,255,255,0.75)");
+    g.addColorStop(0.75, "rgba(255,255,255,0.4)");
+    g.addColorStop(0.88, "rgba(255,255,255,0.12)");
+    g.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(cursorX, cursorY, SPOTLIGHT_R, 0, Math.PI * 2);
+    ctx.fill();
+    setMaskUrl(c.toDataURL());
+  }, [cursorX, cursorY]);
+
+  return (
+    <>
+      <canvas ref={canvasRef} className="pointer-events-none absolute inset-0" style={{ display: "none" }} />
+      <div
+        className="pointer-events-none absolute inset-0 z-30 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url("${image}")`,
+          opacity: maskUrl ? 1 : 0,
+          maskImage: maskUrl ? `url(${maskUrl})` : undefined,
+          WebkitMaskImage: maskUrl ? `url(${maskUrl})` : undefined,
+          maskSize: "100% 100%",
+          WebkitMaskSize: "100% 100%",
+        }}
+      />
+    </>
+  );
+}
 
 export function Hero({ settings }: { settings: SiteSettings }) {
-  const isMobile = useIsMobile();
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const mouse = useRef({ x: -999, y: -999 });
+  const smooth = useRef({ x: -999, y: -999 });
+  const rafRef = useRef(0);
+  const [cursorPos, setCursorPos] = useState({ x: -999, y: -999 });
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
-    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const on = () => setReducedMotion(mql.matches);
-    on();
-    mql.addEventListener("change", on);
-    return () => mql.removeEventListener("change", on);
+    setMounted(true);
+    const onMove = (e: MouseEvent) => {
+      mouse.current = { x: e.clientX, y: e.clientY };
+    };
+    window.addEventListener("mousemove", onMove);
+    const loop = () => {
+      smooth.current.x += (mouse.current.x - smooth.current.x) * 0.1;
+      smooth.current.y += (mouse.current.y - smooth.current.y) * 0.1;
+      setCursorPos({ x: smooth.current.x, y: smooth.current.y });
+      rafRef.current = requestAnimationFrame(loop);
+    };
+    rafRef.current = requestAnimationFrame(loop);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(rafRef.current);
+    };
   }, []);
-  const showVideo = !isMobile && !reducedMotion;
 
   const h = (settings.hero ?? {}) as Record<string, unknown>;
-  const posterUrl = h.poster_url as string | undefined;
   const titlePre = (h.title_pre as string) || "Explore Nepal Beyond";
   const titleHighlight = (h.title_highlight as string) || "The Ordinary";
   const subtitle =
@@ -25,79 +98,68 @@ export function Hero({ settings }: { settings: SiteSettings }) {
   const ctaPrimary = (h.cta_primary as string) || "Start Your Journey";
 
   return (
-    <section id="home" className="relative h-screen w-full overflow-hidden bg-black">
-      {/* Background video / poster */}
-      {posterUrl && (
-        <img
-          src={posterUrl}
-          alt=""
-          aria-hidden
-          className="absolute inset-0 h-full w-full object-cover [object-position:70%_center]"
-        />
-      )}
-      {showVideo && h.video_url && (
-        <video
-          className="anim-fade absolute inset-0 h-full w-full object-cover [object-position:70%_center]"
-          style={{ animationDelay: "0.2s" }}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="none"
-          poster={posterUrl}
-        >
-          <source src={h.video_url as string} type="video/mp4" />
-        </video>
-      )}
-      <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} aria-hidden />
+    <section id="home" className="relative w-full overflow-hidden bg-black" style={{ height: "100dvh" }}>
+      {/* Base image (z-10) with a slow Ken Burns zoom-out */}
+      <div
+        className="hero-zoom absolute inset-0 z-10 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url("${BG_IMAGE_1}")` }}
+      />
 
-      {/* Content — badge + heading up top, paragraph + CTA at the bottom */}
-      <div className="relative z-10 flex h-full flex-col justify-between px-6 pb-12 pt-28 sm:pb-16 sm:pt-32 md:px-12 md:pb-20 lg:px-16">
-        {/* Top */}
-        <div className="max-w-3xl">
-          <div
-            className="anim-stagger mb-5 inline-flex items-center gap-2.5 rounded-full glass px-4 py-2 text-caption font-medium uppercase tracking-[0.2em] text-white/90"
-            style={{ animationDelay: "0.2s" }}
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            Himalayan Treks · Expeditions · Cultural Tours
-          </div>
-          <h1
-            className="anim-stagger font-display text-4xl font-medium leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
-            style={{ animationDelay: "0.4s", textShadow: "0 2px 16px rgba(0,0,0,0.35)" }}
+      {/* Cursor spotlight reveals a second view (client only) */}
+      {mounted && <RevealLayer image={BG_IMAGE_2} cursorX={cursorPos.x} cursorY={cursorPos.y} />}
+
+      {/* Legibility overlay */}
+      <div className="absolute inset-0 z-40" style={{ background: "var(--gradient-hero)" }} aria-hidden />
+
+      {/* Heading (z-50) */}
+      <div className="pointer-events-none absolute inset-x-0 top-[16%] z-50 flex flex-col items-center px-5 text-center">
+        <h1 className="leading-[0.95] text-white">
+          <span
+            className="hero-anim hero-reveal block font-display text-5xl font-normal italic text-accent sm:text-7xl md:text-8xl"
+            style={{ letterSpacing: "-0.05em", animationDelay: "0.25s" }}
           >
             {titlePre}
-            <br />
-            <span className="italic text-accent">{titleHighlight}</span>
-          </h1>
-        </div>
+          </span>
+          <span
+            className="hero-anim hero-reveal -mt-1 block text-5xl font-normal sm:text-7xl md:text-8xl"
+            style={{ letterSpacing: "-0.08em", animationDelay: "0.42s" }}
+          >
+            {titleHighlight}
+          </span>
+        </h1>
+        <p
+          className="hero-anim hero-fade mt-6 max-w-md text-caption uppercase tracking-[0.25em] text-white/70"
+          style={{ animationDelay: "0.6s" }}
+        >
+          Move your cursor · reveal the Himalaya
+        </p>
+      </div>
 
-        {/* Bottom */}
-        <div className="max-w-3xl">
-          <p
-            className="anim-stagger mb-6 max-w-lg whitespace-pre-line text-base leading-relaxed text-white/70 md:text-lg"
-            style={{ animationDelay: "0.7s" }}
-          >
-            {subtitle}
-          </p>
-          <div
-            className="anim-stagger flex flex-wrap items-center gap-3"
-            style={{ animationDelay: "0.9s" }}
-          >
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-medium text-black transition-transform hover:scale-105"
-            >
-              {ctaPrimary} <ArrowRight className="h-4 w-4" />
-            </a>
-            <a
-              href="#adventures"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/25 px-6 py-3 text-sm font-medium text-white transition hover:bg-white/10"
-            >
-              Explore Adventures
-            </a>
-          </div>
-        </div>
+      {/* Bottom-left paragraph (z-50) */}
+      <div
+        className="hero-anim hero-fade absolute bottom-14 left-10 z-50 hidden max-w-[260px] sm:block md:left-14"
+        style={{ animationDelay: "0.7s" }}
+      >
+        <p className="text-sm leading-relaxed text-white/80">
+          Every trail tells a story — from cliffside monasteries to glaciers older than memory,
+          written across the roof of the world.
+        </p>
+      </div>
+
+      {/* Bottom-right block + CTA (z-50) */}
+      <div
+        className="hero-anim hero-fade absolute bottom-10 left-5 right-5 z-50 flex max-w-full flex-col items-start gap-4 sm:bottom-24 sm:left-auto sm:right-10 sm:max-w-[280px] sm:gap-5 md:right-14"
+        style={{ animationDelay: "0.85s" }}
+      >
+        <p className="whitespace-pre-line text-xs leading-relaxed text-white/80 sm:text-sm">
+          {subtitle}
+        </p>
+        <a
+          href="#contact"
+          className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3 text-sm font-medium text-primary transition-all hover:scale-[1.03] hover:shadow-lg hover:shadow-accent/30 active:scale-95"
+        >
+          {ctaPrimary} <ArrowRight className="h-4 w-4" />
+        </a>
       </div>
     </section>
   );
