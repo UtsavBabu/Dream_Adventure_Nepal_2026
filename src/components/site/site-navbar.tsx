@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import type { SiteSettings } from "@/lib/site-data";
+import { Magnetic } from "@/components/site/magnetic";
+import { GlobalSearch } from "@/components/site/global-search";
 
 type NavLinkItem = { label: string; href: string };
 
@@ -10,8 +12,9 @@ const LINKS: NavLinkItem[] = [
   { label: "Treks", href: "/treks" },
   { label: "Expeditions", href: "/expeditions" },
   { label: "Tours", href: "/tours" },
-  { label: "About Us", href: "/about" },
-  { label: "Contact Us", href: "/contact" },
+  { label: "Adventures", href: "/adventures" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 function NavLink({
@@ -26,8 +29,8 @@ function NavLink({
   onClick?: () => void;
 }) {
   return (
-    <a
-      href={href}
+    <Link
+      to={href as string}
       onClick={onClick}
       aria-current={active ? "page" : undefined}
       className="group relative py-1 text-small font-medium text-white/85 transition-colors hover:text-white"
@@ -38,7 +41,7 @@ function NavLink({
           active ? "w-full" : "w-0 group-hover:w-full"
         }`}
       />
-    </a>
+    </Link>
   );
 }
 
@@ -69,8 +72,8 @@ export function SiteNavbar({ settings }: { settings: SiteSettings }) {
         scrolled ? "glass-nav py-2.5" : "bg-transparent py-5"
       }`}
     >
-      <div className="mx-auto flex max-w-content items-center justify-between px-6">
-        <a href="/" className="flex items-center gap-2 text-white" aria-label="Dream Adventure Nepal — home">
+      <div className="mx-auto flex w-full max-w-[110rem] items-center justify-between px-6 lg:px-10">
+        <Link to="/" className="flex items-center gap-2 text-white" aria-label="Dream Adventure Nepal — home">
           {logoUrl ? (
             <img
               src={logoUrl}
@@ -80,7 +83,7 @@ export function SiteNavbar({ settings }: { settings: SiteSettings }) {
           ) : (
             <span className="font-display text-h3 text-white">Dream Adventure Nepal</span>
           )}
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-9 lg:flex">
           {LINKS.map((l) => (
@@ -88,13 +91,16 @@ export function SiteNavbar({ settings }: { settings: SiteSettings }) {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <a
-            href="/contact"
-            className="hidden rounded-full btn-primary px-6 py-3 text-small font-semibold lg:inline-flex"
-          >
-            {cta}
-          </a>
+        <div className="flex items-center gap-2">
+          <GlobalSearch />
+          <Magnetic strength={0.4} className="hidden lg:inline-block">
+            <Link
+              to="/contact"
+              className="rounded-full btn-primary px-6 py-3 text-small font-semibold"
+            >
+              {cta}
+            </Link>
+          </Magnetic>
           <button
             onClick={() => setOpen((v) => !v)}
             className="rounded-full glass p-2.5 text-white lg:hidden"
@@ -110,9 +116,9 @@ export function SiteNavbar({ settings }: { settings: SiteSettings }) {
         <div className="mx-4 mt-3 rounded-2xl glass-nav p-6 lg:hidden">
           <div className="flex flex-col gap-1">
             {LINKS.map((l) => (
-              <a
+              <Link
                 key={l.label}
-                href={l.href}
+                to={l.href as string}
                 onClick={() => setOpen(false)}
                 aria-current={isActive(l.href) ? "page" : undefined}
                 className={`rounded-xl px-3 py-3 text-small font-medium transition-colors ${
@@ -120,15 +126,15 @@ export function SiteNavbar({ settings }: { settings: SiteSettings }) {
                 }`}
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               onClick={() => setOpen(false)}
               className="mt-3 rounded-full btn-primary px-5 py-3 text-center text-small font-semibold"
             >
               {cta}
-            </a>
+            </Link>
           </div>
         </div>
       )}

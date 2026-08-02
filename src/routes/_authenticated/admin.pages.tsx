@@ -18,6 +18,7 @@ export const Route = createFileRoute("/_authenticated/admin/pages")({
 
 type PageData = {
   hero_image: string;
+  hero_video: string;
   badge: string;
   title: string;
   title_highlight: string;
@@ -39,6 +40,7 @@ const SECTIONS: Section[] = [
     defaults: {
       hero_image:
         "https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      hero_video: "https://assets.mixkit.co/videos/5009/5009-1080.mp4",
       badge: "Cultural Tours",
       title: "Discover Nepal's",
       title_highlight: "soul",
@@ -52,6 +54,7 @@ const SECTIONS: Section[] = [
     defaults: {
       hero_image:
         "https://images.pexels.com/photos/2108850/pexels-photo-2108850.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      hero_video: "https://assets.mixkit.co/videos/4396/4396-1080.mp4",
       badge: "Climbing Expeditions",
       title: "Summit your first",
       title_highlight: "6,000m peak",
@@ -64,7 +67,8 @@ const SECTIONS: Section[] = [
     label: "Treks",
     defaults: {
       hero_image:
-        "https://images.pexels.com/photos/2403568/pexels-photo-2403568.jpeg?auto=compress&cs=tinysrgb&w=1920",
+        "https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      hero_video: "https://assets.mixkit.co/videos/3371/3371-1080.mp4",
       badge: "Himalayan Treks",
       title: "Walk among the",
       title_highlight: "giants",
@@ -148,6 +152,18 @@ function PagesAdmin() {
               onChange={(url) => patch(key, { hero_image: url })}
               label="Hero Image"
               onUpload={clientUpload}
+            />
+          </div>
+
+          <div>
+            <Label className="text-xs text-muted-foreground">
+              Hero Background Video — MP4 URL (optional; plays over the image on desktop)
+            </Label>
+            <Input
+              value={page.hero_video}
+              onChange={(e) => patch(key, { hero_video: e.target.value })}
+              placeholder="https://…/clip.mp4  (leave blank for image only)"
+              className="mt-1"
             />
           </div>
 

@@ -1,4 +1,5 @@
-import { Check, Sunrise, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Check, Mountain, X } from "lucide-react";
 
 type ItineraryDay = { day: number; title: string; description: string };
 
@@ -12,42 +13,122 @@ function BareHead({ eyebrow, title }: { eyebrow: string; title: string }) {
   );
 }
 
+/* Pull the first credible altitude out of a day's text (e.g. "5,364 m"). */
+function altOf(text: string): string | null {
+  const m = text.match(/(\d[\d,]{2,})\s*m\b/);
+  if (!m) return null;
+  const n = parseInt(m[1].replace(/,/g, ""), 10);
+  // Skip 7-8000m figures — those are peaks viewed from a day, not that day's altitude.
+  return n >= 1000 && n <= 6900 ? `${n.toLocaleString()} m` : null;
+}
+
+/**
+ * Animated journey timeline: a connector line that "draws itself" as the section
+ * scrolls through the viewport, with day markers that light up in sequence.
+ * The line height is written straight to the DOM (ref) so scrolling stays 60fps;
+ * only the small set of marker states goes through React.
+ */
+function RouteTimeline({ days }: { days: ItineraryDay[] }) {
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const lineRef = useRef<HTMLDivElement | null>(null);
+  const [activeCount, setActiveCount] = useState(0);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (lineRef.current) lineRef.current.style.height = "100%";
+      setActiveCount(days.length);
+      return;
+    }
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      const p = Math.min(Math.max((vh * 0.62 - rect.top) / Math.max(rect.height, 1), 0), 1);
+      if (lineRef.current) lineRef.current.style.height = `${p * 100}%`;
+      const ac = Math.round(p * days.length);
+      setActiveCount((prev) => (prev === ac ? prev : ac));
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [days.length]);
+
+  return (
+    <div ref={wrapRef} className="relative mt-8">
+      {/* faint full-length track */}
+      <div className="absolute bottom-0 left-6 top-0 w-0.5 -translate-x-1/2 bg-border" aria-hidden />
+      {/* self-drawing progress line */}
+      <div
+        ref={lineRef}
+        className="absolute left-6 top-0 h-0 w-0.5 -translate-x-1/2 rounded-full bg-gradient-to-b from-accent to-accent/30"
+        aria-hidden
+      />
+      <div className="space-y-8">
+        {days.map((d, i) => {
+          const active = i < activeCount;
+          const alt = altOf(`${d.title} ${d.description}`);
+          return (
+            <div key={d.day} className="relative flex gap-5">
+              <div className="relative z-10 flex flex-col items-center">
+                <div
+                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 font-display text-sm font-semibold transition-all duration-500 ${
+                    active
+                      ? "scale-105 border-accent bg-accent text-primary shadow-glow"
+                      : "border-border bg-white text-muted-foreground"
+                  }`}
+                >
+                  {d.day}
+                </div>
+              </div>
+              <div className="pb-2 pt-1.5">
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-accent">
+                    Day {d.day}
+                  </span>
+                  <h3 className="font-display text-xl text-primary">{d.title}</h3>
+                  {alt && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-primary/5 px-2.5 py-0.5 text-[11px] font-medium text-primary">
+                      <Mountain className="h-3 w-3 text-accent" /> {alt}
+                    </span>
+                  )}
+                </div>
+                <p className="mt-2 leading-relaxed text-muted-foreground">{d.description}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export function AdventureItinerary({ days, bare }: { days: ItineraryDay[]; bare?: boolean }) {
   if (!days || days.length === 0) return null;
   const body = (
     <>
       {bare ? (
-        <BareHead eyebrow="Itinerary" title="Day-by-day breakdown" />
+        <BareHead eyebrow="Itinerary" title="Your journey, day by day" />
       ) : (
         <div className="reveal text-center">
           <div className="eyebrow">Itinerary</div>
           <h2 className="mt-4 font-display text-h2 font-medium text-primary">
-            Day-by-day breakdown
+            Your journey, day by day
           </h2>
         </div>
       )}
-      <div className={`reveal ${bare ? "mt-8" : "mt-14"} space-y-6`}>
-        {days.map((d, i) => (
-          <div key={d.day} className="group flex gap-5">
-            <div className="flex flex-col items-center">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent transition group-hover:bg-accent group-hover:text-primary">
-                <Sunrise className="h-5 w-5" />
-              </div>
-              {i < days.length - 1 && (
-                <div className="mt-2 h-full w-px bg-border group-hover:bg-accent/30" />
-              )}
-            </div>
-            <div className="pb-8 pt-1">
-              <div className="flex items-baseline gap-3">
-                <span className="text-xs font-semibold uppercase tracking-wider text-accent">
-                  Day {d.day}
-                </span>
-                <h3 className="font-display text-xl text-primary">{d.title}</h3>
-              </div>
-              <p className="mt-2 leading-relaxed text-muted-foreground">{d.description}</p>
-            </div>
-          </div>
-        ))}
+      <div className="reveal">
+        <RouteTimeline days={days} />
       </div>
     </>
   );

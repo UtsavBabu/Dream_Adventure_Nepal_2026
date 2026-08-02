@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
-import { ArrowLeft, Clock, Mountain, MapPin, MessageCircle } from "lucide-react";
+import { ArrowLeft, Clock, Mountain, MapPin, MessageCircle, TrendingUp, CalendarDays } from "lucide-react";
 
 import {
   adventureBySlugQuery,
@@ -18,12 +18,13 @@ import {
 } from "@/components/site/adventure-itinerary";
 import { AdventurePlaces } from "@/components/site/adventure-places";
 import { AdventureMap } from "@/components/site/adventure-map";
+import { RegionLocator } from "@/components/site/region-locator";
 import { AdventureBooking } from "@/components/site/adventure-booking";
 import {
   AdventureTrust,
   BookingSidebar,
   ElevationProfile,
-  BestSeason,
+  TrekSeasons,
   PackingList,
   MeetYourTeam,
   AdventureFaq,
@@ -102,6 +103,17 @@ function AdventureDetailPage() {
       )}`
     : null;
 
+  // Highest altitude quoted in the itinerary (cap 6,900 m — larger figures are
+  // peaks viewed, not reached), plus a sensible best-season for the facts bar.
+  let maxElev = 0;
+  (adventure.itinerary ?? []).forEach((d) => {
+    for (const x of `${d.title} ${d.description}`.matchAll(/(\d[\d,]{2,})\s*m\b/g)) {
+      const n = Number(x[1].replace(/,/g, ""));
+      if (n >= 1000 && n <= 6900 && n > maxElev) maxElev = n;
+    }
+  });
+  const bestSeason = /tour/i.test(adventure.category) ? "Year-round" : "Spring & Autumn";
+
   return (
     <main className="min-h-screen bg-background pb-20 lg:pb-0">
       {vis("navbar") && <SiteNavbar settings={settings} />}
@@ -157,15 +169,19 @@ function AdventureDetailPage() {
       {/* Quick facts */}
       <section className="border-b border-border bg-surface">
         <div className="mx-auto max-w-content px-6">
-          <div className="flex flex-wrap items-center justify-between gap-x-10 gap-y-5 py-6">
-            <div className="flex flex-wrap items-center gap-x-10 gap-y-4">
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-5 py-6">
+            <div className="flex flex-1 flex-wrap items-center justify-between gap-x-8 gap-y-4">
               <Fact icon={Clock} label="Duration" value={adventure.duration} />
+              {maxElev > 0 && (
+                <Fact icon={TrendingUp} label="Max altitude" value={`${maxElev.toLocaleString()} m`} />
+              )}
               <Fact icon={Mountain} label="Difficulty" value={adventure.difficulty} />
+              <Fact icon={CalendarDays} label="Best season" value={bestSeason} />
               <Fact icon={MapPin} label="Type" value={adventure.category} />
             </div>
             <a
               href="#book"
-              className="inline-flex items-center gap-2 rounded-full btn-primary px-6 py-3 text-small font-semibold"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full btn-primary px-6 py-3 text-small font-semibold"
             >
               Book Now — {adventure.price}
             </a>
@@ -192,6 +208,9 @@ function AdventureDetailPage() {
                   </div>
                 </div>
               )}
+              <div className="reveal">
+                <RegionLocator title={adventure.title} slug={adventure.slug} />
+              </div>
               {vis("adventure_highlights") && (
                 <AdventureHighlights bare items={adventure.highlights ?? []} />
               )}
@@ -222,7 +241,7 @@ function AdventureDetailPage() {
 
       {/* Full-width inspiration modules */}
       {vis("adventure_places") && <AdventurePlaces places={adventurePlaces ?? []} />}
-      <BestSeason />
+      <TrekSeasons adventure={adventure} />
       <PackingList />
       <MeetYourTeam />
       {vis("adventure_map") && (

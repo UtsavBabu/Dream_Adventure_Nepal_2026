@@ -6,6 +6,7 @@ import { Mountain, Phone, Mail, MessageCircle } from "lucide-react";
 import { adventuresQuery, siteSettingsQuery } from "@/lib/site-data";
 import { useReveal } from "@/hooks/use-reveal";
 import { SiteNavbar } from "@/components/site/site-navbar";
+import { VideoBackdrop } from "@/components/site/video-backdrop";
 import { AdventureListing } from "@/components/site/adventure-listing";
 import { BookingForm } from "@/components/site/booking-form";
 import { CtaBlock, SiteFooter } from "@/components/site/footer-cta";
@@ -55,6 +56,7 @@ function ToursContent() {
   const pageHero =
     (settings?.tours_page as {
       hero_image?: string;
+      hero_video?: string;
       badge?: string;
       title?: string;
       title_highlight?: string;
@@ -75,13 +77,13 @@ function ToursContent() {
       {vis("tours_hero") && (
         <section className="relative flex min-h-[60vh] items-end bg-primary">
           <div className="absolute inset-0">
-            <img
-              src={
+            <VideoBackdrop
+              poster={
                 pageHero.hero_image ||
                 "https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&cs=tinysrgb&w=1920"
               }
+              src={pageHero.hero_video || "https://assets.mixkit.co/videos/5009/5009-1080.mp4"}
               alt="Nepal cultural tours"
-              className="h-full w-full object-cover"
             />
             <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
           </div>
@@ -218,7 +220,7 @@ function ToursContent() {
                           </div>
                           <div className="flex justify-between">
                             <span>Deposit required</span>
-                            <span className="font-medium text-white">20%</span>
+                            <span className="font-medium text-white">35%</span>
                           </div>
                           <div className="flex justify-between">
                             <span>Cancellation</span>

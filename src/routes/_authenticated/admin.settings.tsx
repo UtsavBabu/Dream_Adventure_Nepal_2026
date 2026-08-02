@@ -21,7 +21,7 @@ const EMPTY_FEATURE = { title: "", desc: "" };
 type SettingsState = {
   nav: { logo_url: string; logo: string; cta: string };
   contact: { email: string; phone: string; address: string };
-  cta: { title: string; subtitle: string };
+  cta: { title: string; subtitle: string; video_url?: string };
   footer: { tagline: string; copyright: string };
   about: {
     eyebrow: string;
@@ -111,10 +111,10 @@ function SettingsAdmin() {
     ] as (keyof SettingsState)[]) {
       const row = rows?.find((r) => r.key === k);
       if (row?.value)
-        obj[k] = {
+        (obj as Record<string, unknown>)[k] = {
           ...DEFAULTS[k],
           ...(row.value as Record<string, unknown>),
-        } as unknown as SettingsState[typeof k];
+        };
     }
     setS((prev) => ({ ...prev, ...obj }));
     setLoaded(true);
@@ -344,6 +344,17 @@ function SettingsAdmin() {
               value={s.cta.subtitle}
               onChange={(e) => patch("cta", { subtitle: e.target.value })}
               placeholder="Get in touch with our team…"
+              className="mt-1"
+            />
+          </div>
+          <div>
+            <Label className="text-xs text-muted-foreground">
+              Background Video — MP4 URL (e.g. your eagle clip; plays muted on desktop, image fallback)
+            </Label>
+            <Input
+              value={s.cta.video_url ?? ""}
+              onChange={(e) => patch("cta", { video_url: e.target.value })}
+              placeholder="https://…/eagle.mp4  (leave blank to use the image + animated eagle)"
               className="mt-1"
             />
           </div>

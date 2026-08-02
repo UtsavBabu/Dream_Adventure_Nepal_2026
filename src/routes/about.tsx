@@ -6,6 +6,7 @@ import { ShieldCheck } from "lucide-react";
 import { siteSettingsQuery, teamMembersQuery, guidesQuery } from "@/lib/site-data";
 import { useReveal } from "@/hooks/use-reveal";
 import { SiteNavbar } from "@/components/site/site-navbar";
+import { VideoBackdrop } from "@/components/site/video-backdrop";
 import { WhyUs } from "@/components/site/why-us";
 import { OurTeam } from "@/components/site/our-team";
 import { Guides } from "@/components/site/guides";
@@ -60,10 +61,10 @@ function AboutContent() {
       {/* Hero */}
       <section className="relative flex min-h-[58vh] items-end bg-primary">
         <div className="absolute inset-0">
-          <img
-            src="https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg?auto=compress&cs=tinysrgb&w=1920"
+          <VideoBackdrop
+            poster="https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            src="https://assets.mixkit.co/videos/4132/4132-1080.mp4"
             alt="The Nepal Himalaya"
-            className="h-full w-full object-cover"
           />
           <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
         </div>

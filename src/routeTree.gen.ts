@@ -17,6 +17,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdventuresIndexRouteImport } from './routes/adventures.index'
 import { Route as AdventuresSlugRouteImport } from './routes/adventures.$slug'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -71,6 +72,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdventuresIndexRoute = AdventuresIndexRouteImport.update({
+  id: '/adventures/',
+  path: '/adventures/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdventuresSlugRoute = AdventuresSlugRouteImport.update({
@@ -174,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/treks': typeof TreksRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/adventures/$slug': typeof AdventuresSlugRoute
+  '/adventures/': typeof AdventuresIndexRoute
   '/admin/adventures': typeof AuthenticatedAdminAdventuresRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
@@ -198,6 +205,7 @@ export interface FileRoutesByTo {
   '/tours': typeof ToursRoute
   '/treks': typeof TreksRoute
   '/adventures/$slug': typeof AdventuresSlugRoute
+  '/adventures': typeof AdventuresIndexRoute
   '/admin/adventures': typeof AuthenticatedAdminAdventuresRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
@@ -225,6 +233,7 @@ export interface FileRoutesById {
   '/treks': typeof TreksRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/adventures/$slug': typeof AdventuresSlugRoute
+  '/adventures/': typeof AdventuresIndexRoute
   '/_authenticated/admin/adventures': typeof AuthenticatedAdminAdventuresRoute
   '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/_authenticated/admin/gallery': typeof AuthenticatedAdminGalleryRoute
@@ -252,6 +261,7 @@ export interface FileRouteTypes {
     | '/treks'
     | '/admin'
     | '/adventures/$slug'
+    | '/adventures/'
     | '/admin/adventures'
     | '/admin/bookings'
     | '/admin/gallery'
@@ -276,6 +286,7 @@ export interface FileRouteTypes {
     | '/tours'
     | '/treks'
     | '/adventures/$slug'
+    | '/adventures'
     | '/admin/adventures'
     | '/admin/bookings'
     | '/admin/gallery'
@@ -302,6 +313,7 @@ export interface FileRouteTypes {
     | '/treks'
     | '/_authenticated/admin'
     | '/adventures/$slug'
+    | '/adventures/'
     | '/_authenticated/admin/adventures'
     | '/_authenticated/admin/bookings'
     | '/_authenticated/admin/gallery'
@@ -328,6 +340,7 @@ export interface RootRouteChildren {
   ToursRoute: typeof ToursRoute
   TreksRoute: typeof TreksRoute
   AdventuresSlugRoute: typeof AdventuresSlugRoute
+  AdventuresIndexRoute: typeof AdventuresIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -386,6 +399,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/adventures/': {
+      id: '/adventures/'
+      path: '/adventures'
+      fullPath: '/adventures/'
+      preLoaderRoute: typeof AdventuresIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/adventures/$slug': {
@@ -561,6 +581,7 @@ const rootRouteChildren: RootRouteChildren = {
   ToursRoute: ToursRoute,
   TreksRoute: TreksRoute,
   AdventuresSlugRoute: AdventuresSlugRoute,
+  AdventuresIndexRoute: AdventuresIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

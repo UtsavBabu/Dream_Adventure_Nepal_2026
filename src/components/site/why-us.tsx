@@ -5,7 +5,7 @@ import { CountUp } from "@/components/site/count-up";
 const icons = [Award, Sparkles, ShieldCheck, HeartHandshake, Tag, LifeBuoy];
 
 const DEFAULT_IMAGE =
-  "https://images.pexels.com/photos/2403568/pexels-photo-2403568.jpeg?auto=compress&cs=tinysrgb&w=1200";
+  "https://images.pexels.com/photos/372098/pexels-photo-372098.jpeg?auto=compress&cs=tinysrgb&w=1200";
 
 const DEFAULT_STATS = [
   { value: "100+", label: "Happy travelers" },
@@ -65,7 +65,7 @@ export function WhyUs({ settings }: { settings: SiteSettings }) {
             return (
               <div
                 key={f.title}
-                className="reveal rounded-2xl glass p-6 transition-transform duration-500 hover:-translate-y-1"
+                className="reveal rounded-2xl glass p-6 ring-1 ring-transparent transition-all duration-500 hover:-translate-y-1.5 hover:ring-accent/40"
                 style={{ transitionDelay: `${i * 70}ms` }}
               >
                 <div className="grid h-11 w-11 place-items-center rounded-xl bg-accent text-primary">

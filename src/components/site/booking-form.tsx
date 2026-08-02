@@ -317,7 +317,7 @@ export function BookingForm({
             <p className="text-caption text-white/40">
               {paymentMethod === "pay_later"
                 ? "No payment needed now. We'll send payment options after confirming your booking."
-                : "We'll send a secure payment link after confirming availability. Deposit: 20% of total."}
+                : "We'll send a secure payment link after confirming availability. Deposit: 35% of total."}
             </p>
             {paymentMethod === "online" && esewaQrUrl && (
               <div className="mt-3 flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-4">
@@ -384,7 +384,7 @@ export function BookingForm({
 
       <div className="mt-5 flex items-center justify-center gap-2 text-caption text-white/40">
         <ShieldCheck className="h-4 w-4 text-accent" />
-        No commitment · Free cancellation up to 14 days · We reply within 2 hours
+        No commitment · Free cancellation up to 5 days · We reply within 2 hours
       </div>
     </form>
   );

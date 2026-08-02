@@ -101,7 +101,7 @@ export function AdventureBooking({
                   </div>
                   <div className="flex justify-between">
                     <span>Deposit required</span>
-                    <span className="font-medium text-white">20%</span>
+                    <span className="font-medium text-white">35%</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Cancellation</span>

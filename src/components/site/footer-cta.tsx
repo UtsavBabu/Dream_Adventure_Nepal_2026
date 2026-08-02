@@ -2,6 +2,8 @@ import { BadgeCheck, Facebook, Instagram, Mail, MapPin, Phone } from "lucide-rea
 import { Link } from "@tanstack/react-router";
 import type { SiteSettings } from "@/lib/site-data";
 import { ContactForm } from "@/components/site/contact-form";
+import { EagleFlight } from "@/components/site/eagle";
+import { VideoBackdrop } from "@/components/site/video-backdrop";
 
 // Absolute hrefs so every link works from any page (routes + home-section anchors).
 const FOOTER_NAV = [
@@ -13,26 +15,47 @@ const FOOTER_NAV = [
   { label: "Contact", href: "/contact" },
 ];
 
+const CTA_POSTER =
+  "https://images.pexels.com/photos/1054289/pexels-photo-1054289.jpeg?auto=compress&cs=tinysrgb&w=1920";
+
 export function CtaBlock({ settings }: { settings: SiteSettings }) {
-  const c = settings.cta ?? {};
+  const c = (settings.cta ?? {}) as { title?: string; subtitle?: string; video_url?: string };
+  const ctaVideo = c.video_url || "";
   return (
     <section id="contact" className="relative isolate overflow-hidden bg-primary py-20 lg:py-28 text-white">
-      <div
-        className="absolute inset-0 -z-10 opacity-40"
-        style={{
-          backgroundImage:
-            "url('https://images.pexels.com/photos/848612/pexels-photo-848612.jpeg?auto=compress&cs=tinysrgb&w=1920')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-        }}
-        aria-hidden
-      />
-      <div
-        className="absolute inset-0 -z-10"
-        style={{ background: "var(--gradient-overlay)" }}
-        aria-hidden
-      />
+      {ctaVideo ? (
+        // Owner-supplied eagle/scenery clip as the section background (CMS-managed).
+        <>
+          <div className="absolute inset-0 -z-10">
+            <VideoBackdrop poster={CTA_POSTER} src={ctaVideo} alt="" />
+          </div>
+          <div className="absolute inset-0 -z-10 bg-primary/60" aria-hidden />
+          <div
+            className="absolute inset-0 -z-10"
+            style={{ background: "var(--gradient-overlay)" }}
+            aria-hidden
+          />
+        </>
+      ) : (
+        <>
+          <div
+            className="absolute inset-0 -z-10 opacity-40"
+            style={{
+              backgroundImage: `url('${CTA_POSTER}')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundAttachment: "fixed",
+            }}
+            aria-hidden
+          />
+          <div
+            className="absolute inset-0 -z-10"
+            style={{ background: "var(--gradient-overlay)" }}
+            aria-hidden
+          />
+          <EagleFlight />
+        </>
+      )}
 
       <div className="reveal mx-auto max-w-content px-6">
         <div className="grid gap-16 lg:grid-cols-2">

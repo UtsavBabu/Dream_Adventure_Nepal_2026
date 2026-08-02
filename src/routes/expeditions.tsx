@@ -6,6 +6,7 @@ import { Mountain } from "lucide-react";
 import { adventuresQuery, siteSettingsQuery } from "@/lib/site-data";
 import { useReveal } from "@/hooks/use-reveal";
 import { SiteNavbar } from "@/components/site/site-navbar";
+import { VideoBackdrop } from "@/components/site/video-backdrop";
 import { AdventureListing } from "@/components/site/adventure-listing";
 import { CtaBlock, SiteFooter } from "@/components/site/footer-cta";
 
@@ -49,6 +50,7 @@ function ExpeditionsContent() {
   const pageHero =
     (settings?.expeditions_page as {
       hero_image?: string;
+      hero_video?: string;
       badge?: string;
       title?: string;
       title_highlight?: string;
@@ -65,13 +67,13 @@ function ExpeditionsContent() {
       {vis("expeditions_hero") && (
         <section className="relative flex min-h-[60vh] items-end bg-primary">
           <div className="absolute inset-0">
-            <img
-              src={
+            <VideoBackdrop
+              poster={
                 pageHero.hero_image ||
                 "https://images.pexels.com/photos/2108850/pexels-photo-2108850.jpeg?auto=compress&cs=tinysrgb&w=1920"
               }
+              src={pageHero.hero_video || "https://assets.mixkit.co/videos/4396/4396-1080.mp4"}
               alt="Climbing expeditions"
-              className="h-full w-full object-cover"
             />
             <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
           </div>

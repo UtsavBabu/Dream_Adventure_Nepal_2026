@@ -108,7 +108,7 @@ export function AdventureSection({
           </div>
         )}
 
-        <div className="reveal mt-14 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="reveal stagger mt-14 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((a) => (
             <AdventureCard key={a.id} adventure={a} label={category} />
           ))}

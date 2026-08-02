@@ -27,9 +27,12 @@ export function Gallery({ items }: { items: GalleryImage[] }) {
                 loading="lazy"
                 className="w-full transition-transform duration-[1200ms] group-hover:scale-110"
               />
-              <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                <figcaption className="p-5 font-display text-lg text-white">{g.caption}</figcaption>
-              </div>
+              <div className="absolute inset-0 bg-primary/20 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              {g.caption && (
+                <figcaption className="absolute inset-x-3 bottom-3 translate-y-4 rounded-2xl glass px-4 py-3 font-display text-base text-white opacity-0 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
+                  {g.caption}
+                </figcaption>
+              )}
             </figure>
           ))}
         </div>

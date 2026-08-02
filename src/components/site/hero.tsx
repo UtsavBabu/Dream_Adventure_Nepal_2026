@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { ChevronDown, Play, ShieldCheck, Star } from "lucide-react";
 import type { SiteSettings } from "@/lib/site-data";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { CountUp } from "@/components/site/count-up";
+import { Snow } from "@/components/site/snow";
+import { Magnetic } from "@/components/site/magnetic";
 
 export function Hero({ settings }: { settings: SiteSettings }) {
   const isMobile = useIsMobile();
@@ -24,6 +25,9 @@ export function Hero({ settings }: { settings: SiteSettings }) {
   const footerText =
     (h.footer_text as string) || "Government-licensed · Sherpa-led · 100% local team";
   const posterUrl = h.poster_url as string | undefined;
+  const titlePre = (h.title_pre as string) ?? "Explore Nepal Beyond";
+  const titleWords = titlePre.split(/\s+/).filter(Boolean);
+  const highlight = (h.title_highlight as string) ?? "The Ordinary";
   const cues = footerText
     .split("·")
     .map((s) => s.trim())
@@ -40,17 +44,17 @@ export function Hero({ settings }: { settings: SiteSettings }) {
           src={posterUrl}
           alt=""
           aria-hidden
-          className="absolute inset-0 -z-20 h-full w-full object-cover"
+          className="hero-kenburns absolute inset-0 -z-20 h-full w-full object-cover"
         />
       )}
       {showVideo && h.video_url && (
         <video
-          className="absolute inset-0 -z-10 h-full w-full scale-105 object-cover"
+          className="hero-kenburns absolute inset-0 -z-10 h-full w-full object-cover"
           autoPlay
           muted
           loop
           playsInline
-          preload="none"
+          preload="auto"
           poster={posterUrl}
         >
           <source src={h.video_url as string} type="video/mp4" />
@@ -63,6 +67,14 @@ export function Hero({ settings }: { settings: SiteSettings }) {
         style={{ background: "var(--gradient-hero)" }}
         aria-hidden
       />
+      {/* Slow atmospheric haze drift over the peaks */}
+      <div
+        className="hero-drift pointer-events-none absolute inset-0 -z-10"
+        style={{ background: "radial-gradient(65% 55% at 50% 0%, rgba(255,255,255,0.07), transparent 70%)" }}
+        aria-hidden
+      />
+      {/* Floating snow particles */}
+      <Snow />
 
       {/* Content */}
       <div className="relative mx-auto grid w-full max-w-content gap-12 px-6 pt-36 pb-20 lg:grid-cols-12 lg:gap-10">
@@ -74,10 +86,21 @@ export function Hero({ settings }: { settings: SiteSettings }) {
             </div>
           )}
 
-          <h1 className="mt-8 animate-fade-up text-balance font-display text-display font-medium text-white">
-            {(h.title_pre as string) ?? "Explore Nepal Beyond"}{" "}
-            <span className="text-gradient-accent italic">
-              {(h.title_highlight as string) ?? "The Ordinary"}
+          <h1 className="mt-8 text-balance font-display text-display font-medium text-white">
+            {titleWords.map((word, i) => (
+              <span
+                key={i}
+                className="mr-[0.28em] inline-block animate-fade-up"
+                style={{ animationDelay: `${i * 90}ms` }}
+              >
+                {word}
+              </span>
+            ))}
+            <span
+              className="inline-block animate-fade-up text-gradient-accent italic"
+              style={{ animationDelay: `${titleWords.length * 90}ms` }}
+            >
+              {highlight}
             </span>
           </h1>
 
@@ -86,12 +109,14 @@ export function Hero({ settings }: { settings: SiteSettings }) {
           </p>
 
           <div className="mt-10 flex animate-fade-up flex-wrap items-center gap-4 [animation-delay:240ms]">
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 rounded-full btn-primary px-8 py-4 text-small font-semibold"
-            >
-              {(h.cta_primary as string) ?? "Book Adventure"}
-            </a>
+            <Magnetic strength={0.35}>
+              <a
+                href="#contact"
+                className="cta-glow inline-flex items-center gap-2 rounded-full btn-primary px-8 py-4 text-small font-semibold transition-transform duration-300 hover:scale-[1.03]"
+              >
+                {(h.cta_primary as string) ?? "Book Adventure"}
+              </a>
+            </Magnetic>
             <a
               href="#adventures"
               className="inline-flex items-center gap-3 rounded-full btn-ghost-white px-6 py-4 text-small font-semibold"
@@ -129,7 +154,7 @@ export function Hero({ settings }: { settings: SiteSettings }) {
               {stats.map((s, i) => (
                 <div key={i}>
                   <div className="font-display text-h3 font-medium leading-none">
-                    <CountUp value={s.value} />
+                    {s.value}
                   </div>
                   <div className="mt-2 text-caption uppercase tracking-wider text-white/65">
                     {s.label}

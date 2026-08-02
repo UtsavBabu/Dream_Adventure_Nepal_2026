@@ -14,6 +14,7 @@ export type Adventure = {
   category: string;
   sort_order: number;
   is_published: boolean;
+  badge?: string | null;
   itinerary: { day: number; title: string; description: string }[];
   map_embed_url: string;
   includes: string[];
@@ -104,7 +105,7 @@ export const adventuresQuery = queryOptions({
       .eq("is_published", true)
       .order("sort_order", { ascending: true });
     if (error) throw error;
-    return (data ?? []) as Adventure[];
+    return (data ?? []) as unknown as Adventure[];
   },
 });
 

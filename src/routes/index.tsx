@@ -14,6 +14,9 @@ import { useReveal } from "@/hooks/use-reveal";
 import { SiteNavbar } from "@/components/site/site-navbar";
 import { Hero } from "@/components/site/hero";
 import { TrustBar } from "@/components/site/trust-bar";
+import { AdventurePaths } from "@/components/site/adventure-paths";
+import { NepalMap } from "@/components/site/nepal-map";
+import { LiveConditions } from "@/components/site/live-conditions";
 import { AdventureSection } from "@/components/site/adventures";
 import { WhyUs } from "@/components/site/why-us";
 import { Testimonials } from "@/components/site/testimonials";
@@ -39,7 +42,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:image",
         content:
-          "https://images.pexels.com/photos/2403568/pexels-photo-2403568.jpeg?auto=compress&cs=tinysrgb&w=1920",
+          "https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&cs=tinysrgb&w=1920",
       },
     ],
   }),
@@ -80,6 +83,7 @@ function HomeContent() {
       {vis("home_hero") && <TrustBar settings={settings} />}
       {/* Scroll/CTA anchor target for the hero's "explore" links */}
       <div id="adventures" aria-hidden />
+      {vis("home_paths") && <AdventurePaths items={adventures} />}
       {vis("home_treks") && (
         <AdventureSection
           items={adventures.filter((a) => a.category === "Trek")}
@@ -106,6 +110,8 @@ function HomeContent() {
           viewAllHref="/tours"
         />
       )}
+      {vis("home_map") && <NepalMap items={adventures} />}
+      {vis("home_weather") && <LiveConditions />}
       {vis("home_why_us") && <WhyUs settings={settings} />}
       {vis("home_our_team") && <OurTeam items={teamMembers} />}
       {vis("home_guides") && <Guides items={guides} />}

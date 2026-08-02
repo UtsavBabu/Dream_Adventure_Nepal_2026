@@ -6,6 +6,7 @@ import { Mail, Phone, MapPin, MessageCircle, Clock, Instagram, Facebook } from "
 import { siteSettingsQuery } from "@/lib/site-data";
 import { useReveal } from "@/hooks/use-reveal";
 import { SiteNavbar } from "@/components/site/site-navbar";
+import { VideoBackdrop } from "@/components/site/video-backdrop";
 import { ContactForm } from "@/components/site/contact-form";
 import { SiteFooter } from "@/components/site/footer-cta";
 
@@ -50,7 +51,7 @@ const FAQS = [
   },
   {
     q: "What is your cancellation policy?",
-    a: "Free cancellation up to 14 days before departure. Within 14 days, deposit terms apply — we'll always work with you on rescheduling where we can.",
+    a: "Free cancellation up to 5 days before departure. Within 5 days, deposit terms apply — we'll always work with you on rescheduling where we can.",
   },
 ];
 
@@ -78,9 +79,9 @@ function Method({
       <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-accent/10 text-accent">
         <Icon className="h-5 w-5" />
       </div>
-      <div>
+      <div className="min-w-0">
         <div className="text-caption uppercase tracking-wider text-muted-foreground">{label}</div>
-        <div className="mt-0.5 font-medium text-primary">{value}</div>
+        <div className="mt-0.5 break-words font-medium text-primary">{value}</div>
       </div>
     </div>
   );
@@ -120,10 +121,10 @@ function ContactContent() {
       {/* Hero */}
       <section className="relative flex min-h-[46vh] items-end bg-primary">
         <div className="absolute inset-0">
-          <img
-            src="https://images.pexels.com/photos/848612/pexels-photo-848612.jpeg?auto=compress&cs=tinysrgb&w=1920"
-            alt="Kathmandu Himalaya"
-            className="h-full w-full object-cover"
+          <VideoBackdrop
+            poster="https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            src="https://assets.mixkit.co/videos/5009/5009-1080.mp4"
+            alt="Turquoise glacial lake beneath the Himalaya"
           />
           <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
         </div>

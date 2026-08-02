@@ -13,7 +13,9 @@ export function CountUp({ value, duration = 1500 }: { value: string; duration?: 
   const decimals = rawNum.includes(".") ? rawNum.split(".")[1].length : 0;
 
   const ref = useRef<HTMLSpanElement | null>(null);
-  const [display, setDisplay] = useState(0);
+  // Initialise to the real target so SSR / first paint never shows "0".
+  // The animation resets to 0 and counts up only once scrolled into view.
+  const [display, setDisplay] = useState(() => (Number.isNaN(target) ? 0 : target));
 
   useEffect(() => {
     if (Number.isNaN(target)) return;

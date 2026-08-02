@@ -6,6 +6,7 @@ import { Mountain } from "lucide-react";
 import { adventuresQuery, siteSettingsQuery } from "@/lib/site-data";
 import { useReveal } from "@/hooks/use-reveal";
 import { SiteNavbar } from "@/components/site/site-navbar";
+import { VideoBackdrop } from "@/components/site/video-backdrop";
 import { AdventureListing } from "@/components/site/adventure-listing";
 import { CtaBlock, SiteFooter } from "@/components/site/footer-cta";
 
@@ -50,6 +51,7 @@ function TreksContent() {
   const pageHero =
     (settings?.treks_page as {
       hero_image?: string;
+      hero_video?: string;
       badge?: string;
       title?: string;
       title_highlight?: string;
@@ -66,13 +68,13 @@ function TreksContent() {
       {vis("treks_hero") && (
         <section className="relative flex min-h-[60vh] items-end bg-primary">
           <div className="absolute inset-0">
-            <img
-              src={
+            <VideoBackdrop
+              poster={
                 pageHero.hero_image ||
-                "https://images.pexels.com/photos/2403568/pexels-photo-2403568.jpeg?auto=compress&cs=tinysrgb&w=1920"
+                "https://images.pexels.com/photos/733162/pexels-photo-733162.jpeg?auto=compress&cs=tinysrgb&w=1920"
               }
+              src={pageHero.hero_video || "https://assets.mixkit.co/videos/3371/3371-1080.mp4"}
               alt="Himalayan treks"
-              className="h-full w-full object-cover"
             />
             <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
           </div>

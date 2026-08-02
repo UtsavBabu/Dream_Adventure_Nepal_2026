@@ -13,6 +13,8 @@ import appCss from "../styles.css?url";
 import { supabase } from "@/integrations/supabase/client";
 import { Toaster } from "@/components/ui/sonner";
 import { IntroLoader } from "@/components/site/intro-loader";
+import { PageTransition } from "@/components/site/page-transition";
+import { CursorFollower } from "@/components/site/cursor-follower";
 
 function NotFoundComponent() {
   return (
@@ -155,7 +157,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <IntroLoader />
+      <PageTransition />
       <Outlet />
+      <CursorFollower />
       <Toaster richColors position="top-center" />
     </QueryClientProvider>
   );
