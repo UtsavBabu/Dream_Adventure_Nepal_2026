@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 /**
  * Cinematic backdrop for section heroes: the poster image always renders (SSR,
@@ -16,7 +15,6 @@ export function VideoBackdrop({
   src?: string;
   alt?: string;
 }) {
-  const isMobile = useIsMobile();
   const [reduced, setReduced] = useState(false);
   useEffect(() => {
     const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -25,7 +23,7 @@ export function VideoBackdrop({
     mql.addEventListener("change", on);
     return () => mql.removeEventListener("change", on);
   }, []);
-  const showVideo = !isMobile && !reduced && !!src;
+  const showVideo = !reduced && !!src;
 
   return (
     <>

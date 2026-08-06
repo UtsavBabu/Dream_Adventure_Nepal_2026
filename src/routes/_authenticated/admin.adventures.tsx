@@ -194,8 +194,8 @@ function AdventuresAdmin() {
         ))}
       </div>
 
-      <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-glass">
-        <table className="w-full text-sm">
+      <div className="mt-4 overflow-x-auto rounded-2xl bg-white shadow-glass">
+        <table className="w-full min-w-[600px] text-sm">
           <thead className="bg-surface text-left text-xs uppercase tracking-wider text-muted-foreground">
             <tr>
               <th className="p-4">Title</th>
@@ -249,8 +249,8 @@ function AdventuresAdmin() {
       </div>
 
       {editing && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl bg-white p-8">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 overflow-y-auto">
+          <div className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl bg-white p-5 sm:p-8 shadow-2xl">
             <div className="flex items-center justify-between">
               <h2 className="font-display text-2xl text-primary">
                 {editing.id ? "Edit" : "New"} adventure

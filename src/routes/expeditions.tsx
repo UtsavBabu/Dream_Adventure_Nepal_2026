@@ -65,7 +65,7 @@ function ExpeditionsContent() {
 
       {/* Hero */}
       {vis("expeditions_hero") && (
-        <section className="relative flex min-h-[60vh] items-end bg-primary">
+        <section className="relative flex min-h-[60vh] lg:min-h-[65vh] items-end overflow-hidden bg-primary">
           <div className="absolute inset-0">
             <VideoBackdrop
               poster={
@@ -77,7 +77,7 @@ function ExpeditionsContent() {
             />
             <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
           </div>
-          <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-28 pt-32">
+          <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-16 pt-36">
             <div className="reveal max-w-reading">
               <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 px-4 py-1.5 text-caption font-semibold uppercase tracking-[0.18em] text-accent">
                 <Mountain className="h-3.5 w-3.5" /> {pageHero.badge || "Climbing Expeditions"}

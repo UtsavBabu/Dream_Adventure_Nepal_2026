@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { ChevronDown, Play, ShieldCheck, Star } from "lucide-react";
 import type { SiteSettings } from "@/lib/site-data";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { Snow } from "@/components/site/snow";
 import { Magnetic } from "@/components/site/magnetic";
 
 export function Hero({ settings }: { settings: SiteSettings }) {
-  const isMobile = useIsMobile();
   const [reducedMotion, setReducedMotion] = useState(false);
   useEffect(() => {
     const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -15,9 +13,7 @@ export function Hero({ settings }: { settings: SiteSettings }) {
     mql.addEventListener("change", on);
     return () => mql.removeEventListener("change", on);
   }, []);
-  // Never stream the (4K) background video on phones or for reduced-motion users —
-  // the poster image stands in, protecting LCP and mobile data.
-  const showVideo = !isMobile && !reducedMotion;
+  const showVideo = !reducedMotion;
 
   const h = (settings.hero ?? {}) as Record<string, unknown>;
   const stats = (h.stats ?? []) as Array<{ label: string; value: string }>;
@@ -108,20 +104,20 @@ export function Hero({ settings }: { settings: SiteSettings }) {
             {h.subtitle as string}
           </p>
 
-          <div className="mt-10 flex animate-fade-up flex-wrap items-center gap-4 [animation-delay:240ms]">
+          <div className="mt-8 sm:mt-10 flex animate-fade-up flex-wrap items-center gap-3 sm:gap-4 [animation-delay:240ms]">
             <Magnetic strength={0.35}>
               <a
                 href="#contact"
-                className="cta-glow inline-flex items-center gap-2 rounded-full btn-primary px-8 py-4 text-small font-semibold transition-transform duration-300 hover:scale-[1.03]"
+                className="cta-glow inline-flex items-center justify-center gap-2 rounded-full btn-primary px-6 sm:px-8 py-3.5 sm:py-4 text-small font-semibold transition-transform duration-300 hover:scale-[1.03]"
               >
                 {(h.cta_primary as string) ?? "Book Adventure"}
               </a>
             </Magnetic>
             <a
               href="#adventures"
-              className="inline-flex items-center gap-3 rounded-full btn-ghost-white px-6 py-4 text-small font-semibold"
+              className="inline-flex items-center justify-center gap-2.5 sm:gap-3 rounded-full btn-ghost-white px-5 sm:px-6 py-3.5 sm:py-4 text-small font-semibold"
             >
-              <span className="grid h-7 w-7 place-items-center rounded-full bg-white text-primary">
+              <span className="grid h-6 w-6 sm:h-7 sm:w-7 place-items-center rounded-full bg-white text-primary">
                 <Play className="h-3 w-3 fill-current" />
               </span>
               {(h.cta_secondary as string) ?? "Watch Journey"}

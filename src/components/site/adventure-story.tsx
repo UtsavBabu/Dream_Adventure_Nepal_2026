@@ -396,7 +396,7 @@ export function BestSeason() {
         </div>
 
         {/* Interactive month strip — click a month to jump to its season */}
-        <div className="reveal mx-auto mt-10 flex max-w-content justify-center gap-1.5">
+        <div className="reveal mx-auto mt-10 flex max-w-content overflow-x-auto pb-4 justify-start sm:justify-center gap-1.5 snap-x scrollbar-none">
           {MONTHS.map((m, i) => {
             const inSel = selMonths.has(i);
             const seasonOfMonth = SEASONS.findIndex((s) => s.monthIdx.includes(i));
@@ -407,7 +407,7 @@ export function BestSeason() {
                 type="button"
                 onClick={() => setSel(seasonOfMonth)}
                 aria-label={`${SEASONS[seasonOfMonth].name} season`}
-                className="group flex-1 text-center focus:outline-none"
+                className="group min-w-[44px] sm:min-w-0 flex-1 snap-start text-center focus:outline-none"
               >
                 <div
                   className={`relative h-16 rounded-lg transition-all duration-300 ${
@@ -427,7 +427,7 @@ export function BestSeason() {
             );
           })}
         </div>
-        <div className="reveal mx-auto mt-4 flex max-w-content items-center justify-center gap-6 text-caption text-muted-foreground">
+        <div className="reveal mx-auto mt-4 flex flex-wrap max-w-content items-center justify-center gap-3 sm:gap-6 text-caption text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-accent" /> Selected season
           </span>

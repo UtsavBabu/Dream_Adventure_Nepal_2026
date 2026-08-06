@@ -17,10 +17,15 @@ export function GlobalSearch() {
 
   useEffect(() => {
     if (open) {
+      document.body.style.overflow = "hidden";
       const t = setTimeout(() => inputRef.current?.focus(), 40);
-      return () => clearTimeout(t);
+      return () => {
+        document.body.style.overflow = "";
+        clearTimeout(t);
+      };
     }
     setQ("");
+    document.body.style.overflow = "";
   }, [open]);
 
   useEffect(() => {
@@ -50,20 +55,20 @@ export function GlobalSearch() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Search adventures"
-        className="grid h-10 w-10 place-items-center rounded-full text-white/85 transition hover:bg-white/10"
+        className="grid h-10 w-10 min-h-[44px] min-w-[44px] place-items-center rounded-full text-white/85 transition hover:bg-white/10"
       >
         <Search className="h-5 w-5" />
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-[120]">
+        <div className="fixed inset-0 z-[120] overflow-y-auto">
           <div
-            className="absolute inset-0 bg-primary/70 backdrop-blur-sm"
+            className="fixed inset-0 bg-primary/70 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
-          <div className="absolute inset-x-0 top-0 mx-auto w-full max-w-2xl px-4 pt-24">
+          <div className="relative mx-auto w-full max-w-2xl px-4 pt-16 sm:pt-24 pb-12">
             <div className="overflow-hidden rounded-3xl bg-white shadow-elegant">
-              <div className="flex items-center gap-3 px-4">
+              <div className="flex items-center gap-3 px-4 py-1">
                 <Search className="h-5 w-5 shrink-0 text-muted-foreground" />
                 <input
                   ref={inputRef}
@@ -76,14 +81,14 @@ export function GlobalSearch() {
                   type="button"
                   onClick={() => setOpen(false)}
                   aria-label="Close search"
-                  className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-muted-foreground hover:bg-surface"
+                  className="grid h-10 w-10 shrink-0 min-h-[44px] min-w-[44px] place-items-center rounded-full text-muted-foreground hover:bg-surface"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-5 w-5" />
                 </button>
               </div>
 
               {query && (
-                <div className="max-h-[60vh] overflow-auto border-t border-border p-2">
+                <div className="max-h-[50vh] sm:max-h-[60vh] overflow-auto border-t border-border p-2">
                   {results.length === 0 ? (
                     <p className="px-3 py-8 text-center text-small text-muted-foreground">
                       No adventures match “{q}”.
@@ -105,14 +110,14 @@ export function GlobalSearch() {
                         />
                         <div className="min-w-0 flex-1">
                           <div className="truncate font-semibold text-primary">{a.title}</div>
-                          <div className="mt-0.5 flex items-center gap-2 text-caption text-muted-foreground">
+                          <div className="mt-0.5 flex flex-wrap items-center gap-1.5 text-caption text-muted-foreground">
                             <span>{a.category}</span>
                             <span>·</span>
                             <span className="inline-flex items-center gap-1">
                               <Clock className="h-3 w-3" /> {a.duration}
                             </span>
                             <span>·</span>
-                            <span className="text-accent">{a.price}</span>
+                            <span className="text-accent font-medium">{a.price}</span>
                           </div>
                         </div>
                         <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-accent" />
@@ -123,8 +128,7 @@ export function GlobalSearch() {
               )}
             </div>
             <p className="mt-3 text-center text-caption text-white/60">
-              Press <kbd className="rounded bg-white/15 px-1.5 py-0.5">Esc</kbd> to close ·{" "}
-              <kbd className="rounded bg-white/15 px-1.5 py-0.5">⌘K</kbd> to search
+              Press <kbd className="rounded bg-white/15 px-1.5 py-0.5">Esc</kbd> to close
             </p>
           </div>
         </div>

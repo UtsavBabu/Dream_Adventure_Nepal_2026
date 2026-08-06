@@ -85,8 +85,13 @@ export type Guide = {
 
 export type SiteSettings = Record<string, unknown>;
 
+const STALE_10M = 10 * 60 * 1000;
+const GC_1H = 60 * 60 * 1000;
+
 export const siteSettingsQuery = queryOptions({
   queryKey: ["site_settings"],
+  staleTime: STALE_10M,
+  gcTime: GC_1H,
   queryFn: async (): Promise<SiteSettings> => {
     const { data, error } = await supabase.from("site_settings").select("key,value");
     if (error) throw error;
@@ -98,6 +103,8 @@ export const siteSettingsQuery = queryOptions({
 
 export const adventuresQuery = queryOptions({
   queryKey: ["adventures"],
+  staleTime: STALE_10M,
+  gcTime: GC_1H,
   queryFn: async (): Promise<Adventure[]> => {
     const { data, error } = await supabase
       .from("adventures")
@@ -111,6 +118,8 @@ export const adventuresQuery = queryOptions({
 
 export const testimonialsQuery = queryOptions({
   queryKey: ["testimonials"],
+  staleTime: STALE_10M,
+  gcTime: GC_1H,
   queryFn: async (): Promise<Testimonial[]> => {
     const { data, error } = await supabase
       .from("testimonials")
@@ -124,6 +133,8 @@ export const testimonialsQuery = queryOptions({
 
 export const galleryQuery = queryOptions({
   queryKey: ["gallery"],
+  staleTime: STALE_10M,
+  gcTime: GC_1H,
   queryFn: async (): Promise<GalleryImage[]> => {
     const { data, error } = await supabase
       .from("gallery_images")
@@ -138,6 +149,8 @@ export const galleryQuery = queryOptions({
 export const adventureBySlugQuery = (slug: string) =>
   queryOptions({
     queryKey: ["adventure", slug],
+    staleTime: STALE_10M,
+    gcTime: GC_1H,
     queryFn: async (): Promise<Adventure> => {
       const { data, error } = await supabase
         .from("adventures")
@@ -151,6 +164,8 @@ export const adventureBySlugQuery = (slug: string) =>
 
 export const teamMembersQuery = queryOptions({
   queryKey: ["team_members"],
+  staleTime: STALE_10M,
+  gcTime: GC_1H,
   queryFn: async (): Promise<TeamMember[]> => {
     const { data, error } = await supabase
       .from("team_members")
@@ -164,6 +179,8 @@ export const teamMembersQuery = queryOptions({
 
 export const placesQuery = queryOptions({
   queryKey: ["places"],
+  staleTime: STALE_10M,
+  gcTime: GC_1H,
   queryFn: async (): Promise<Place[]> => {
     const { data, error } = await supabase
       .from("places")
@@ -178,6 +195,8 @@ export const placesQuery = queryOptions({
 export const adventurePlacesQuery = (adventureId: string) =>
   queryOptions({
     queryKey: ["adventure_places", adventureId],
+    staleTime: STALE_10M,
+    gcTime: GC_1H,
     queryFn: async (): Promise<AdventurePlace[]> => {
       const { data, error } = await supabase
         .from("adventure_places")
@@ -192,6 +211,8 @@ export const adventurePlacesQuery = (adventureId: string) =>
 
 export const guidesQuery = queryOptions({
   queryKey: ["guides"],
+  staleTime: STALE_10M,
+  gcTime: GC_1H,
   queryFn: async (): Promise<Guide[]> => {
     const { data, error } = await supabase
       .from("guides")

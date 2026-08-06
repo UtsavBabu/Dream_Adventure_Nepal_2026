@@ -15,6 +15,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { IntroLoader } from "@/components/site/intro-loader";
 import { PageTransition } from "@/components/site/page-transition";
 import { CursorFollower } from "@/components/site/cursor-follower";
+import { FloatingWhatsApp } from "@/components/site/floating-whatsapp";
 
 function NotFoundComponent() {
   return (
@@ -89,12 +90,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
+      {
+        rel: "icon",
+        type: "image/jpeg",
+        href: "/dream-adventure-nepal-logo.jpeg",
+      },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap",
       },
     ],
     scripts: [
@@ -160,6 +166,7 @@ function RootComponent() {
       <PageTransition />
       <Outlet />
       <CursorFollower />
+      <FloatingWhatsApp />
       <Toaster richColors position="top-center" />
     </QueryClientProvider>
   );

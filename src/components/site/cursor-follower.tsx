@@ -19,10 +19,18 @@ export function CursorFollower() {
     let rx = -100;
     let ry = -100;
     let raf = 0;
+    let running = false;
+
+    const startLoop = () => {
+      if (running) return;
+      running = true;
+      loop();
+    };
 
     const onMove = (e: MouseEvent) => {
       tx = e.clientX;
       ty = e.clientY;
+      startLoop();
     };
     const onOver = (e: MouseEvent) => {
       const el = e.target as HTMLElement | null;
@@ -30,15 +38,23 @@ export function CursorFollower() {
       ring.current?.classList.toggle("cursor-ring--active", interactive);
     };
     const loop = () => {
-      rx += (tx - rx) * 0.18;
-      ry += (ty - ry) * 0.18;
-      if (ring.current) ring.current.style.transform = `translate(calc(${rx}px - 50%), calc(${ry}px - 50%))`;
+      const dx = tx - rx;
+      const dy = ty - ry;
+      rx += dx * 0.18;
+      ry += dy * 0.18;
+      if (ring.current) {
+        ring.current.style.transform = `translate(calc(${rx}px - 50%), calc(${ry}px - 50%))`;
+      }
+      if (Math.abs(dx) < 0.1 && Math.abs(dy) < 0.1) {
+        running = false;
+        return;
+      }
       raf = requestAnimationFrame(loop);
     };
 
     window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("mouseover", onOver, { passive: true });
-    loop();
+    startLoop();
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", onMove);

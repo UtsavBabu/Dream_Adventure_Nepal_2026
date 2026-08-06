@@ -59,7 +59,7 @@ function AboutContent() {
       {vis("navbar") && <SiteNavbar settings={settings} />}
 
       {/* Hero */}
-      <section className="relative flex min-h-[58vh] items-end bg-primary">
+      <section className="relative flex min-h-[58vh] lg:min-h-[62vh] items-end overflow-hidden bg-primary">
         <div className="absolute inset-0">
           <VideoBackdrop
             poster="https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg?auto=compress&cs=tinysrgb&w=1920"
@@ -68,7 +68,7 @@ function AboutContent() {
           />
           <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
         </div>
-        <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-16 pt-32">
+        <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-16 pt-36">
           <div className="reveal max-w-reading">
             <div className="eyebrow">
               Our Story

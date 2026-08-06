@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
-import { ArrowLeft, Clock, Mountain, MapPin, MessageCircle, TrendingUp, CalendarDays } from "lucide-react";
+import { ArrowLeft, Clock, Mountain, MapPin, TrendingUp, CalendarDays } from "lucide-react";
 
 import {
   adventureBySlugQuery,
@@ -64,13 +64,13 @@ export const Route = createFileRoute("/adventures/$slug")({
             provider: { "@type": "TravelAgency", name: "Dream Adventure Nepal" },
             ...(priceValue
               ? {
-                  offers: {
-                    "@type": "Offer",
-                    price: priceValue,
-                    priceCurrency: "USD",
-                    availability: "https://schema.org/InStock",
-                  },
-                }
+                offers: {
+                  "@type": "Offer",
+                  price: priceValue,
+                  priceCurrency: "USD",
+                  availability: "https://schema.org/InStock",
+                },
+              }
               : {}),
           }),
         },
@@ -99,8 +99,8 @@ function AdventureDetailPage() {
     contact.whatsapp && !/0{6,}/.test(contact.whatsapp) ? contact.whatsapp : contact.phone;
   const waUrl = waNumber
     ? `https://wa.me/${waNumber.replace(/\D/g, "")}?text=${encodeURIComponent(
-        `Hi! I'm interested in the ${adventure.title} (${adventure.price}). Can you share more details?`,
-      )}`
+      `Hi! I'm interested in the ${adventure.title} (${adventure.price}). Can you share more details?`,
+    )}`
     : null;
 
   // Highest altitude quoted in the itinerary (cap 6,900 m — larger figures are
@@ -119,7 +119,7 @@ function AdventureDetailPage() {
       {vis("navbar") && <SiteNavbar settings={settings} />}
 
       {/* Hero */}
-      <section className="relative flex min-h-[80vh] items-end overflow-hidden bg-primary">
+      <section className="relative flex min-h-[75vh] lg:min-h-[80vh] items-end overflow-hidden bg-primary">
         <div className="absolute inset-0">
           <img
             src={adventure.image_url || undefined}
@@ -128,7 +128,7 @@ function AdventureDetailPage() {
           />
           <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
         </div>
-        <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-16 pt-32">
+        <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-16 pt-36">
           <Link
             to="/"
             className="mb-7 inline-flex items-center gap-2 text-small font-medium text-white/70 hover:text-white"
@@ -263,19 +263,6 @@ function AdventureDetailPage() {
       />
 
       {vis("footer") && <SiteFooter settings={settings} />}
-
-      {/* Floating WhatsApp (all breakpoints) */}
-      {waUrl && (
-        <a
-          href={waUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Chat with us on WhatsApp"
-          className="fixed bottom-24 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-elegant transition hover:scale-105 lg:bottom-6"
-        >
-          <MessageCircle className="h-7 w-7" />
-        </a>
-      )}
 
       {/* Sticky mobile Book bar */}
       {vis("adventure_booking") && (

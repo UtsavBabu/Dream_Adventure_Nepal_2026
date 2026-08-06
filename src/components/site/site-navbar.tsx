@@ -66,22 +66,52 @@ export function SiteNavbar({ settings }: { settings: SiteSettings }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  // Close menu on Escape or screen resize
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    const onResize = () => {
+      if (window.innerWidth >= 1024) setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled ? "glass-nav py-2.5" : "bg-transparent py-5"
+        scrolled ? "glass-nav py-2.5" : "bg-transparent py-4 sm:py-5"
       }`}
     >
-      <div className="mx-auto flex w-full max-w-[110rem] items-center justify-between px-6 lg:px-10">
+      <div className="mx-auto flex w-full max-w-[110rem] items-center justify-between px-4 sm:px-6 lg:px-10">
         <Link to="/" className="flex items-center gap-2 text-white" aria-label="Dream Adventure Nepal — home">
           {logoUrl ? (
             <img
               src={logoUrl}
               alt="Dream Adventure Nepal"
-              className={`w-auto transition-all duration-500 ${scrolled ? "h-12" : "h-16"}`}
+              className={`w-auto transition-all duration-500 ${scrolled ? "h-9 sm:h-12" : "h-11 sm:h-16"}`}
             />
           ) : (
-            <span className="font-display text-h3 text-white">Dream Adventure Nepal</span>
+            <span className="font-display text-lg sm:text-h3 text-white truncate max-w-[200px] sm:max-w-none">
+              Dream Adventure Nepal
+            </span>
           )}
         </Link>
 
@@ -103,7 +133,7 @@ export function SiteNavbar({ settings }: { settings: SiteSettings }) {
           </Magnetic>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="rounded-full glass p-2.5 text-white lg:hidden"
+            className="rounded-full glass p-2.5 text-white lg:hidden min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
           >
@@ -113,30 +143,37 @@ export function SiteNavbar({ settings }: { settings: SiteSettings }) {
       </div>
 
       {open && (
-        <div className="mx-4 mt-3 rounded-2xl glass-nav p-6 lg:hidden">
-          <div className="flex flex-col gap-1">
-            {LINKS.map((l) => (
+        <>
+          <div
+            className="fixed inset-0 top-[60px] z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+            onClick={() => setOpen(false)}
+            aria-hidden
+          />
+          <div className="relative z-50 mx-4 mt-2 max-h-[calc(100vh-80px)] overflow-y-auto rounded-2xl glass-nav p-6 shadow-2xl lg:hidden">
+            <div className="flex flex-col gap-1">
+              {LINKS.map((l) => (
+                <Link
+                  key={l.label}
+                  to={l.href as string}
+                  onClick={() => setOpen(false)}
+                  aria-current={isActive(l.href) ? "page" : undefined}
+                  className={`rounded-xl px-4 py-3.5 text-base font-medium transition-colors ${
+                    isActive(l.href) ? "bg-white/10 text-white" : "text-white/85 hover:bg-white/5 hover:text-white"
+                  }`}
+                >
+                  {l.label}
+                </Link>
+              ))}
               <Link
-                key={l.label}
-                to={l.href as string}
+                to="/contact"
                 onClick={() => setOpen(false)}
-                aria-current={isActive(l.href) ? "page" : undefined}
-                className={`rounded-xl px-3 py-3 text-small font-medium transition-colors ${
-                  isActive(l.href) ? "bg-white/10 text-white" : "text-white/85 hover:bg-white/5 hover:text-white"
-                }`}
+                className="mt-4 rounded-full btn-primary px-5 py-3.5 text-center text-base font-semibold"
               >
-                {l.label}
+                {cta}
               </Link>
-            ))}
-            <Link
-              to="/contact"
-              onClick={() => setOpen(false)}
-              className="mt-3 rounded-full btn-primary px-5 py-3 text-center text-small font-semibold"
-            >
-              {cta}
-            </Link>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );

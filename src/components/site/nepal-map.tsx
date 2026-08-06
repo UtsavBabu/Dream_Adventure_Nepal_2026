@@ -98,9 +98,9 @@ export function NepalMap({ items }: { items: Adventure[] }) {
                       />
                     </span>
                     <span
-                      className={`pointer-events-none absolute left-1/2 top-4 -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-semibold transition-all duration-300 ${
+                      className={`pointer-events-none absolute left-1/2 top-4 -translate-x-1/2 max-w-[90px] truncate rounded-full px-2 py-0.5 text-[9px] sm:text-[10px] font-semibold transition-all duration-300 ${
                         active
-                          ? "bg-accent text-primary opacity-100"
+                          ? "bg-accent text-primary opacity-100 shadow"
                           : "bg-black/50 text-white/85 opacity-0 group-hover:opacity-100"
                       }`}
                     >

@@ -86,6 +86,7 @@ export function AdventureCard({ adventure: a, label }: { adventure: Adventure; l
           sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 90vw"
           alt={a.title}
           loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.12]"
         />
         {/* Base gradient + a slightly deeper wash that fades in on hover for contrast */}

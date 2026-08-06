@@ -108,8 +108,8 @@ function ContactContent() {
   const waNumber = c.whatsapp && !/0{6,}/.test(c.whatsapp) ? c.whatsapp : c.phone;
   const waUrl = waNumber
     ? `https://wa.me/${waNumber.replace(/\D/g, "")}?text=${encodeURIComponent(
-        "Hi! I'd like to plan a trip with Dream Adventure Nepal.",
-      )}`
+      "Hi! I'd like to plan a trip with Dream Adventure Nepal.",
+    )}`
     : undefined;
   const v = (settings?.section_visibility as Record<string, boolean>) ?? {};
   const vis = (id: string) => v[id] !== false;
@@ -119,7 +119,7 @@ function ContactContent() {
       {vis("navbar") && <SiteNavbar settings={settings} />}
 
       {/* Hero */}
-      <section className="relative flex min-h-[46vh] items-end bg-primary">
+      <section className="relative flex min-h-[48vh] lg:min-h-[52vh] items-end overflow-hidden bg-primary">
         <div className="absolute inset-0">
           <VideoBackdrop
             poster="https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&w=1920"
@@ -128,7 +128,7 @@ function ContactContent() {
           />
           <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
         </div>
-        <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-14 pt-32">
+        <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-16 pt-36">
           <div className="reveal max-w-reading">
             <div className="eyebrow">
               Get In Touch

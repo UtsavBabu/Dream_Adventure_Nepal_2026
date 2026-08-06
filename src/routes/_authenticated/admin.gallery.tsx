@@ -84,8 +84,8 @@ function GalleryAdmin() {
       </div>
 
       {adding && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-3xl bg-white p-8">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 overflow-y-auto">
+          <div className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-3xl bg-white p-5 sm:p-8 shadow-2xl">
             <div className="flex items-center justify-between">
               <h2 className="font-display text-2xl text-primary">Add gallery image</h2>
               <button onClick={() => setAdding(null)}>

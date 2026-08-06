@@ -141,7 +141,7 @@ function AdventuresContent() {
       {vis("navbar") && <SiteNavbar settings={settings} />}
 
       {/* Hero */}
-      <section className="relative flex min-h-[68vh] items-end bg-primary">
+      <section className="relative flex min-h-[60vh] lg:min-h-[65vh] items-end overflow-hidden bg-primary">
         <div className="absolute inset-0">
           <VideoBackdrop
             poster="/activities/hero.jpg"
