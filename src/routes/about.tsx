@@ -6,7 +6,7 @@ import { ShieldCheck } from "lucide-react";
 import { siteSettingsQuery, teamMembersQuery, guidesQuery } from "@/lib/site-data";
 import { useReveal } from "@/hooks/use-reveal";
 import { SiteNavbar } from "@/components/site/site-navbar";
-import { VideoBackdrop } from "@/components/site/video-backdrop";
+import { PageHero } from "@/components/site/page-hero";
 import { WhyUs } from "@/components/site/why-us";
 import { OurTeam } from "@/components/site/our-team";
 import { Guides } from "@/components/site/guides";
@@ -59,15 +59,12 @@ function AboutContent() {
       {vis("navbar") && <SiteNavbar settings={settings} />}
 
       {/* Hero */}
-      <section className="relative flex min-h-[58vh] lg:min-h-[62vh] items-end overflow-hidden bg-primary">
-        <div className="absolute inset-0">
-          <VideoBackdrop
-            poster="https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg?auto=compress&cs=tinysrgb&w=1920"
-            src="https://assets.mixkit.co/videos/4132/4132-1080.mp4"
-            alt="The Nepal Himalaya"
-          />
-          <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
-        </div>
+      <PageHero
+        poster="https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        src="https://assets.mixkit.co/videos/4132/4132-1080.mp4"
+        alt="The Nepal Himalaya"
+        className="flex min-h-[58vh] lg:min-h-[62vh] items-end"
+      >
         <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-16 pt-36">
           <div className="reveal max-w-reading">
             <div className="eyebrow">
@@ -89,7 +86,7 @@ function AboutContent() {
             )}
           </div>
         </div>
-      </section>
+      </PageHero>
 
       {/* Story + stats + values (reused editorial About section) */}
       <WhyUs settings={settings} />

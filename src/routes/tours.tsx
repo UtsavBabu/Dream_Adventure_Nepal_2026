@@ -6,7 +6,7 @@ import { Mountain, Phone, Mail, MessageCircle } from "lucide-react";
 import { adventuresQuery, siteSettingsQuery } from "@/lib/site-data";
 import { useReveal } from "@/hooks/use-reveal";
 import { SiteNavbar } from "@/components/site/site-navbar";
-import { VideoBackdrop } from "@/components/site/video-backdrop";
+import { PageHero } from "@/components/site/page-hero";
 import { AdventureListing } from "@/components/site/adventure-listing";
 import { BookingForm } from "@/components/site/booking-form";
 import { CtaBlock, SiteFooter } from "@/components/site/footer-cta";
@@ -75,18 +75,15 @@ function ToursContent() {
 
       {/* Hero */}
       {vis("tours_hero") && (
-        <section className="relative flex min-h-[60vh] lg:min-h-[65vh] items-end overflow-hidden bg-primary">
-          <div className="absolute inset-0">
-            <VideoBackdrop
-              poster={
-                pageHero.hero_image ||
-                "https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&cs=tinysrgb&w=1920"
-              }
-              src={pageHero.hero_video || "https://assets.mixkit.co/videos/5009/5009-1080.mp4"}
-              alt="Nepal cultural tours"
-            />
-            <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
-          </div>
+        <PageHero
+          poster={
+            pageHero.hero_image ||
+            "https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&cs=tinysrgb&w=1920"
+          }
+          src={pageHero.hero_video || "https://assets.mixkit.co/videos/5009/5009-1080.mp4"}
+          alt="Nepal cultural tours"
+          className="flex min-h-[60vh] lg:min-h-[65vh] items-end"
+        >
           <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-16 pt-36">
             <div className="reveal max-w-reading">
               <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 px-4 py-1.5 text-caption font-semibold uppercase tracking-[0.18em] text-accent">
@@ -117,7 +114,7 @@ function ToursContent() {
               </div>
             </div>
           </div>
-        </section>
+        </PageHero>
       )}
 
       {/* Tour listing (shared floating-filter + grid) */}

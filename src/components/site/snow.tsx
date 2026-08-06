@@ -11,7 +11,6 @@ export function Snow({ count = 70 }: { count?: number }) {
   const ref = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    if (isMobile) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const canvas = ref.current;
     if (!canvas) return;
@@ -35,8 +34,11 @@ export function Snow({ count = 70 }: { count?: number }) {
     };
     resize();
 
+    // Reduce flake count on mobile devices to preserve LCP and CPU performance
+    const activeCount = isMobile ? Math.min(count, 25) : count;
+
     type Flake = { x: number; y: number; r: number; sp: number; sway: number; ph: number; o: number };
-    const flakes: Flake[] = Array.from({ length: count }, () => ({
+    const flakes: Flake[] = Array.from({ length: activeCount }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
       r: Math.random() * 2.2 + 0.6,

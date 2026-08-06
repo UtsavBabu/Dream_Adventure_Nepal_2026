@@ -6,7 +6,7 @@ import { Mail, Phone, MapPin, MessageCircle, Clock, Instagram, Facebook } from "
 import { siteSettingsQuery } from "@/lib/site-data";
 import { useReveal } from "@/hooks/use-reveal";
 import { SiteNavbar } from "@/components/site/site-navbar";
-import { VideoBackdrop } from "@/components/site/video-backdrop";
+import { PageHero } from "@/components/site/page-hero";
 import { ContactForm } from "@/components/site/contact-form";
 import { SiteFooter } from "@/components/site/footer-cta";
 
@@ -119,15 +119,12 @@ function ContactContent() {
       {vis("navbar") && <SiteNavbar settings={settings} />}
 
       {/* Hero */}
-      <section className="relative flex min-h-[48vh] lg:min-h-[52vh] items-end overflow-hidden bg-primary">
-        <div className="absolute inset-0">
-          <VideoBackdrop
-            poster="https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&w=1920"
-            src="https://assets.mixkit.co/videos/5009/5009-1080.mp4"
-            alt="Turquoise glacial lake beneath the Himalaya"
-          />
-          <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
-        </div>
+      <PageHero
+        poster="https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        src="https://assets.mixkit.co/videos/5009/5009-1080.mp4"
+        alt="Turquoise glacial lake beneath the Himalaya"
+        className="flex min-h-[48vh] lg:min-h-[52vh] items-end"
+      >
         <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-16 pt-36">
           <div className="reveal max-w-reading">
             <div className="eyebrow">
@@ -141,7 +138,7 @@ function ContactContent() {
             </p>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       {/* Methods + form */}
       <section className="bg-surface py-20 lg:py-28">

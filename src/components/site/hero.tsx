@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Play, ShieldCheck, Star } from "lucide-react";
 import type { SiteSettings } from "@/lib/site-data";
 import { Snow } from "@/components/site/snow";
@@ -6,6 +6,9 @@ import { Magnetic } from "@/components/site/magnetic";
 
 export function Hero({ settings }: { settings: SiteSettings }) {
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [ready, setReady] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
   useEffect(() => {
     const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
     const on = () => setReducedMotion(mql.matches);
@@ -13,6 +16,25 @@ export function Hero({ settings }: { settings: SiteSettings }) {
     mql.addEventListener("change", on);
     return () => mql.removeEventListener("change", on);
   }, []);
+
+  // Wait for the intro loader to finish before revealing everything simultaneously
+  useEffect(() => {
+    const alreadySeen = sessionStorage.getItem("dan-intro-seen");
+    // If intro already seen this session, reveal immediately
+    const delay = alreadySeen ? 0 : 2200;
+    const t = setTimeout(() => setReady(true), delay);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Reset video to start on reveal
+  useEffect(() => {
+    if (ready && videoRef.current) {
+      const video = videoRef.current;
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    }
+  }, [ready]);
+
   const showVideo = !reducedMotion;
 
   const h = (settings.hero ?? {}) as Record<string, unknown>;
@@ -34,28 +56,34 @@ export function Hero({ settings }: { settings: SiteSettings }) {
       id="home"
       className="relative isolate flex min-h-screen w-full items-center overflow-hidden bg-primary"
     >
-      {/* Cinematic background: video over poster */}
-      {posterUrl && (
-        <img
-          src={posterUrl}
-          alt=""
-          aria-hidden
-          className="hero-kenburns absolute inset-0 -z-20 h-full w-full object-cover"
-        />
-      )}
-      {showVideo && h.video_url && (
-        <video
-          className="hero-kenburns absolute inset-0 -z-10 h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster={posterUrl}
-        >
-          <source src={h.video_url as string} type="video/mp4" />
-        </video>
-      )}
+      {/* Cinematic background — revealed together with content */}
+      <div
+        className={`absolute inset-0 -z-20 h-full w-full overflow-hidden bg-primary transition-opacity duration-700 ${
+          ready ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        {!showVideo && posterUrl && (
+          <img
+            src={posterUrl}
+            alt=""
+            aria-hidden
+            className="hero-kenburns absolute inset-0 h-full w-full object-cover"
+          />
+        )}
+        {showVideo && h.video_url && (
+          <video
+            ref={videoRef}
+            className="hero-kenburns absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          >
+            <source src={h.video_url as string} type="video/mp4" />
+          </video>
+        )}
+      </div>
 
       {/* Gradient overlay */}
       <div
@@ -69,14 +97,18 @@ export function Hero({ settings }: { settings: SiteSettings }) {
         style={{ background: "radial-gradient(65% 55% at 50% 0%, rgba(255,255,255,0.07), transparent 70%)" }}
         aria-hidden
       />
-      {/* Floating snow particles */}
-      <Snow />
+      {/* Floating snow particles — shown together with content */}
+      {ready && <Snow />}
 
-      {/* Content */}
-      <div className="relative mx-auto grid w-full max-w-content gap-12 px-6 pt-36 pb-20 lg:grid-cols-12 lg:gap-10">
+      {/* Content — revealed all at once after intro loader */}
+      <div
+        className={`relative mx-auto grid w-full max-w-content gap-12 px-6 pt-36 pb-20 lg:grid-cols-12 lg:gap-10 transition-opacity duration-700 ${
+          ready ? "opacity-100" : "opacity-0"
+        }`}
+      >
         <div className="lg:col-span-7">
           {h.badge && (
-            <div className="inline-flex animate-fade-in items-center gap-2.5 rounded-full glass px-4 py-2 text-caption font-medium uppercase tracking-[0.16em] text-white/90">
+            <div className="inline-flex items-center gap-2.5 rounded-full glass px-4 py-2 text-caption font-medium uppercase tracking-[0.16em] text-white/90">
               <span className="h-1.5 w-1.5 rounded-full bg-accent" />
               {h.badge as string}
             </div>
@@ -166,7 +198,9 @@ export function Hero({ settings }: { settings: SiteSettings }) {
       <a
         href="#adventures"
         aria-label="Scroll to explore"
-        className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-white/70"
+        className={`absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-white/70 transition-opacity duration-700 ${
+          ready ? "opacity-100" : "opacity-0"
+        }`}
       >
         <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
         <ChevronDown className="h-5 w-5 animate-scroll-bounce" />

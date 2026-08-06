@@ -15,7 +15,7 @@ import {
 import { siteSettingsQuery } from "@/lib/site-data";
 import { useReveal } from "@/hooks/use-reveal";
 import { SiteNavbar } from "@/components/site/site-navbar";
-import { VideoBackdrop } from "@/components/site/video-backdrop";
+import { PageHero } from "@/components/site/page-hero";
 import { CtaBlock, SiteFooter } from "@/components/site/footer-cta";
 
 const WA = "https://wa.me/9779767832384";
@@ -141,15 +141,12 @@ function AdventuresContent() {
       {vis("navbar") && <SiteNavbar settings={settings} />}
 
       {/* Hero */}
-      <section className="relative flex min-h-[60vh] lg:min-h-[65vh] items-end overflow-hidden bg-primary">
-        <div className="absolute inset-0">
-          <VideoBackdrop
-            poster="/activities/hero.jpg"
-            src="https://assets.mixkit.co/videos/51585/51585-1080.mp4"
-            alt="Adventure sports in Nepal"
-          />
-          <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
-        </div>
+      <PageHero
+        poster="/activities/hero.jpg"
+        src="https://assets.mixkit.co/videos/51585/51585-1080.mp4"
+        alt="Adventure sports in Nepal"
+        className="flex min-h-[60vh] lg:min-h-[65vh] items-end"
+      >
         <div className="relative z-10 mx-auto w-full max-w-content px-6 pb-16 pt-36">
           <div className="reveal max-w-reading">
             <div className="eyebrow">Adrenaline · Nepal</div>
@@ -179,7 +176,7 @@ function AdventuresContent() {
             </div>
           </div>
         </div>
-      </section>
+      </PageHero>
 
       {/* Activities */}
       <section className="bg-surface py-20 lg:py-28">
