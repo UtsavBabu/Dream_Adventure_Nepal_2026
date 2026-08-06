@@ -94,17 +94,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       {
         rel: "icon",
-        type: "image/svg+xml",
-        href: "/favicon.svg",
-      },
-      {
-        rel: "icon",
         type: "image/jpeg",
         href: "/dream-adventure-nepal-logo.jpeg",
       },
       {
         rel: "shortcut icon",
-        href: "/favicon.svg",
+        type: "image/jpeg",
+        href: "/dream-adventure-nepal-logo.jpeg",
       },
       {
         rel: "apple-touch-icon",
