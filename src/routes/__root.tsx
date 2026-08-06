@@ -87,12 +87,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "Cinematic treks and expeditions in the Himalayas, led by Sherpa experts.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "https://www.dreamadventurenepal.com/dream-adventure-nepal-logo.jpeg" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://www.dreamadventurenepal.com/dream-adventure-nepal-logo.jpeg" },
     ],
     links: [
       {
         rel: "icon",
+        type: "image/svg+xml",
+        href: "/favicon.svg",
+      },
+      {
+        rel: "icon",
         type: "image/jpeg",
+        href: "/dream-adventure-nepal-logo.jpeg",
+      },
+      {
+        rel: "shortcut icon",
+        href: "/favicon.svg",
+      },
+      {
+        rel: "apple-touch-icon",
         href: "/dream-adventure-nepal-logo.jpeg",
       },
       { rel: "stylesheet", href: appCss },
@@ -110,7 +125,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@context": "https://schema.org",
           "@type": "TravelAgency",
           name: "Dream Adventure Nepal",
-          url: "https://dreamadventurenepal.com",
+          url: "https://www.dreamadventurenepal.com",
+          logo: "https://www.dreamadventurenepal.com/dream-adventure-nepal-logo.jpeg",
+          image: "https://www.dreamadventurenepal.com/dream-adventure-nepal-logo.jpeg",
           email: "info@dreamadventurenepal.com",
           telephone: "+977 9767832384",
           address: {
